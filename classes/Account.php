@@ -1,15 +1,12 @@
 <?php
 class Account {
-    private $type;
     private $name;
 
-    function __construct($name, $type) {
+    function __construct($name) {
         $this->name = $name;
-        $this->type = $type;
     }
 
-    function create_new($name, $type) {
-        $this->type = $type;
+    function createNew($name) {
         $this->name = $name;
         // SQL query to insert
     }

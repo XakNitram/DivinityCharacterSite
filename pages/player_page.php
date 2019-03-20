@@ -1,3 +1,5 @@
+<!--Perhaps the admin and player pages should be merged?-->
+
 <!DOCTYPE html>
 <html lang="en-us">
 <head>

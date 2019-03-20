@@ -1,4 +1,4 @@
-<!--Perhaps the admin and login pages should be merged?-->
+<!--Perhaps the admin and player pages should be merged?-->
 
 <!DOCTYPE html>
 <html lang="en-us">

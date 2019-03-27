@@ -27,7 +27,7 @@ if (isset($_SESSION['username']) && false) {
     <link rel="stylesheet" type="text/css" href="../styles/login.css">
 </head>
 <body>
-<section class="content">
+<div class="content">
     <div class="wide-3">
         <h1>Sign in</h1>
         <hr>
@@ -126,6 +126,6 @@ if (isset($_SESSION['username']) && false) {
             <input class="button" type="submit" name="create_game" value="Create game">
         </form>
     </div>
-</section>
+</div>
 </body>
 </html>

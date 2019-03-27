@@ -2,9 +2,8 @@
 <!--Tate Mioton-->
 <!--Jesse Parker-->
 <!--Austin Pace-->
-
-
 <!--jim-->
+
 <!DOCTYPE html>
 <html lang="en-us">
 <?php

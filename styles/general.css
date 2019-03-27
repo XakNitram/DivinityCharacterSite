@@ -1,0 +1,33 @@
+.content {
+    border: 1px solid #333333;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+
+    margin: 0 auto;
+    position: relative;
+    width: 400px;
+
+    z-index: auto;
+    background: #000000
+}
+
+.wide-3 {
+    margin: 32px;
+}
+
+.clear-fix:before {
+    content: "";
+    display: table;
+}
+
+.clear-fix:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+* {
+    color: #E0E0E0;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+}

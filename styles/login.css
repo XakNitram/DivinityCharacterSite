@@ -1,0 +1,72 @@
+.content {
+    width: 400px;
+}
+
+body {
+    background: #000000 url("../images/login.jpg") no-repeat fixed center center;
+    background-size: cover;
+}
+
+.padded {
+    margin-top: 8px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+div.error {
+    background-color: transparent;
+    border: 2px solid red;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;
+}
+
+div.error > div {
+    margin: 32px;
+}
+
+div.error > div > * {
+    color: red;
+}
+
+label, a {
+    font-size: 13px;
+}
+
+input {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    color: #111111;
+    width: calc(100% - 18px);
+    /*width: 100%;*/
+    border: 2px solid #333333;
+    padding: 4px 8px;
+}
+
+input.button {
+    width: 100%;
+    background-color: orange;
+    font-size: 13px;
+    line-height: 29px;
+    margin-bottom: 0;
+}
+
+div.forgot {
+    white-space: nowrap;
+    margin-bottom: 0;
+}
+
+div.forgot > * {
+    display: inline-block;
+    height: 100%;
+}
+
+div.forgot > label {
+    width: 50%;
+}
+
+div.forgot > a {
+    text-align: right;
+    width: calc(50% - 8px);
+}

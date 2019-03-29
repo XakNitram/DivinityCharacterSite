@@ -142,7 +142,47 @@ Thievery
 */
 
 class Talents {
-    public $LoneWolf = 0x80000;
+    //public $LoneWolf = 0x80000;
+    public $AllSkilledUP =      0x000000000001;
+    public $Ambidestrous =      0x000000000002;
+    public $ArrowRecovery =     0x000000000004;
+    public $BiggerAndBetter =   0x000000000008;
+    public $ComebackKid =       0x000000000010;
+    public $CorpseEater =       0x000000000020;
+    public $Demon =             0x000000000040;
+    public $DuckDuckGoose =     0x000000000080;
+    public $DwarvenGuile =      0x000000000100;
+    public $ElementalAffinity = 0x000000000200;
+    public $Escapist =          0x000000000400;
+    public $Executioner =       0x000000000800;
+    public $ElementalRanger =   0x000000001000;
+    public $FarOutMan =         0x000000002000; // best skill
+    public $FiveStarDiner =     0x000000004000;
+    public $GlassCannon =       0x000000008000;
+    public $Guerrilla =         0x000000010000;
+    public $Hothead =           0x000000020000;
+    public $IceKing =           0x000000040000;
+    public $Ingenious =         0x000000080000;
+    public $Leech =             0x000000100000;
+    public $LivingArmour =      0x000000200000;
+    public $LoneWolf =          0x000000400000;
+    public $Mnemonic =          0x000000800000;
+    public $MorningPerson =     0x000001000000;
+    public $Opportunist =       0x000002000000;
+    public $ParryMaster =       0x000004000000;
+    public $PetPal =            0x000008000000;
+    public $PictureOfHealth =   0x000010000000;
+    public $SavageSortilege =   0x000020000000;
+    public $Slingshot =         0x000040000000;
+    public $Sophisticated =     0x000080000000;
+    public $Stench =            0x000100000000;
+    public $Sturdy =            0x000200000000;
+    public $ThePawn =           0x000400000000;
+    public $Torturer =          0x000800000000;
+    public $Undead =            0x001000000000;
+    public $Unstable =          0x002000000000;
+    public $WalkItOff =         0x004000000000; 	//Reduces all status duration by 1 turn, positive effects also apply 	N/A
+    public $WhatARush =         0x008000000000;
 }
 
 class Character {

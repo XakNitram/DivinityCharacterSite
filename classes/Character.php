@@ -42,48 +42,49 @@ list of talents:
 0x200000000 - Unstable
 0x400000000 - Walk It Off
 0x800000000 - What A Rush
+
 -----------------Talents------------
 47 of them
-All Skilled Up
-Ambidextrous
-Arrow Recovery
-Bigger and Better
-Comeback Kid
-Corpse Eater
-Demon
-Duck Duck Goose
-Dwarven Guile
-Elemental Affinity
-Escapist
-Executioner
-Elemental Ranger
-Far Out Man
-Five-Star Diner
-Glass Cannon
-Guerrilla
-Hothead
-Ice King
-Ingenious
-Leech
-Living Armour
-Lonewolf
-Mnemonic
-Morning Person
-Opportunist
-Parry Master
-Pet Pal
-Picture of Health
-Savage Sortilege
-Slingshot
-Sophisticated
-Stench
-Sturdy
-The Pawn
-Torturer
-Undead
-Unstable
-Walk it Off 	Reduces all status duration by 1 turn, positive effects also apply 	N/A
-What a Rush
+0x000000000001 - All Skilled Up
+0x000000000002 - Ambidextrous
+0x000000000004 - Arrow Recovery
+0x000000000008 - Bigger and Better
+0x000000000010 - Comeback Kid
+0x000000000020 - Corpse Eater
+0x000000000040 - Demon
+0x000000000080 - Duck Duck Goose
+0x000000000100 - Dwarven Guile
+0x000000000200 - Elemental Affinity
+0x000000000400 - Escapist
+0x000000000800 - Executioner
+0x000000001000 - Elemental Ranger
+0x000000002000 - Far Out Man
+0x000000004000 - Five-Star Diner
+0x000000008000 - Glass Cannon
+0x000000010000 - Guerrilla
+0x000000020000 - Hothead
+0x000000040000 - Ice King
+0x000000080000 - Ingenious
+0x000000100000 - Leech
+0x000000200000 - Living Armour
+0x000000400000 - Lonewolf
+0x000000800000 - Mnemonic
+0x000001000000 - Morning Person
+0x000002000000 - Opportunist
+0x000004000000 - Parry Master
+0x000008000000 - Pet Pal
+0x000010000000 - Picture of Health
+0x000020000000 - Savage Sortilege
+0x000040000000 - Slingshot
+0x000080000000 - Sophisticated
+0x000100000000 - Stench
+0x000200000000 - Sturdy
+0x000400000000 - The Pawn
+0x000800000000 - Torturer
+0x001000000000 - Undead
+0x002000000000 - Unstable
+0x004000000000 - Walk it Off 	Reduces all status duration by 1 turn, positive effects also apply 	N/A
+0x008000000000 - What a Rush
 */
 
 /*

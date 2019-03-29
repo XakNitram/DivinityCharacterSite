@@ -42,6 +42,48 @@ list of talents:
 0x200000000 - Unstable
 0x400000000 - Walk It Off
 0x800000000 - What A Rush
+-----------------Talents------------
+47 of them
+All Skilled Up
+Ambidextrous
+Arrow Recovery
+Bigger and Better
+Comeback Kid
+Corpse Eater
+Demon
+Duck Duck Goose
+Dwarven Guile
+Elemental Affinity
+Escapist
+Executioner
+Elemental Ranger
+Far Out Man
+Five-Star Diner
+Glass Cannon
+Guerrilla
+Hothead
+Ice King
+Ingenious
+Leech
+Living Armour
+Lonewolf
+Mnemonic
+Morning Person
+Opportunist
+Parry Master
+Pet Pal
+Picture of Health
+Savage Sortilege
+Slingshot
+Sophisticated
+Stench
+Sturdy
+The Pawn
+Torturer
+Undead
+Unstable
+Walk it Off 	Reduces all status duration by 1 turn, positive effects also apply 	N/A
+What a Rush
 */
 
 /*

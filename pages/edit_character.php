@@ -9,35 +9,72 @@
     <title><?php echo "$characterName ($username)"; ?></title>
 </head>
 <body>
-<div id="talents_container">
+strength
+finesse
+intelligence
+constitution
+memory
+wits
 
-    <h1><a>Edit Character</a></h1>
-    <form id="form_56566" class="appnitro"  method="post" action="">
-        <div class="form_description">
-            <h2>Edit Character</h2>
-            <p>Edit your character here</p>
-        </div>
-        <ul >
+// ****** Abilities ******
+// *** Combat Abilities ***
+* Max of 10
 
-            <li id="li_1" >
-                <label class="description" for="element_1">Drop Down </label>
-                <div>
-                    <select class="element select medium" id="element_1" name="element_1">
-                        <option value="" selected="selected"></option>
-                        <option value="1" >First option</option>
-                        <option value="2" >Second option</option>
-                        <option value="3" >Third option</option>
+// Weapons
+Dual Wielding
+Ranged
+Single-Handed
+Two-Handed
 
-                    </select>
-                </div><p class="guidelines" id="guide_1"><small>Select Your talent then press the submit talents button</small></p>
-            </li>
+// Defence
+Leadership
+Perseverance
+Retribution
 
-            <li class="buttons">
-                <input type="hidden" name="form_id" value="56566" />
+// Skills
+Aerotheurge
+Geomancer
+Huntsman
+Hydrosophist
+Necromancer
+Polymorph
+Pyrokinetic
+Scoundrel
+Summoning
+Warfare
 
-                <input id="saveForm" class="button_text" type="submit" name="submit" value="Submit Talents" />
-            </li>
-        </ul>
+// *** Civil Abilities ***
+* Max of 5
+
+// Personality
+Bartering
+Lucky Charm
+Persuasion
+
+// Craftsmanship
+Loremaster
+Telekinesis
+
+// Nasty Deeds
+Sneaking
+Thievery
+<form>
+    <form>
+        <input type="button" value="Add one" onclick="add();"/>
+    </form>
+    <span id="field">0</span>
+
+    <script>
+        var value = 0;
+
+        function add() {
+            value++;
+            document.getElementById("field").innerHTML = value;
+        }
+    </script>
+
+
+
     </form>
     <?php
 

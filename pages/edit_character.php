@@ -10,6 +10,8 @@
 </head>
 <body>
 strength
+<br>
+
 finesse
 intelligence
 constitution
@@ -18,6 +20,7 @@ wits
 
 // ****** Abilities ******
 // *** Combat Abilities ***
+24
 * Max of 10
 
 // Weapons
@@ -60,7 +63,7 @@ Sneaking
 Thievery
 <form>
     <form>
-        <input type="button" value="Add one" onclick="add();"/>
+        <input type="button" value="+" onclick="add();"/>
     </form>
     <span id="field">0</span>
 

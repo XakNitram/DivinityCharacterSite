@@ -11,21 +11,6 @@
             background-size: cover;
         }
 
-        /* width */
-        ::-webkit-scrollbar {
-            width: 20px;
-        }
-
-        /* Track */
-        ::-webkit-scrollbar-track {
-            box-shadow: inset 0 0 5px grey;
-        }
-
-        /* Handle */
-        ::-webkit-scrollbar-thumb {
-            background: #ffa500;
-        }
-
         .content {
             width: 1024px;
         }
@@ -38,7 +23,6 @@
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
             box-sizing: border-box;
-            white-space: nowrap;
             float: left;
             width: 50%;
         }
@@ -60,13 +44,10 @@
             margin: 16px;
             width: calc(100% - 32px);
         }
+
         .wide-2 {
             margin: 8px;
             width: calc(100% - 16px);
-        }
-
-        .bordered {
-            border: 1px solid #333333;
         }
 
         .center {
@@ -97,6 +78,9 @@
         h3, h4, p {
             margin-top: 0;
             margin-bottom: 0;
+        }
+        hr {
+            margin-top: 2px;
         }
 
         div.section {
@@ -135,121 +119,66 @@ $tab = $_GET['tab'];
                 <div class="wide-3">
                     <h3>Background</h3>
                     <hr>
+<!--                    <p>--><?php //echo $character->background?><!--</p>-->
                     <p class="wide-2">This is the story all about how my life got twisted upside down.</p>
                 </div>
                 <div class="wrap-col pad">
-                        <!--Abilities-->
-                        <div class="wrapper wide-2">
-                            <h3>Combat Abilities</h3>
-                            <hr>
-                            <h4>Weapons</h4>
-                            <div class="section">
-                                <?php
-                                $skills = [
+                    <!--Abilities-->
+                    <div class="wrapper wide-2">
+                        <h3>Combat Abilities</h3>
+                        <hr>
+                        <?php
+                        $combatAbilities = array(
+                                "Weapons"=>[
                                     'Dual Wielding', 'Ranged', 'Single-Handed',
                                     'Two-Handed'
-                                ];
-                                foreach ($skills as $name) {
-//                                    $value = $character->getAbility(strtolower($name));
-                                    $value = 0;
-                                    echo "<p class='wrap-col'>$name</p>";
-                                    echo "<div class='wrap-col'><span>$value</span></div>";
-                                    echo "<br>";
-
-                                }
-                                ?>
-                            </div>
-
-                            <h4>Defence</h4>
-                            <div class="section">
-                                <?php
-                                $skills = [
+                                ],
+                                "Defence"=>[
                                     'Leadership', 'Perseverance', 'Retribution'
-                                ];
-                                foreach ($skills as $name) {
-//                                    $value = $character->getAbility(strtolower($name));
-                                    $value = 0;
-                                    echo "<p class='wrap-col'>$name</p>";
-                                    echo "<div class='wrap-col'><span>$value</span></div>";
-                                    echo "<br>";
-
-                                }
-                                ?>
-                            </div>
-
-                            <h4>Skills</h4>
-                            <div class="section">
-                                <?php
-                                $skills = [
-                                        'Aerotheurge', 'Geomancer', 'Huntsman',
+                                ],
+                                "Skills"=>[
+                                    'Aerotheurge', 'Geomancer', 'Huntsman',
                                     'Hydrosophist', 'Necromancer', 'Polymorph',
                                     'Pyrokinetic', 'Scoundrel', 'Summoning',
                                     'Warfare'
-                                ];
-                                foreach ($skills as $name) {
-//                                    $value = $character->getAbility(strtolower($name));
-                                    $value = 0;
-                                    echo "<p class='wrap-col'>$name</p>";
-                                    echo "<div class='wrap-col'><span>$value</span></div>";
-                                    echo "<br>";
+                                ]
+                        );
+                        foreach ($combatAbilities as $key => $value) {
+                            echo "<h4>$key</h4>";
+                            echo '<div class="section">';
+                            foreach ($value as $skill) {
+                                //  $value = $character->getAbility(strtolower($name));
+                                $value = 0;
+                                echo "<p class='wrap-col'>$skill</p>";
+                                echo "<div class='wrap-col'><span>$value</span></div>";
+                                echo "<br>";
+                            }
+                            echo '</div>';
+                        }
+                        ?>
+                        <br>
 
-                                }
-                                ?>
-                            </div>
-                            <br>
-
-                            <h3>Civil Abilities</h3>
-                            <hr>
-                            <h4>Personality</h4>
-                            <div class="section">
-                                <?php
-                                $skills = [
-                                        'Bartering', 'Lucky Charm', 'Persuasion'
-                                ];
-                                foreach ($skills as $name) {
-//                                    $value = $character->getAbility(strtolower($name));
-                                    $value = 0;
-                                    echo "<p class='wrap-col'>$name</p>";
-                                    echo "<div class='wrap-col'><span>$value</span></div>";
-                                    echo "<br>";
-
-                                }
-                                ?>
-                            </div>
-
-                            <h4>Craftsmanship</h4>
-                            <div class="section">
-                                <?php
-                                $skills = [
-                                    'Loremaster', 'Telekinesis'
-                                ];
-                                foreach ($skills as $name) {
-//                                    $value = $character->getAbility(strtolower($name));
-                                    $value = 0;
-                                    echo "<p class='wrap-col'>$name</p>";
-                                    echo "<div class='wrap-col'><span>$value</span></div>";
-                                    echo "<br>";
-
-                                }
-                                ?>
-                            </div>
-
-                            <h4>Nasty Deeds</h4>
-                            <div class="section">
-                                <?php
-                                $skills = [
-                                    'Sneaking', 'Thievery'
-                                ];
-                                foreach ($skills as $name) {
-//                                    $value = $character->getAbility(strtolower($name));
-                                    $value = 0;
-                                    echo "<p class='wrap-col'>$name</p>";
-                                    echo "<div class='wrap-col'><span>$value</span></div>";
-                                    echo "<br>";
-
-                                }
-                                ?>
-                            </div>
+                        <h3>Civil Abilities</h3>
+                        <hr>
+                        <?php
+                        $civilAbilities = array(
+                                "Personality"=>['Bartering', 'Lucky Charm', 'Persuasion'],
+                                "Craftsmanship"=>['Loremaster', 'Telekinesis'],
+                                "Nasty Deeds"=>['Sneaking', 'Thievery']
+                        );
+                        foreach ($civilAbilities as $key => $value) {
+                            echo "<h4>$key</h4>";
+                            echo '<div class="section">';
+                            foreach ($value as $skill) {
+                                //  $value = $character->getAbility(strtolower($name));
+                                $value = 0;
+                                echo "<p class='wrap-col'>$skill</p>";
+                                echo "<div class='wrap-col'><span>$value</span></div>";
+                                echo "<br>";
+                            }
+                            echo '</div>';
+                        }
+                        ?>
                     </div>
                 </div>
                 <div class="wrap-col pad">
@@ -267,13 +196,10 @@ $tab = $_GET['tab'];
                             $value = 0;
                             echo "<p class='wrap-col'>$name</p>";
                             echo "<div class='wrap-col'><span>$value</span></div>";
-                            echo "<br>";
-
                         }
                         ?>
                     </div>
                 </div>
-                <br>
             </div>
         </div>
     </div>

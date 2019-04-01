@@ -14,8 +14,9 @@
 
     <br>
     strength
-    <input type="button" value="Add one" onclick="add('str');"/>
-    </form>
+    <input type="button" value="+" onclick="add('str');"/>
+    <input type="button" value="-" onclick="minus('str');"/>
+
     <span id="str">0</span>
     <script>
         reset();
@@ -32,8 +33,9 @@
     <br>
 
     finesse
-    <input type="button" value="Add one" onclick="add('fin');"/>
-    </form>
+    <input type="button" value="+" onclick="add('fin');"/>
+    <input type="button" value="-" onclick="minus('fin');"/>
+
     <span id="fin">0</span>
     <br>
     intelligence
@@ -136,6 +138,10 @@
         value++;
         document.getElementById(id).innerHTML = value;
 
+    }
+    function minus(id){
+        value--;
+        document.getElementById(id).innerHTML = value;
     }
     function reset() {
 

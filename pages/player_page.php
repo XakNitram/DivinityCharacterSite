@@ -55,7 +55,7 @@ $character->name = "Sebille";
 $tab = $_GET['tab'];
 ?>
 
-<section class="content">
+<div class="content">
     <table class="wide-3">
         <tr>
             <!--Picture section-->
@@ -81,7 +81,7 @@ $tab = $_GET['tab'];
             </td>
         </tr>
     </table>
-</section>
+</div>
 <?php
 //    session_unset();
 //    session_destroy();

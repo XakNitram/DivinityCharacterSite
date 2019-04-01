@@ -132,20 +132,41 @@
 
 </div>
 <script>
-    var value = 0;
+    // Javascript does not really support associative arrays, so maybe we should make
+    // the indices numbers?
+    let id_array = [];
 
     function add(id) {
-        value++;
+        let value = id_array[id];
+        if (value === undefined) {
+            value = 1;
+        }
+        else {
+            value++;
+        }
         document.getElementById(id).innerHTML = value;
-
+        id_array[id] = value;
     }
+
     function minus(id){
-        value--;
+        let value = id_array[id];
+        if (value === undefined) {
+            value = 0;
+        }
+        else {
+            if (value > 0) {
+                value--;
+            }
+            else {
+                value = 0;
+            }
+        }
         document.getElementById(id).innerHTML = value;
+        id_array[id] = value;
     }
-    function reset() {
 
-        value = 0;
+    function reset(id) {
+        id_array[id] = 0;
     }
 </script>
 

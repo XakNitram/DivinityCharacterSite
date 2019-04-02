@@ -318,7 +318,103 @@
     <!--        document.getElementById("field").innerHTML = value;-->
     <!--    }-->
     <!--</script>-->
+    <div style="width:150px;height:150px;line-height:3em;overflow:scroll;padding:5px;">
 
+        <input type="checkbox" <id="AllSkilledU"> AllSkilledUP <br />
+        <input type="checkbox" <id="Ambidestrous"> Ambidestrouss <br />
+        <input type="checkbox" <id="ArrowRecover"> ArrowRecovery <br />
+        <input type="checkbox" <id="BiggerAndBe"> BiggerAndBetter <br />
+        <input type="checkbox" <id="ComebackKid"> ComebackKid <br />
+        <input type="checkbox" <id="CorpseEater"> CorpseEater <br />
+        <input type="checkbox" <id="Demon "> Demon <br />
+        <input type="checkbox" <id="DuckDuckGoo"> DuckDuckGoose <br />
+        <input type="checkbox" <id="DwarvenGuil"> DwarvenGuile <br />
+        <input type="checkbox" <id="ElementalAf"> ElementalAffinity <br />
+        <input type="checkbox" <id="Escapist "> Escapist <br />
+        <input type="checkbox" <id="Executioner"> Executioner <br />
+        <input type="checkbox" <id="ElementalRa"> ElementalRanger <br />
+        <input type="checkbox" <id="FarOutMan "> FarOutMan <br />
+        <input type="checkbox" <id="FiveStarDin"> FiveStarDiner <br />
+        <input type="checkbox" <id="GlassCannon"> GlassCannon <br />
+        <input type="checkbox" <id="Guerrilla "> Guerrilla <br />
+        <input type="checkbox" <id="Hothead "> Hothead <br />
+        <input type="checkbox" <id="IceKing "> IceKing <br />
+        <input type="checkbox" <id="Ingenious "> Ingenious <br />
+        <input type="checkbox" <id="Leech "> Leech <br />
+        <input type="checkbox" <id="LivingArmou"> LivingArmour <br />
+        <input type="checkbox" <id="LoneWolf "> LoneWolf <br />
+        <input type="checkbox" <id="Mnemonic "> Mnemonic <br />
+        <input type="checkbox" <id="MorningPers"> MorningPerson <br />
+        <input type="checkbox" <id="Opportunist"> Opportunist <br />
+        <input type="checkbox" <id="ParryMaster"> ParryMaster <br />
+        <input type="checkbox" <id="PetPal "> PetPal <br />
+        <input type="checkbox" <id="PictureOfHe"> PictureOfHealth <br />
+        <input type="checkbox" <id="SavageSorti"> SavageSortilege <br />
+        <input type="checkbox" <id="Slingshot "> Slingshot <br />
+        <input type="checkbox" <id="Sophisticat"> Sophisticated <br />
+        <input type="checkbox" <id="Stench "> Stench <br />
+        <input type="checkbox" <id="Sturdy "> Sturdy <br />
+        <input type="checkbox" <id="ThePawn "> ThePawn <br />
+        <input type="checkbox" <id="Torturer "> Torturer <br />
+        <input type="checkbox" <id="Undead "> Undead <br />
+        <input type="checkbox" <id="Unstable "> Unstable <br />
+        <input type="checkbox" <id="WalkItOff "> WalkItOff <br />
+        <input type="checkbox" <id="WhatARush "> WhatARush <br />
+    </div>
+
+    <div class="container">
+        <input type="checkbox" /> This is checkbox <br />
+        <input type="checkbox" /> This is checkbox <br />
+        <input type="checkbox" /> This is checkbox <br />
+        <input type="checkbox" /> This is checkbox <br />
+        <input type="checkbox" /> This is checkbox <br />
+        <input type="checkbox" /> This is checkbox <br />
+        <input type="checkbox" /> This is checkbox <br />
+        <input type="checkbox" /> This is checkbox <br />
+        <input type="checkbox" /> This is checkbox <br />
+        <input type="checkbox" /> This is checkbox <br />
+    </div>
+
+AllSkilledUP
+Ambidestrous
+ArrowRecovery
+BiggerAndBetter
+ComebackKid
+CorpseEater
+Demon
+DuckDuckGoose
+DwarvenGuile
+ElementalAffinity
+Escapist
+Executioner
+ElementalRanger
+FarOutMan
+FiveStarDiner
+GlassCannon
+Guerrilla
+Hothead
+IceKing
+Ingenious
+Leech
+LivingArmour
+LoneWolf
+Mnemonic
+MorningPerson
+Opportunist
+ParryMaster
+PetPal
+PictureOfHealth
+SavageSortilege
+Slingshot
+Sophisticated
+Stench
+Sturdy
+ThePawn
+Torturer
+Undead
+Unstable
+WalkItOff
+WhatARush
 
 
     <?php
@@ -372,12 +468,25 @@
 
 
     }
-
-
-
-
-
     ?>
+<script>
+    function ajax() {
+        var category = document.getElementById("category").value;
+        $.ajax({
+            url: "category.php",
+            type: "POST",
+            data: { category: category },
+            success: function(data) {
+                $('#item').html(data);
+            },
+        });
+    }
+
+
+
+</script>
+
+
     <form action="????????????????" method="post">
         <input class="button" type="submit" name="submit_character" value="Sign in">
     </form>

@@ -23,247 +23,92 @@
     </script>
 
 
-    <?php
-
-    ?>
-
-    <?php
-
-    ?>
+    <div class="col w-50 wide-2">
+        <h3>Attributes</h3>
+        <hr>
+        <?php
+        $skills = [
+            'Strength', 'Finesse', 'Intelligence',
+            'Constitution', 'Memory', 'Wits'
+        ];
+        foreach ($skills as $name) {
+            //  $value = $character->getAbility(strtolower($name));
+            $value = 0;
+            echo '<div class="">';
+            echo "<p>$name</p>";
+            echo "<span id='$name' class=''>$value</span>";
+            echo '<input type="button" value="+" onclick="add('."'$name'".');">';
+            echo '<input type="button" value="-" onclick="minus('."'$name'".');">';
+            echo '</div>';
+        }
+        ?>
     <br>
-
-    finesse
-    <input type="button" value="+" onclick="add('fin');"/>
-    <input type="button" value="-" onclick="minus('fin');"/>
-
-    <span id="fin">0</span>
-    <br>
-    intelligence
-    <input type="button" value="+" onclick="add('int');"/>
-    <input type="button" value="-" onclick="minus('int');"/>
-
-    <span id="int">0</span>
-
-    <br>
-    constitution
-    <input type="button" value="+" onclick="add('con');"/>
-    <input type="button" value="-" onclick="minus('con');"/>
-
-    <span id="con">0</span>
-
-    <br>
-    memory
-    <input type="button" value="+" onclick="add('mem');"/>
-    <input type="button" value="-" onclick="minus('mem');"/>
-
-    <span id="mem">0</span>
-
-    <br>
-    wits
-    <input type="button" value="+" onclick="add('wit');"/>
-    <input type="button" value="-" onclick="minus('wit');"/>
-
-    <span id="wit">0</span>
-
-    <br>
-
-
-
-</div>
-<div>
-    // ****** Abilities ******
-    <br>
-    // *** Combat Abilities ***
-    <br>
-    24
-    * Max of 10
-    <br>
-
-    // Weapons
-    <br>
-    Dual Wielding
-    <input type="button" value="+" onclick="add('dualwielding');"/>
-    <input type="button" value="-" onclick="minus('dualwielding');"/>
-
-    <span id="dualwielding">0</span>
-
-    <br>
-    Ranged
-    <input type="button" value="+" onclick="add('ranged');"/>
-    <input type="button" value="-" onclick="minus('ranged');"/>
-
-    <span id="ranged">0</span>
-    <br>
-
-    Single-Handed
-    <input type="button" value="+" onclick="add('single');"/>
-    <input type="button" value="-" onclick="minus('single');"/>
-
-    <span id="single">0</span>
-
-    <br>
-    Two-Handed
-    <input type="button" value="+" onclick="add('two');"/>
-    <input type="button" value="-" onclick="minus('two');"/>
-
-    <span id="two">0</span>
-
-    <br>
-
-    // Defence
-    <br>
-    Leadership
-    <input type="button" value="+" onclick="add('lead');"/>
-    <input type="button" value="-" onclick="minus('lead');"/>
-
-    <span id="lead">0</span>
-    <br>
-    <br>
-    Perseverance
-    <input type="button" value="+" onclick="add('pers');"/>
-    <input type="button" value="-" onclick="minus('pers');"/>
-
-    <span id="pers">0</span>
-    <br>
-    Retribution
-    <input type="button" value="+" onclick="add('ret');"/>
-    <input type="button" value="-" onclick="minus('ret');"/>
-
-    <span id="ret">0</span>
-    <br>
-
-
-
-</div>
 
 <div>
     // Skills
-    Aerotheurge
-    <input type="button" value="+" onclick="add('aero');"/>
-    <input type="button" value="-" onclick="minus('aero');"/>
+    <?php
+    $combatAbilities = array(
+    "Weapons"=>[
+    'Dual Wielding', 'Ranged', 'Single-Handed',
+    'Two-Handed'
+    ],
+    "Defence"=>[
+    'Leadership', 'Perseverance', 'Retribution'
+    ],
+    "Skills"=>[
+    'Aerotheurge', 'Geomancer', 'Huntsman',
+    'Hydrosophist', 'Necromancer', 'Polymorph',
+    'Pyrokinetic', 'Scoundrel', 'Summoning',
+    'Warfare'
+    ]
+    );
+    foreach ($combatAbilities as $key => $value) {
+    echo "<h4>$key</h4>";
+    echo '<div class="section">';
+        foreach ($value as $skill) {
+        //  $value = $character->getAbility(strtolower($name));
+        $value = 0;
+        echo '<div class="">';
+            echo "<p class=''>$skill</p>";
+            echo "<div class=''>
+                    <span id='$skill' class=''>$value</span>";
+                echo '<input type="button" value="+" onclick="add('."'$skill'".');">';
+                echo '<input type="button" value="-" onclick="minus('."'$skill'".');">';
+            echo "</div>";
+            echo '</div>';
+        }
+        echo '</div>';
+    }
+    ?>
 
-    <span id="aero">0</span>
-    <br>
-
-    Geomancer
-    <input type="button" value="+" onclick="add('geo');"/>
-    <input type="button" value="-" onclick="minus('geo');"/>
-
-    <span id="geo">0</span>
-    <br>
-
-    Huntsman
-    <input type="button" value="+" onclick="add('hunt');"/>
-    <input type="button" value="-" onclick="minus('hunt');"/>
-
-    <span id="hunt">0</span>
-
-    <br>
-
-    Hydrosophist
-    <input type="button" value="+" onclick="add('hydro');"/>
-    <input type="button" value="-" onclick="minus('hydro');"/>
-
-    <span id="hydro">0</span>
-    <br>
-    Necromancer
-    <input type="button" value="+" onclick="add('necro');"/>
-    <input type="button" value="-" onclick="minus('necro');"/>
-
-    <span id="necro">0</span>
-
-    <br>
-    Polymorph
-    <input type="button" value="+" onclick="add('poly');"/>
-    <input type="button" value="-" onclick="minus('poly');"/>
-
-    <span id="poly">0</span>
-
-    <br>
-    Pyrokinetic
-    <input type="button" value="+" onclick="add('pyro');"/>
-    <input type="button" value="-" onclick="minus('pyro');"/>
-
-    <span id="pyro">0</span>
-
-    <br>
-    Scoundrel
-    <input type="button" value="+" onclick="add('scound');"/>
-    <input type="button" value="-" onclick="minus('scound');"/>
-
-    <span id="scound">0</span>
-    <br>
-    Summoning
-    <input type="button" value="+" onclick="add('summon');"/>
-    <input type="button" value="-" onclick="minus('summon');"/>
-
-    <span id="summon">0</span>
-    <br>
-    Warfare
-    <input type="button" value="+" onclick="add('war');"/>
-    <input type="button" value="-" onclick="minus('war');"/>
-
-    <span id="war">0</span>
-    <br>
 
 
 </div>
 
 <div>
-    // *** Civil Abilities ***
-    * Max of 5
-
-    // Personality
-    Bartering
-    <input type="button" value="+" onclick="add('bart');"/>
-    <input type="button" value="-" onclick="minus('bart');"/>
-
-    <span id="bar">0</span>
-    <br>
-
-    Lucky Charm
-    <input type="button" value="+" onclick="add('luck');"/>
-    <input type="button" value="-" onclick="minus('luck');"/>
-
-    <span id="luck">0</span>
-    <br>
-    Persuasion
-    <input type="button" value="+" onclick="add('persuasion');"/>
-    <input type="button" value="-" onclick="minus('persuasion');"/>
-
-    <span id="persuasion">0</span>
-    <br>
-
-    // Craftsmanship
-    Loremaster
-    <input type="button" value="+" onclick="add('craft');"/>
-    <input type="button" value="-" onclick="minus('craft');"/>
-
-    <span id="craft">0</span>
-    <br>
-    Telekinesis
-    <input type="button" value="+" onclick="add('tele');"/>
-    <input type="button" value="-" onclick="minus('tele');"/>
-
-    <span id="fin">0</span>
-    <br>
-
-
-    // Nasty Deeds
-    Sneaking
-    <input type="button" value="+" onclick="add('sneak');"/>
-    <input type="button" value="-" onclick="minus('sneak');"/>
-
-    <span id="fin">0</span>
-    <br>
-    Thievery
-    <input type="button" value="+" onclick="add('thiev');"/>
-    <input type="button" value="-" onclick="minus('fin');"/>
-
-    <span id="thiev">0</span>
-    <br>
-    help me
-
+    <?php
+    $civilAbilities = array(
+        "Personality"=>['Bartering', 'Lucky Charm', 'Persuasion'],
+        "Craftsmanship"=>['Loremaster', 'Telekinesis'],
+        "Nasty Deeds"=>['Sneaking', 'Thievery']
+    );
+    foreach ($civilAbilities as $key => $value) {
+        echo "<h4>$key</h4>";
+        echo '<div class="">';
+        foreach ($value as $skill) {
+            //  $value = $character->getAbility(strtolower($name));
+            $value = 0;
+            echo '<div class="">';
+            echo "<p>$skill</p>";
+            echo "<div><span id='$skill'>$value</span>";
+            echo '<input type="button" value="+" onclick="add('."'$skill'".');">';
+            echo '<input type="button" value="-" onclick="minus('."'$skill'".');">';
+            echo "</div>";
+            echo '</div>';
+        }
+        echo '</div>';
+    }
+    ?>
 
 </div>
 <script>
@@ -320,7 +165,7 @@
     <!--</script>-->
     <div style="width:150px;height:150px;line-height:3em;overflow:scroll;padding:5px;">
 
-        <input type="checkbox" <id="AllSkilledU"> AllSkilledUP <br />
+        <input type="checkbox" <id="AllSkilledUP"> AllSkilledUP <br />
         <input type="checkbox" <id="Ambidestrous"> Ambidestrouss <br />
         <input type="checkbox" <id="ArrowRecover"> ArrowRecovery <br />
         <input type="checkbox" <id="BiggerAndBe"> BiggerAndBetter <br />
@@ -362,59 +207,7 @@
         <input type="checkbox" <id="WhatARush "> WhatARush <br />
     </div>
 
-    <div class="container">
-        <input type="checkbox" /> This is checkbox <br />
-        <input type="checkbox" /> This is checkbox <br />
-        <input type="checkbox" /> This is checkbox <br />
-        <input type="checkbox" /> This is checkbox <br />
-        <input type="checkbox" /> This is checkbox <br />
-        <input type="checkbox" /> This is checkbox <br />
-        <input type="checkbox" /> This is checkbox <br />
-        <input type="checkbox" /> This is checkbox <br />
-        <input type="checkbox" /> This is checkbox <br />
-        <input type="checkbox" /> This is checkbox <br />
-    </div>
 
-AllSkilledUP
-Ambidestrous
-ArrowRecovery
-BiggerAndBetter
-ComebackKid
-CorpseEater
-Demon
-DuckDuckGoose
-DwarvenGuile
-ElementalAffinity
-Escapist
-Executioner
-ElementalRanger
-FarOutMan
-FiveStarDiner
-GlassCannon
-Guerrilla
-Hothead
-IceKing
-Ingenious
-Leech
-LivingArmour
-LoneWolf
-Mnemonic
-MorningPerson
-Opportunist
-ParryMaster
-PetPal
-PictureOfHealth
-SavageSortilege
-Slingshot
-Sophisticated
-Stench
-Sturdy
-ThePawn
-Torturer
-Undead
-Unstable
-WalkItOff
-WhatARush
 
 
     <?php
@@ -470,25 +263,16 @@ WhatARush
     }
     ?>
 <script>
-    function ajax() {
-        var category = document.getElementById("category").value;
-        $.ajax({
-            url: "category.php",
-            type: "POST",
-            data: { category: category },
-            success: function(data) {
-                $('#item').html(data);
-            },
-        });
-    }
+
 
 
 
 </script>
 
 
-    <form action="????????????????" method="post">
-        <input class="button" type="submit" name="submit_character" value="Sign in">
+    <form action="edit_character.php" method="post">
+        <input class="button" type="submit" name="submit_character" value="Submit Character">
     </form>
+
 </body>
 </html>

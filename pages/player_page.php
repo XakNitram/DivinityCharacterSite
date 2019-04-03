@@ -110,8 +110,15 @@
 require_once("../classes/Character.php");
 
 session_start();
-$username = "Simmons";
+if (!isset($_SESSION['username'])) {
+    $username = "Simmons";
+}
+else {
+    $username = $_SESSION['username'];
+}
+
 $character = new Character(true);
+$_SESSION['character'] = serialize($character);
 $character->name = "Sebille";
 $tab = $_GET['tab'];
 ?>

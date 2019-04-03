@@ -141,47 +141,56 @@ Sneaking
 Thievery
 */
 
-
-$AllSkilledUP =      0x000000000001;
-$Ambidextrous =      0x000000000002;
-$ArrowRecovery =     0x000000000004;
-$BiggerAndBetter =   0x000000000008;
-$ComebackKid =       0x000000000010;
-$CorpseEater =       0x000000000020;
-$Demon =             0x000000000040;
-$DuckDuckGoose =     0x000000000080;
-$DwarvenGuile =      0x000000000100;
-$ElementalAffinity = 0x000000000200;
-$Escapist =          0x000000000400;
-$Executioner =       0x000000000800;
-$ElementalRanger =   0x000000001000;
-$FarOutMan =         0x000000002000; // best skill
-$FiveStarDiner =     0x000000004000;
-$GlassCannon =       0x000000008000;
-$Guerrilla =         0x000000010000;
-$Hothead =           0x000000020000;
-$IceKing =           0x000000040000;
-$Ingenious =         0x000000080000;
-$Leech =             0x000000100000;
-$LivingArmour =      0x000000200000;
-$LoneWolf =          0x000000400000;
-$Mnemonic =          0x000000800000;
-$MorningPerson =     0x000001000000;
-$Opportunist =       0x000002000000;
-$ParryMaster =       0x000004000000;
-$PetPal =            0x000008000000;
-$PictureOfHealth =   0x000010000000;
-$SavageSortilege =   0x000020000000;
-$Slingshot =         0x000040000000;
-$Sophisticated =     0x000080000000;
-$Stench =            0x000100000000;
-$Sturdy =            0x000200000000;
-$ThePawn =           0x000400000000;
-$Torturer =          0x000800000000;
-$Undead =            0x001000000000;
-$Unstable =          0x002000000000;
-$WalkItOff =         0x004000000000; 	//Reduces all status duration by 1 turn, positive effects also apply 	N/A
-$WhatARush =         0x008000000000;
+$talentArray = array("AllSkilledUp" => 0x000000000001, "Ambidextrous" => 0x000000000002, "ArrowRecovery" => 0x000000000004,
+    "BiggerAndBetter" => 0x000000000008, "ComebackKid" => 0x000000000010, "CorpseEater" => 0x000000000020, "Demon" => 0x000000000040,
+    "DuckDuckGoose" => 0x000000000080, "DwarvenGuile" => 0x000000000100, "ElementalAffinity" => 0x000000000200, "Escapist" => 0x000000000400,
+    "Executioner" => 0x000000000800, "ElementalRanger" => 0x000000001000, "FarOutMan" => 0x000000002000, "FiveStarDiner" => 0x000000004000,
+    "GlassCannon" => 0x000000008000, "Guerrilla" => 0x000000010000, "Hothead" => 0x000000020000, "IceKing" => 0x000000040000,
+    "Ingenious" => 0x000000080000, "Leech" => 0x000000100000, "LivingArmour" => 0x000000200000, "LoneWolf" => 0x000000400000,
+    "Mnemonic" => 0x000000800000, "MorningPerson" => 0x000001000000, "Opportunist" => 0x000002000000, "ParryMaster" => 0x000004000000,
+    "PetPal" => 0x000008000000, "PictureOfHealth" => 0x000010000000, "SavageSortilege" => 0x000020000000, "Slingshot" => 0x000040000000,
+    "Sophisticated" => 0x000080000000, "Stench" => 0x000100000000, "Sturdy" => 0x000200000000, "ThePawn" => 0x000400000000, "Torturer" => 0x000800000000,
+    "Torturer" => 0x000800000000, "Undead" => 0x001000000000, "Unstable" => 0x002000000000, "WalkItOff" => 0x004000000000, "WhatARush" => 0x008000000000);
+//$AllSkilledUp =      0x000000000001;
+//$Ambidextrous =      0x000000000002;
+//$ArrowRecovery =     0x000000000004;
+//$BiggerAndBetter =   0x000000000008;
+//$ComebackKid =       0x000000000010;
+//$CorpseEater =       0x000000000020;
+//$Demon =             0x000000000040;
+//$DuckDuckGoose =     0x000000000080;
+//$DwarvenGuile =      0x000000000100;
+//$ElementalAffinity = 0x000000000200;
+//$Escapist =          0x000000000400;
+//$Executioner =       0x000000000800;
+//$ElementalRanger =   0x000000001000;
+//$FarOutMan =         0x000000002000; // best skill
+//$FiveStarDiner =     0x000000004000;
+//$GlassCannon =       0x000000008000;
+//$Guerrilla =         0x000000010000;
+//$Hothead =           0x000000020000;
+//$IceKing =           0x000000040000;
+//$Ingenious =         0x000000080000;
+//$Leech =             0x000000100000;
+//$LivingArmour =      0x000000200000;
+//$LoneWolf =          0x000000400000;
+//$Mnemonic =          0x000000800000;
+//$MorningPerson =     0x000001000000;
+//$Opportunist =       0x000002000000;
+//$ParryMaster =       0x000004000000;
+//$PetPal =            0x000008000000;
+//$PictureOfHealth =   0x000010000000;
+//$SavageSortilege =   0x000020000000;
+//$Slingshot =         0x000040000000;
+//$Sophisticated =     0x000080000000;
+//$Stench =            0x000100000000;
+//$Sturdy =            0x000200000000;
+//$ThePawn =           0x000400000000;
+//$Torturer =          0x000800000000;
+//$Undead =            0x001000000000;
+//$Unstable =          0x002000000000;
+//$WalkItOff =         0x004000000000; 	//Reduces all status duration by 1 turn, positive effects also apply 	N/A
+//$WhatARush =         0x008000000000;
 
 
 class Character {
@@ -207,11 +216,14 @@ class Character {
         // take character info from a string and use it
         // to assign this character's variables.
 
+        $talents = 0;
+
         if($isNew == true){
             $abilityArray = array("Dual Wielding" => 0, "Ranged" => 0, "Single-Handed" => 0, "Two-Handed" => 0, "Leadership" => 0,
                 "Perseverance" => 0, "Retribution" => 0, "Aerotheurge" => 0, "Geomancer" => 0, "Huntsman" => 0, "Hydrosophist" => 0,
                 "Necromancer" => 0, "Polymorph" => 0, "Pyrokinetic" => 0, "Scoundrel" => 0, "Summoning" => 0, "Warfare" => 0);
         }
+
         else {
             $CharInfoArray = preg_split(";", $infoString);
             $AttributeSubStr = $CharInfoArray[0];
@@ -219,9 +231,14 @@ class Character {
             $TalentsSubStr = $CharInfoArray[2];
             $TagsSubStr = $CharInfoArray[3];
             $levelSubStr = $CharInfoArray[4];
-            $NameStr = $CharInfoArray[5];
+            $NameSubStr = $CharInfoArray[5];
             $backgroundStr = $CharInfoArray[6];
         }
+
+
+    }
+    function uploadCharString(){
+
     }
 
     function getInfo() {

@@ -142,7 +142,7 @@ Thievery
 */
 
 class Talents {
-    //public $LoneWolf = 0x80000;
+
     public $AllSkilledUP =      0x000000000001;
     public $Ambidestrous =      0x000000000002;
     public $ArrowRecovery =     0x000000000004;
@@ -185,6 +185,7 @@ class Talents {
     public $WhatARush =         0x008000000000;
 }
 
+
 class Character {
     // we don't need setters because we will only update
     // when the user submits their changes, meaning that
@@ -202,9 +203,19 @@ class Character {
     public $name;
     public $background;
 
+
     function __construct($isNew=false, $infoString="DEFAULT INFO STRING") {
         // take character info from a string and use it
         // to assign this character's variables.
+
+        public $CharInfoArray = preg_split(";", $infoString);
+        public $AttributeSubStr =   $CharInfoArray[0];
+        public $AbilitiesSubStr =   $CharInfoArray[1];
+        public $TalentsSubStr =     $CharInfoArray[2];
+        public $TagsSubStr =        $CharInfoArray[3];
+        public $levelSubStr =       $CharInfoArray[4];
+        public $NameStr =           $CharInfoArray[5];
+        public $backgroundStr =     $CharInfoArray[6];
     }
 
     function getInfo() {

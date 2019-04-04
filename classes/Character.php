@@ -256,6 +256,23 @@ class Character {
     }
     function uploadCharString(){
         // query has to use username or password, character information is not necessarily always unique
+        $infoStr = getInfo();
+        $charID = ''; //need some way of getting the username of the given character, only way to correctly alter db tables/info
+        error_reporting(E_ALL);
+        ini_set('display_errors', 1);
+
+        require_once 'login.php';
+        $connection = new mysqli($hn, $un, $pw, $db);
+
+        if ($connection->connect_error) die($connection->connect_error);
+
+        $query = "UPDATE character_table
+                  SET characterInfoString = '$infoStr'
+                  WHERE charID = '$charID';";
+
+        $result = $connection->query($query);
+        if (!$result) die($connection->error);
+
     }
 
     function getInfo() {

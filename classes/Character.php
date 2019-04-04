@@ -219,12 +219,19 @@ class Character {
 
 
         if($isNew == true){
+            //if the character is new initialize all values to default
+            $attributes = array("strength" => 10, "finesse" => 10, "intelligence" => 10, "constitution" => 10, "memory" => 10, "wits" => 10);
+
             $abilities = array("Dual Wielding" => 0, "Ranged" => 0, "Single-Handed" => 0, "Two-Handed" => 0, "Leadership" => 0,
                 "Perseverance" => 0, "Retribution" => 0, "Aerotheurge" => 0, "Geomancer" => 0, "Huntsman" => 0, "Hydrosophist" => 0,
                 "Necromancer" => 0, "Polymorph" => 0, "Pyrokinetic" => 0, "Scoundrel" => 0, "Summoning" => 0, "Warfare" => 0);
             $talents = 0;
+            $tags = array();
+            $name = "";
+            $level = "";
+            $background = "";
         }
-
+        //if the character being referenced is not new, get the character info string and split it up
         else {
 
             $CharInfoArray = preg_split(";", $infoString);
@@ -248,12 +255,25 @@ class Character {
 
     }
     function uploadCharString(){
-
+        // query has to use username or password, character information is not necessarily always unique
     }
 
     function getInfo() {
 
-
+        $attrInfoStr = "";
+        $abilInfoStr = "";
+        $tagInfoStr = "";
+        foreach($attributes as $value){
+            $attrInfoStr = $attrInfoStr . "," . $value;
+        }
+        foreach($abilities as $value){
+            $abilInfoStr = $abilInfoStr . "," . $value;
+        }
+        foreach($tags as $value){
+            $tagInfoStr = $tagInfoStr . "," . $value;
+        }
+        $fullInfoStr = $attrInfoStr . ";" . $abilInfoStr . ";" . $talents . ";" . $tagInfoStr . ";" . $level . ";" . $name . ";" . $background;
+        return $fullInfoStr;
 
     }
 

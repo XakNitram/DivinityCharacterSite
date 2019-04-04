@@ -46,6 +46,15 @@
             -3px 3px #ffa500
         }
 
+        .talent-off {
+            margin: 8px 8px 8px 8px;
+            padding: 10px;
+            border: 1px solid #333333;
+            box-shadow:  -1px 1px #333333,
+            -2px 2px #333333,
+            -3px 3px #333333;
+        }
+
         .number {
             color: #ffa500;
         }
@@ -119,6 +128,7 @@ else {
 }
 
 $character = new Character(true);
+$character->talents = 0x701;
 $_SESSION['character'] = serialize($character);
 $character->name = "Sebille";
 $tab = $_GET['tab'];
@@ -219,17 +229,43 @@ $tab = $_GET['tab'];
                           </div>";
                     echo '</div>';
                 }
+                unset($name);
                 ?>
                 <br>
                 <h3>Talents</h3>
                 <hr>
                 <div class="talent-box">
                     <?php
-                    for ($i = 0; $i < 36; $i++) {
+                    $talentHaves = array();
+                    $talentHaveNots = array();
+                    foreach ($talentArray as $name => $code) {
+                        if ($character->hasTalent($code)) {
+                            array_push($talentHaves, $name);
+                        }
+                        else {
+                            array_push($talentHaveNots, $name);
+                        }
+                    }
+
+                    // unset loop variables
+                    // apparently php does not purge variables after the loop ends.
+                    unset($name);
+                    unset($code);
+
+                    foreach ($talentHaves as $name) {
                         echo "<div class='talent bordered'>";
-                        echo "<h3>Talent $i</h3>";
+                        echo "<h3>$name</h3>";
                         echo "</div>";
                     }
+                    unset($name);
+
+                    foreach ($talentHaveNots as $name) {
+                        echo "<div class='talent-off bordered'>";
+                        echo "<h3>$name</h3>";
+                        echo "</div>";
+                    }
+                    unset($name);
+
                     ?>
                 </div>
             </div>

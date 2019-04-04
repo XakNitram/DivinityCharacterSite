@@ -216,22 +216,32 @@ class Character {
         // take character info from a string and use it
         // to assign this character's variables.
 
-        $talents = 0;
+
 
         if($isNew == true){
-            $abilityArray = array("Dual Wielding" => 0, "Ranged" => 0, "Single-Handed" => 0, "Two-Handed" => 0, "Leadership" => 0,
+            $abilities = array("Dual Wielding" => 0, "Ranged" => 0, "Single-Handed" => 0, "Two-Handed" => 0, "Leadership" => 0,
                 "Perseverance" => 0, "Retribution" => 0, "Aerotheurge" => 0, "Geomancer" => 0, "Huntsman" => 0, "Hydrosophist" => 0,
                 "Necromancer" => 0, "Polymorph" => 0, "Pyrokinetic" => 0, "Scoundrel" => 0, "Summoning" => 0, "Warfare" => 0);
+            $talents = 0;
         }
 
         else {
+
             $CharInfoArray = preg_split(";", $infoString);
+
             $AttributeSubStr = $CharInfoArray[0];
+            $attributes = preg_split(",", $AttributeSubStr);
+
             $AbilitiesSubStr = $CharInfoArray[1];
-            $TalentsSubStr = $CharInfoArray[2];
+            $abilities = preg_split(",", $AbilitiesSubStr);
+
+            $talents = $CharInfoArray[2];
+
             $TagsSubStr = $CharInfoArray[3];
-            $levelSubStr = $CharInfoArray[4];
-            $NameSubStr = $CharInfoArray[5];
+            $tags = preg_split(',', $TagsSubStr);
+
+            $level = $CharInfoArray[4];
+            $name = $CharInfoArray[5];
             $backgroundStr = $CharInfoArray[6];
         }
 

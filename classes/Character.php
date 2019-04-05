@@ -54,21 +54,25 @@ Sneaking
 Thievery
 */
 
-$talentArray = array(
-    "All Skilled Up" => 0x1, "Ambidextrous" => 0x2, "Ancestral Knowledge" => 0x4, "Arrow Recovery" => 0x8,
-    "Bigger and Better" => 0x10, "Comeback Kid" => 0x20, "Corpse Eater" => 0x40, "Demon" => 0x80,
-    "Duck Duck Goose" => 0x100, "Dwarven Guile" => 0x200, "Elemental Affinity" => 0x400,
-    "Elemental Ranger" => 0x800, "Escapist" => 0x1000, "Executioner" => 0x2000, "Far-Out Man" => 0x4000,
-    "Five Star Diner" => 0x8000, "Glass Cannon" => 0x10000, "Guerrilla" => 0x20000, "Hothead" => 0x40000,
-    "Ice King" => 0x80000, "Ingenious" => 0x100000, "Leech" => 0x200000, "Living Armour" => 0x400000,
-    "Lone Wolf" => 0x800000, "Mnemonic" => 0x1000000, "Morning Person" => 0x2000000,
-    "Opportunist" => 0x4000000, "Parry Master" => 0x8000000, "The Pawn" => 0x10000000,
-    "Pet Pal" => 0x20000000, "Picture of Health" => 0x40000000, "Savage Sortilege" => 0x80000000,
-    "Slingshot" => 0x100000000, "Sophisticated" => 0x200000000, "Spellsong" => 0x400000000,
-    "Stench" => 0x800000000, "Sturdy" => 0x1000000000, "Thrifty" => 0x2000000000,
-    "Torturer" => 0x4000000000, "Unstable" => 0x8000000000, "Walk It Off" => 0x10000000000,
-    "What A Rush" => 0x20000000000, "Undead" => 0x40000000000
+$talentNames = array(
+    "All Skilled Up",    "Ambidextrous",    "Ancestral Knowledge", "Arrow Recovery",
+    "Bigger and Better", "Comeback Kid",    "Corpse Eater",        "Demon",
+    "Duck Duck Goose",   "Dwarven Guile",   "Elemental Affinity",  "Elemental Ranger",
+    "Escapist",          "Executioner",     "Far-Out Man",         "Five Star Diner",
+    "Glass Cannon",      "Guerrilla",       "Hothead",             "Ice King",
+    "Ingenious",         "Leech",           "Living Armour",       "Lone Wolf",
+    "Mnemonic",          "Morning Person",  "Opportunist" ,        "Parry Master",
+    "The Pawn",          "Pet Pal",         "Picture of Health",   "Savage Sortilege",
+    "Slingshot",         "Sophisticated",   "Spellsong",           "Stench",
+    "Sturdy",            "Thrifty",         "Torturer",            "Unstable",
+    "Walk It Off",       "What A Rush",     "Undead"
 );
+
+$talentCodes = array();
+for ($i = 0; $i < sizeof($talentNames); $i++) {
+    $code = intval(pow(2, $i));
+    $talentCodes[$talentNames[$i]] = $code;
+}
 
 $talentDescriptions = array(
     "All Skilled Up" => "All Skilled Up immediately gives you 1 extra Combat Ability point and 1 extra Civil Ability point.",

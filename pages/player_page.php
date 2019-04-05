@@ -145,10 +145,10 @@ $tab = $_GET['tab'];
 <div class="content">
     <div class="wide-4">
         <div class="wide-2">
-            <h1 class="center no-margin">
+            <h1 class="no-margin">
                 <?php echo $username ?>
             </h1>
-            <h3 class="center no-margin" style="color: #888888">
+            <h3 class="no-margin" style="color: #888888">
                 <?php echo $character->name ?>
             </h3>
         </div>
@@ -263,13 +263,14 @@ $tab = $_GET['tab'];
 
                     $skippedFirst = false;
                     foreach ($talentHaves as $name) {
+                        $name = addslashes($name);
                         if (!$skippedFirst) {
                             $style = "style='margin-top: 0'";
                         }
                         else {
                             $style = "";
                         }
-                        $desc = $talentDescriptions[$name];
+                        $desc = addslashes($talentDescriptions[$name]);
                         echo "<div class='talent bordered' $style onclick=\"showDescription('$name', '$desc')\">";
                         echo "<h3>$name</h3>";
                         echo "<hr id='".$name."_hr' style='display: none'>";
@@ -279,13 +280,14 @@ $tab = $_GET['tab'];
                     unset($name);
 
                     foreach ($talentHaveNots as $name) {
+                        $name = addslashes($name);
                         if (!$skippedFirst) {
                             $style = "style='margin-top: 0'";
                         }
                         else {
                             $style = "";
                         }
-                        $desc = $talentDescriptions[$name];
+                        $desc = addslashes($talentDescriptions[$name]);
                         echo "<div class='talent-off bordered' $style onclick=\"showDescription('$name', '$desc')\">";
                         echo "<h3 id='$name'>$name</h3>";
                         echo "<hr id='".$name."_hr' style='display: none'>";

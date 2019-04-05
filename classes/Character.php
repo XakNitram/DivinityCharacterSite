@@ -69,7 +69,8 @@ $talentArray = array(
 );
 
 $talentDescriptions = array(
-    "All Skilled Up" => "This."
+    "All Skilled Up" => "All Skilled Up immediately gives you 1 extra Combat Ability point and 1 extra Civil Ability point.",
+    "Ambidextrous" => "Reduces the cost of using grenades and scrolls by 1AP if your offhand is free.",
 );
 
 

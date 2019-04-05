@@ -18,8 +18,6 @@
 
         .col-container {
             width: 100%;
-            height: 100%;
-            min-height: 100%;
             display: flex;
             flex-direction: row;
         }
@@ -27,19 +25,19 @@
         .col {
             display: flex;
             flex-direction: column;
-            height: 100%;
         }
 
         .talent-box {
             width: 100%;
             height: 540.5px;
+            /*overflow-y: scroll;*/
             overflow: auto;
-            border: 1px solid #333333;
+            /*border: 1px solid #333333;*/
         }
 
         .talent {
-            margin: 8px 8px 8px 8px;
-            padding: 10px;
+            margin: 8px 8px 12px 8px;
+            padding: 8px;
             border: 1px solid #ffa500;
             box-shadow:  -1px 1px #ffa500,
             -2px 2px #ffa500,
@@ -128,7 +126,17 @@ else {
 }
 
 $character = new Character(true);
-$character->talents = 0x701;
+$talents = 0x0;
+$talentCount = 0;
+for ($i = 1; $i < 10; $i++) {
+    $val = mt_rand(0, 10-$i);
+    if ($val != 0) {
+        $talentCount++;
+        $talents += intval(pow(16, $val));
+    }
+}
+echo '<p>0x'.sprintf('%x', $talents).'</p>';
+$character->talents = $talents;
 $_SESSION['character'] = serialize($character);
 $character->name = "Sebille";
 $tab = $_GET['tab'];
@@ -248,23 +256,46 @@ $tab = $_GET['tab'];
                     }
 
                     // unset loop variables
-                    // apparently php does not purge variables after the loop ends.
+                    // apparently php does not purge
+                    // variables after the loop ends.
                     unset($name);
                     unset($code);
 
+                    $skippedFirst = false;
                     foreach ($talentHaves as $name) {
-                        echo "<div class='talent bordered'>";
+                        if (!$skippedFirst) {
+                            $style = "style='margin-top: 0'";
+                        }
+                        else {
+                            $style = "";
+                        }
+                        $desc = $talentDescriptions[$name];
+                        echo "<div class='talent bordered' $style onclick=\"showDescription('$name', '$desc')\">";
                         echo "<h3>$name</h3>";
+                        echo "<hr id='".$name."_hr' style='display: none'>";
+                        echo "<span id='".$name."_desc'></span>";
                         echo "</div>";
                     }
                     unset($name);
 
                     foreach ($talentHaveNots as $name) {
-                        echo "<div class='talent-off bordered'>";
-                        echo "<h3>$name</h3>";
+                        if (!$skippedFirst) {
+                            $style = "style='margin-top: 0'";
+                        }
+                        else {
+                            $style = "";
+                        }
+                        $desc = $talentDescriptions[$name];
+                        echo "<div class='talent-off bordered' $style onclick=\"showDescription('$name', '$desc')\">";
+                        echo "<h3 id='$name'>$name</h3>";
+                        echo "<hr id='".$name."_hr' style='display: none'>";
+                        echo "<span id='".$name."_desc'></span>";
                         echo "</div>";
                     }
                     unset($name);
+                    unset($desc);
+                    unset($talentHaves);
+                    unset($talentHaveNots);
 
                     ?>
                 </div>
@@ -273,4 +304,31 @@ $tab = $_GET['tab'];
     </div>
 </div>
 </body>
+<script>
+    let showingDesc = false;
+    let backID;
+
+    function showDescription(id, description) {
+        // close old description
+        if (showingDesc) {
+            if (id !== backID) {
+                document.getElementById(backID + "_desc").innerHTML = "";
+                document.getElementById(backID + "_hr").style.display = 'none';
+                showingDesc = false;
+            }
+            else {
+                document.getElementById(id + "_desc").innerHTML = "";
+                document.getElementById(id + "_hr").style.display = 'none';
+                showingDesc = false;
+                return;
+            }
+        }
+
+        // show new description
+        document.getElementById(id + "_desc").innerHTML = description;
+        document.getElementById(id + "_hr").style.display = 'block';
+        backID = id;
+        showingDesc = true;
+    }
+</script>
 </html>

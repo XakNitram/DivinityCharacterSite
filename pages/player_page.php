@@ -135,7 +135,6 @@ for ($i = 1; $i < 10; $i++) {
         $talents += intval(pow(16, $val));
     }
 }
-echo '<p>0x'.sprintf('%x', $talents).'</p>';
 $character->talents = $talents;
 $_SESSION['character'] = serialize($character);
 $character->name = "Sebille";
@@ -246,9 +245,10 @@ $tab = $_GET['tab'];
                     <?php
                     $talentHaves = array();
                     $talentHaveNots = array();
-                    foreach ($talentArray as $name => $code) {
+                    foreach ($talentCodes as $name => $code) {
                         if ($character->hasTalent($code)) {
                             array_push($talentHaves, $name);
+
                         }
                         else {
                             array_push($talentHaveNots, $name);
@@ -271,7 +271,7 @@ $tab = $_GET['tab'];
                             $style = "";
                         }
                         $desc = addslashes($talentDescriptions[$name]);
-                        echo "<div class='talent bordered' $style onclick=\"showDescription('$name', '$desc')\">";
+                        echo "<div class='talent bordered' $style onclick=\"showTalentDescription('$name', '$desc')\">";
                         echo "<h3>$name</h3>";
                         echo "<hr id='".$name."_hr' style='display: none'>";
                         echo "<span id='".$name."_desc'></span>";
@@ -288,7 +288,7 @@ $tab = $_GET['tab'];
                             $style = "";
                         }
                         $desc = addslashes($talentDescriptions[$name]);
-                        echo "<div class='talent-off bordered' $style onclick=\"showDescription('$name', '$desc')\">";
+                        echo "<div class='talent-off bordered' $style onclick=\"showTalentDescription('$name', '$desc')\">";
                         echo "<h3 id='$name'>$name</h3>";
                         echo "<hr id='".$name."_hr' style='display: none'>";
                         echo "<span id='".$name."_desc'></span>";
@@ -310,7 +310,7 @@ $tab = $_GET['tab'];
     let showingDesc = false;
     let backID;
 
-    function showDescription(id, description) {
+    function showTalentDescription(id, description) {
         // close old description
         if (showingDesc) {
             if (id !== backID) {

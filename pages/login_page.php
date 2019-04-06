@@ -13,7 +13,7 @@ session_start();
 if (isset($_SESSION['username']) && false) {
     $type = $_SESSION['type'];
     if ($type == 'admin') {
-        header('Location: admin_page.php');
+        header('Location: game_page.php');
         exit();
     }
     else {
@@ -58,7 +58,7 @@ if (isset($_SESSION['username']) && false) {
                 $_SESSION['type']     = $type;
 
                 if ($type == 'admin') {
-                    header('Location: admin_page.php');
+                    header('Location: game_page.php');
                     exit();
                 }
                 else {

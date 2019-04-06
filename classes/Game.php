@@ -1,23 +1,32 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
+require_once 'login.php';
 
+global $connection;
+$GLOBALS['connection'] = new mysqli($hn, $un, $pw, $db);
 
 
 class Game {
+
     private $ID;
     private $admin;
     private $players;
+    private $connection;
 
     function __construct(
         $admin, $players,
         $isNew=false
     ) {
+
         $this->admin = $admin;
         $this->players = $players;
-
+        $this->connection = $GLOBALS['connection'];
         if ($isNew) {
             echo "GAME CREATED";
+            //must create player profiles
         }
     }
 
@@ -25,26 +34,24 @@ class Game {
         // will only be done on
         // confirmation page.
         // SQL query
-        error_reporting(E_ALL);
-        ini_set('display_errors', 1);
 
-        require_once 'login.php';
-        $connection = new mysqli($hn, $un, $pw, $db);
 
-        if ($connection->connect_error) die($connection->connect_error);
 
-        $query = "DELETE * FROM account_table WHERE gameID = '$ID' ";
 
-        $result = $connection->query($query);
-        if (!$result) die($connection->error);
-        $query = "DELETE * FROM game_table WHERE gameID = '$ID' ";
+        if ($this->connection->connect_error) die($this->connection->connect_error);
 
-        $result = $connection->query($query);
-        if (!$result) die($connection->error);
-        $query = "DELETE * FROM character_table WHERE gameID = '$ID' ";
+        $query = "DELETE * FROM account_table WHERE gameID = '$this->ID' ";
 
-        $result = $connection->query($query);
-        if (!$result) die($connection->error);
+        $result = $this->connection->query($query);
+        if (!$result) die($this->connection->error);
+        $query = "DELETE * FROM game_table WHERE gameID = '$this->ID' ";
+
+        $result = $this->connection->query($query);
+        if (!$result) die($this->connection->error);
+        $query = "DELETE * FROM character_table WHERE gameID = '$this->ID' ";
+
+        $result = $this->connection->query($query);
+        if (!$result) die($this->connection->error);
     }
 
     function getID() {

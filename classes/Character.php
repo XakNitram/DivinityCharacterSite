@@ -1,5 +1,10 @@
 <?php
-
+require_once 'login.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+global $connection;
+$connection = new mysqli($hn, $un, $pw, $db);
+if ($connection->connect_error) die($connection->connect_error);
 /*
  * perhaps we can store the attributes and abilities as arrays? Dictionaries maybe?
 // ****** Attributes ******
@@ -184,6 +189,8 @@ class Character {
     public $name;
     public $background;
 
+    public $connection;
+
 
     function __construct($isNew=false, $infoString="DEFAULT INFO STRING") {
         // take character info from a string and use it
@@ -193,9 +200,9 @@ class Character {
 
         if($isNew == true){
             //if the character is new initialize all values to default
-            $attributes = array("strength" => 10, "finesse" => 10, "intelligence" => 10, "constitution" => 10, "memory" => 10, "wits" => 10);
+            $this->attributes = array("strength" => 10, "finesse" => 10, "intelligence" => 10, "constitution" => 10, "memory" => 10, "wits" => 10);
 
-            $abilities = array(
+            $this->abilities = array(
                 "Dual Wielding" => 0, "Ranged" => 0, "Single-Handed" => 0,
                 "Two-Handed" => 0, "Leadership" => 0, "Perseverance" => 0,
                 "Retribution" => 0, "Aerotheurge" => 0, "Geomancer" => 0,
@@ -215,41 +222,35 @@ class Character {
             $CharInfoArray = preg_split(";", $infoString);
 
             $AttributeSubStr = $CharInfoArray[0];
-            $attributes = preg_split(",", $AttributeSubStr);
+            $this->attributes = preg_split(",", $AttributeSubStr);
 
             $AbilitiesSubStr = $CharInfoArray[1];
-            $abilities = preg_split(",", $AbilitiesSubStr);
+            $this->abilities = preg_split(",", $AbilitiesSubStr);
 
-            $talents = $CharInfoArray[2];
+            $this->talents = $CharInfoArray[2];
 
             $TagsSubStr = $CharInfoArray[3];
-            $tags = preg_split(',', $TagsSubStr);
+            $this->tags = preg_split(',', $TagsSubStr);
 
-            $level = $CharInfoArray[4];
-            $name = $CharInfoArray[5];
-            $backgroundStr = $CharInfoArray[6];
+            $this->level = $CharInfoArray[4];
+            $this->name = $CharInfoArray[5];
+            $this->background = $CharInfoArray[6];
         }
+
+        $this->connection = $GLOBALS['connection'];
 
 
     }
-    function uploadCharString(){
-        // query has to use username or password, character information is not necessarily always unique
+    function uploadCharString($charID){
+
         $infoStr = getInfo();
-        $charID = ''; //need some way of getting the username of the given character, only way to correctly alter db tables/info
-        error_reporting(E_ALL);
-        ini_set('display_errors', 1);
-
-        require_once 'login.php';
-        $connection = new mysqli($hn, $un, $pw, $db);
-
-        if ($connection->connect_error) die($connection->connect_error);
 
         $query = "UPDATE character_table
                   SET characterInfoString = '$infoStr'
                   WHERE charID = '$charID';";
 
-        $result = $connection->query($query);
-        if (!$result) die($connection->error);
+        $result = $this->connection->query($query);
+        if (!$result) die($this->connection->error);
 
     }
 
@@ -258,16 +259,38 @@ class Character {
         $attrInfoStr = "";
         $abilInfoStr = "";
         $tagInfoStr = "";
-        foreach($attributes as $value){
-            $attrInfoStr = $attrInfoStr . "," . $value;
+        $isfirst = true;
+
+        foreach($this->attributes as $value){
+            if($isfirst == true){
+                $attrInfoStr = $value;
+                $isfirst = false;
+            }
+            else {
+                $attrInfoStr = $attrInfoStr . "," . $value;
+            }
         }
-        foreach($abilities as $value){
-            $abilInfoStr = $abilInfoStr . "," . $value;
+        $isfirst = true;
+        foreach($this->abilities as $value){
+            if($isfirst == true){
+                $abilInfoStr = $value;
+                $isfirst = false;
+            }
+            else {
+                $abilInfoStr = $abilInfoStr . "," . $value;
+            }
         }
-        foreach($tags as $value){
-            $tagInfoStr = $tagInfoStr . "," . $value;
+        $isfirst = true;
+        foreach($this->tags as $value){
+            if($isfirst == true){
+                $tagInfoStr = $value;
+                $isfirst = false;
+            }
+            else {
+                $tagInfoStr = $tagInfoStr . "," . $value;
+            }
         }
-        $fullInfoStr = $attrInfoStr . ";" . $abilInfoStr . ";" . $talents . ";" . $tagInfoStr . ";" . $level . ";" . $name . ";" . $background;
+        $fullInfoStr = $attrInfoStr . ";" . $abilInfoStr . ";" . $this->talents . ";" . $tagInfoStr . ";" . $this->level . ";" . $this->name . ";" . $this->background;
         return $fullInfoStr;
 
     }

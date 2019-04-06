@@ -162,19 +162,9 @@ $tab = $_GET['tab'];
                 <hr>
                 <?php
                 $combatAbilities = array(
-                    "Weapons"=>[
-                        'Dual Wielding', 'Ranged', 'Single-Handed',
-                        'Two-Handed'
-                    ],
-                    "Defence"=>[
-                        'Leadership', 'Perseverance', 'Retribution'
-                    ],
-                    "Skills"=>[
-                        'Aerotheurge', 'Geomancer', 'Huntsman',
-                        'Hydrosophist', 'Necromancer', 'Polymorph',
-                        'Pyrokinetic', 'Scoundrel', 'Summoning',
-                        'Warfare'
-                    ]
+                    "Weapons"=>$weaponCombatAbilityNames,
+                    "Defence"=>$defenceCombatAbilityNames,
+                    "Skills"=>$skillCombatAbilityNames
                 );
                 foreach ($combatAbilities as $key => $value) {
                     echo "<h4>$key</h4>";
@@ -182,12 +172,17 @@ $tab = $_GET['tab'];
                     foreach ($value as $skill) {
                         //  $value = $character->getAbility(strtolower($name));
                         $value = 0;
-                        echo '<div class="col-container w-100">';
-                        echo "<p class='col w-75'>$skill</p>";
-                        echo "<div class='col w-25'>
-                                <span class='number'>$value</span>
-                              </div>";
-                        echo '</div>';
+                        echo '<div class="col-container">';
+
+                        $desc = addslashes($abilityDescriptions[$skill]);
+                        echo    "<div class=\"col w-75\" id=\"$skill\" onclick=\"showAbilityDescription('$skill', '$desc')\">";
+                        echo        "<p>$skill</p>";
+                        echo    "</div>";
+
+                        echo    "<div class=\"col w-25\">";
+                        echo        "<span class=\"number\">$value</span>";
+                        echo    "</div>";
+                        echo "</div>";
                     }
                     echo '</div>';
                 }
@@ -208,11 +203,16 @@ $tab = $_GET['tab'];
                         //  $value = $character->getAbility(strtolower($name));
                         $value = 0;
                         echo '<div class="col-container">';
-                        echo "<p class='col w-75'>$skill</p>";
-                        echo "<div class='col w-25'>
-                                <span class='number'>$value</span>
-                              </div>";
-                        echo '</div>';
+
+                        $desc = addslashes($abilityDescriptions[$skill]);
+                        echo    "<div class=\"col w-75\" id=\"$skill\" onclick=\"showAbilityDescription('$skill', '$desc')\">";
+                        echo        "<p>$skill</p>";
+                        echo    "</div>";
+
+                        echo    "<div class=\"col w-25\">";
+                        echo        "<span class=\"number\">$value</span>";
+                        echo    "</div>";
+                        echo "</div>";
                     }
                     echo '</div>';
                 }
@@ -229,12 +229,17 @@ $tab = $_GET['tab'];
                 foreach ($skills as $name) {
                     //  $value = $character->getAbility(strtolower($name));
                     $value = 0;
-                    echo '<div class="col-container w-100">';
-                    echo "<p class='col w-75'>$name</p>";
-                    echo "<div class='col w-25'>
-                            <span class='number'>$value</span>
-                          </div>";
-                    echo '</div>';
+                    echo '<div class="col-container">';
+
+                    $desc = addslashes($attributeDescriptions[$name]);
+                    echo    "<div class=\"col w-75\" id=\"$name\" onclick=\"showAbilityDescription('$name', '$desc')\">";
+                    echo        "<p>$name</p>";
+                    echo    "</div>";
+
+                    echo    "<div class=\"col w-25\">";
+                    echo        "<span class=\"number\">$value</span>";
+                    echo    "</div>";
+                    echo "</div>";
                 }
                 unset($name);
                 ?>
@@ -271,10 +276,8 @@ $tab = $_GET['tab'];
                             $style = "";
                         }
                         $desc = addslashes($talentDescriptions[$name]);
-                        echo "<div class='talent bordered' $style onclick=\"showTalentDescription('$name', '$desc')\">";
-                        echo "<h3>$name</h3>";
-                        echo "<hr id='".$name."_hr' style='display: none'>";
-                        echo "<span id='".$name."_desc'></span>";
+                        echo "<div id='$name' class='talent bordered' $style onclick=\"showTalentDescription('$name', '$desc')\">";
+                        echo    "<h3>$name</h3>";
                         echo "</div>";
                     }
                     unset($name);
@@ -288,10 +291,8 @@ $tab = $_GET['tab'];
                             $style = "";
                         }
                         $desc = addslashes($talentDescriptions[$name]);
-                        echo "<div class='talent-off bordered' $style onclick=\"showTalentDescription('$name', '$desc')\">";
-                        echo "<h3 id='$name'>$name</h3>";
-                        echo "<hr id='".$name."_hr' style='display: none'>";
-                        echo "<span id='".$name."_desc'></span>";
+                        echo "<div id='$name' class='talent-off bordered' $style onclick=\"showTalentDescription('$name', '$desc')\">";
+                        echo    "<h3>$name</h3>";
                         echo "</div>";
                     }
                     unset($name);
@@ -307,30 +308,63 @@ $tab = $_GET['tab'];
 </div>
 </body>
 <script>
-    let showingDesc = false;
-    let backID;
+    let showingTalentDesc = false;
+    let backTalentID;
+
+    let htmlTStart  = "<h3>";
+    let htmlTMiddle = "</h3><hr><span>";
+    let htmlTEnd    = "</span>";
 
     function showTalentDescription(id, description) {
         // close old description
-        if (showingDesc) {
-            if (id !== backID) {
-                document.getElementById(backID + "_desc").innerHTML = "";
-                document.getElementById(backID + "_hr").style.display = 'none';
-                showingDesc = false;
+        if (showingTalentDesc) {
+            if (id !== backTalentID) {
+                document.getElementById(backTalentID).innerHTML = "<h3>" + backTalentID + "</h3>";
+                showingTalentDesc = false;
             }
             else {
-                document.getElementById(id + "_desc").innerHTML = "";
-                document.getElementById(id + "_hr").style.display = 'none';
-                showingDesc = false;
+                document.getElementById(id).innerHTML = "<h3>" + id + "</h3>";
+                showingTalentDesc = false;
                 return;
             }
         }
 
         // show new description
-        document.getElementById(id + "_desc").innerHTML = description;
-        document.getElementById(id + "_hr").style.display = 'block';
-        backID = id;
-        showingDesc = true;
+        document.getElementById(id).innerHTML = htmlTStart + id + htmlTMiddle + description + htmlTEnd;
+        backTalentID = id;
+        showingTalentDesc = true;
+    }
+
+    let showingAbilityDesc = false;
+    let backAbilityID;
+
+    // 9769 - Cross
+    let htmlAStart  = "<div class='wide-2 no-margin'><p>&#9769 ";
+    let htmlAMiddle = "</p><hr><div class='wide-2'><span class='no-margin'>";
+    let htmlAEnd    = "</span></div></div>";
+
+    function showAbilityDescription(id, description) {
+        // close old description
+        if (showingAbilityDesc) {
+            if (id !== backAbilityID) {
+                document.getElementById(backAbilityID).innerHTML = "<p>" + backAbilityID + "</p>";
+                // document.getElementById(backAbilityID).classList.remove("bordered");
+                showingAbilityDesc = false;
+            }
+            else {
+                document.getElementById(id).innerHTML = "<p>" + id + "</p>";
+                // document.getElementById(id).classList.remove("bordered");
+                showingAbilityDesc = false;
+                return;
+            }
+        }
+
+        //show new ability description
+        document.getElementById(id).innerHTML = htmlAStart + id + htmlAMiddle + description + htmlAEnd;
+
+        // document.getElementById(id).classList.add("bordered");
+        backAbilityID = id;
+        showingAbilityDesc = true;
     }
 </script>
 </html>

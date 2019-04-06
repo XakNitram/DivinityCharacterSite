@@ -117,12 +117,24 @@
 <?php
 require_once("../classes/Character.php");
 
+// ****** Variable Initialization ******
+$username = "";
+$type = "";
+
 session_start();
-if (!isset($_SESSION['username'])) {
-    $username = "Simmons";
+if (isset($_SESSION['type'])) {
+    $type = $_SESSION['type'];
+    if ($type == 'admin') {
+        $username = $_GET['player'];
+    }
 }
-else {
-    $username = $_SESSION['username'];
+
+if (!$username) {
+    if (!isset($_SESSION['username'])) {
+        $username = "UNKNOWN USER";
+    } else {
+        $username = $_SESSION['username'];
+    }
 }
 
 $character = new Character(true);
@@ -312,8 +324,8 @@ $tab = $_GET['tab'];
     let backTalentID;
 
     let htmlTStart  = "<h3>";
-    let htmlTMiddle = "</h3><hr><span>";
-    let htmlTEnd    = "</span>";
+    let htmlTMiddle = "</h3><hr><p>";
+    let htmlTEnd    = "</p>";
 
     function showTalentDescription(id, description) {
         // close old description
@@ -340,8 +352,8 @@ $tab = $_GET['tab'];
 
     // 9769 - Cross
     let htmlAStart  = "<div class='wide-2 no-margin'><p>&#9769 ";
-    let htmlAMiddle = "</p><hr><div class='wide-2'><span class='no-margin'>";
-    let htmlAEnd    = "</span></div></div>";
+    let htmlAMiddle = "</p><hr><div class='wide-2'><p class='no-margin'>";
+    let htmlAEnd    = "</p></div></div>";
 
     function showAbilityDescription(id, description) {
         // close old description

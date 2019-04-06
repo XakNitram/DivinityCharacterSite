@@ -120,6 +120,51 @@ $talentDescriptions = array(
     "Undead" => "Lets you heal from poison, but regular healing will damage you instead."
 );
 
+$weaponCombatAbilityNames  = array("Dual Wielding", "Ranged", "Single-Handed", "Two-Handed");
+$defenceCombatAbilityNames = array("Leadership", "Perseverance", "Retribution");
+$skillCombatAbilityNames   = array(
+    'Aerotheurge', 'Geomancer', 'Huntsman',
+    'Hydrosophist', 'Necromancer', 'Polymorph',
+    'Pyrokinetic', 'Scoundrel', 'Summoning',
+    'Warfare'
+);
+
+$abilityDescriptions = array(
+    "Dual Wielding" => "Dual Wielding increases damage and Dodging when dual-wielding two one-handed weapons.",
+    "Ranged"        => "Ranged increases damage and Critical Chance when using bows and crossbows.",
+    "Single-Handed" => "Single-handed increases damage and Accuracy when using a one-handed weapon (dagger, sword, axe, mace or wand) with a shield or empty off-hand.",
+    "Two-Handed"    => "Two-Handed increases damage and critical multiplier when using two-handed melee weapon (Sword, axe, mace, spear or staff).",
+    "Leadership"    => "Leadership grants dodging and resistance bonuses to all allies in a 5m radius.",
+    "Perseverance"  => "Perseverance restores Magic Armor after you recover from Frozen or Stunned, and restores Physical Armor after knocked down or Petrified.",
+    "Retribution"   => "Retribution reflects received damage to your attacker.",
+    "Aerotheurge"   => "Aerotheurge increases all Air damage you deal.",
+    "Geomancer"     => "Geomancer increases all Poison and Earth damage you deal, and any Physical Armour restoration you cause.",
+    "Huntsman"      => "Huntsman increases the damage bonus when attacking from high ground.",
+    "Hydrosophist"  => "Hydrosophist increases all Water damage you deal, and any Vitality healing or Magic Armour restoration that you cause.",
+    "Necromancer"   => "heals you every time you deal damage to Vitality. Damage from reflection effects yields half heal. Also increase the damage dealt by Necromancy skills.",
+    "Polymorph"     => "Polymorph provides one free attribute point per point invested.",
+    "Pyrokinetic"   => "Pyrokinetic increases all Fire damage you deal.",
+    "Scoundrel"     => "Scoundrel increases movement speed and boosts your Critical Modifier.",
+    "Summoning"     => "Summoning increases Vitality, Damage, Physical Armour and Magical Armour of your summons and totems.",
+    "Warfare"       => "Warfare increases all Physical damage you deal.",
+    "Bartering"     => "Bartering improves your haggling skills with traders.",
+    "Lucky Charm"   => "Lucky Charm increases your likelihood of finding extra treasure whenever loot is stashed.",
+    "Persuasion"    => "Persuasion helps you convince characters to do your bidding in dialogues, and increases how much characters like you.",
+    "Loremaster"    => "Loremaster identifies enemies and allows you to identify items. Increasing Loremaster allows you to identify more, faster.",
+    "Telekinesis"   => "Telekinesis allows you to move items telepathically regardless of weight.",
+    "Sneaking"      => "Sneaking determines how well you can sneak without getting caught.",
+    "Thievery"      => "Thievery improves your lockpicking and pickpocketing skills."
+);
+
+$attributeDescriptions = array(
+    "Strength"     => "Increases the damage dealt with strength-based weapons and skills, as well as the carry weight and the ability to move heavier objects. This is also a prerequisite for Heavy armors that focus more on physical armor than magical armor.",
+    "Finesse"      => "Increases damage dealt with finesse-based weapons and skills, and certain amounts of it are necessary for higher grade Leather armors that have balanced defenses.",
+    "Intelligence" => "Increases damage dealt with intelligence-based weapons and skills. Also a prerequisite for Magical armors.",
+    "Constitution" => "Determines the amount of Vitality  the character has. Also a prerequisite for higher-grade Shields.",
+    "Memory"       => "Determines how many Skills can be memorized at any one time.  Most skills only require a single memory slot. More powerful skills require more memory slots and source points.",
+    "Wits"         => "Affects your Critical Chance, Initiative, and ability to detect traps and find hidden treasures."
+);
+
 
 class Character {
     // we don't need setters because we will only update

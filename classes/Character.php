@@ -224,10 +224,11 @@ class Character {
                 "Lucky Charm" => 0, "Persuasion" => 0, "Loremaster" => 0,
                 "Telekinesis" => 0, "Sneaking" => 0, "Thievery" => 0
             );
+
             $this->talents = 0;
             $this->tags = array();
             $this->name = "";
-            $this->level = "";
+            $this->level = 0;
             $this->background = "This is a story all about how your life got twisted upside down.";
         }
         //if the character being referenced is not new, get the character info string and split it up

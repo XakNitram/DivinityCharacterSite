@@ -11,10 +11,10 @@ $GLOBALS['connection'] = new mysqli($hn, $un, $pw, $db);
 
 class Game {
 
-    private $ID;
-    private $admin;
-    private $players;
-    private $connection;
+    public $ID;
+    public $admin;
+    public $players;
+    public $connection;
 
     function __construct(
         $admin, $players,

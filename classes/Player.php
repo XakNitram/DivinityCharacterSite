@@ -2,7 +2,7 @@
 require_once "Character.php";
 
 class Player extends Account {
-    private $character;
+    public $character;
     public $name;
 
     function __construct($name, $isNew=false) {

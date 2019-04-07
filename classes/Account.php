@@ -1,6 +1,6 @@
 <?php
 class Account {
-    private $name;
+    public $name;
     public $type;
 
     function __construct($name, $type, $isNew=false) {

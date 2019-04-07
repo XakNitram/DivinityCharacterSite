@@ -192,10 +192,10 @@ class Character {
 
     // info
 
-    private $attributes;
-    private $abilities;
+    public $attributes;
+    public $abilities;
     public $talents;
-    private $tags;
+    public $tags;
     public $level;
     public $name;
     public $background;
@@ -227,10 +227,11 @@ class Character {
 
             $this->talents = 0;
             $this->tags = array();
-            $this->name = "";
+            $this->name = "Default Nameson";
             $this->level = 0;
             $this->background = "This is a story all about how your life got twisted upside down.";
         }
+
         //if the character being referenced is not new, get the character info string and split it up
         else {
 

@@ -1,12 +1,9 @@
 <?php
 
-
-
 require_once '../Database_Access/login.php';
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
 
 $GLOBALS['connection'] = new mysqli($hn, $un, $pw, $db);
 if ($GLOBALS['connection']->connect_error) die($GLOBALS['connection']->connect_error);
@@ -61,6 +58,14 @@ Loremaster
 Telekinesis
 
 // Nasty Deeds
+Sneaking
+Thievery
+
+Bartering
+Lucky Charm
+Persuasion
+Loremaster
+Telekinesis
 Sneaking
 Thievery
 */
@@ -215,7 +220,9 @@ class Character {
                 "Retribution" => 0, "Aerotheurge" => 0, "Geomancer" => 0,
                 "Huntsman" => 0, "Hydrosophist" => 0, "Necromancer" => 0,
                 "Polymorph" => 0, "Pyrokinetic" => 0, "Scoundrel" => 0,
-                "Summoning" => 0, "Warfare" => 0
+                "Summoning" => 0, "Warfare" => 0, "Bartering" => 0,
+                "Lucky Charm" => 0, "Persuasion" => 0, "Loremaster" => 0,
+                "Telekinesis" => 0, "Sneaking" => 0, "Thievery" => 0
             );
             $this->talents = 0;
             $this->tags = array();

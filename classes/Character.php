@@ -1,5 +1,5 @@
 <?php
-require_once 'login.php';
+require_once '../Database_Access/login.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 global $connection;

@@ -1,10 +1,16 @@
 <?php
+
+
+
 require_once '../Database_Access/login.php';
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-global $connection;
-$connection = new mysqli($hn, $un, $pw, $db);
-if ($connection->connect_error) die($connection->connect_error);
+
+
+$GLOBALS['connection'] = new mysqli($hn, $un, $pw, $db);
+if ($GLOBALS['connection']->connect_error) die($GLOBALS['connection']->connect_error);
+
 /*
  * perhaps we can store the attributes and abilities as arrays? Dictionaries maybe?
 // ****** Attributes ******
@@ -192,6 +198,7 @@ class Character {
     public $connection;
 
 
+
     function __construct($isNew=false, $infoString="DEFAULT INFO STRING") {
         // take character info from a string and use it
         // to assign this character's variables.
@@ -200,7 +207,7 @@ class Character {
 
         if($isNew == true){
             //if the character is new initialize all values to default
-            $this->attributes = array("strength" => 10, "finesse" => 10, "intelligence" => 10, "constitution" => 10, "memory" => 10, "wits" => 10);
+            $this->attributes = array("Strength" => 10, "Finesse" => 10, "Intelligence" => 10, "Constitution" => 10, "Memory" => 10, "Wits" => 10);
 
             $this->abilities = array(
                 "Dual Wielding" => 0, "Ranged" => 0, "Single-Handed" => 0,
@@ -214,7 +221,7 @@ class Character {
             $this->tags = array();
             $this->name = "";
             $this->level = "";
-            $this->background = "";
+            $this->background = "This is a story all about how your life got twisted upside down.";
         }
         //if the character being referenced is not new, get the character info string and split it up
         else {
@@ -241,6 +248,7 @@ class Character {
 
 
     }
+
     function uploadCharString($charID){
 
         $infoStr = getInfo();

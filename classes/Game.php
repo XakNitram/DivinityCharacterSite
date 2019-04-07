@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require_once 'login.php';
+require_once '../Database_Access/login.php';
 
 global $connection;
 $GLOBALS['connection'] = new mysqli($hn, $un, $pw, $db);
@@ -20,7 +20,7 @@ class Game {
         $admin, $players,
         $isNew=false
     ) {
-
+        $this->ID = 0;
         $this->admin = $admin;
         $this->players = $players;
         $this->connection = $GLOBALS['connection'];
@@ -35,9 +35,6 @@ class Game {
         // confirmation page.
         // SQL query
 
-
-
-
         if ($this->connection->connect_error) die($this->connection->connect_error);
 
         $query = "DELETE * FROM account_table WHERE gameID = '$this->ID' ";
@@ -48,10 +45,11 @@ class Game {
 
         $result = $this->connection->query($query);
         if (!$result) die($this->connection->error);
-        $query = "DELETE * FROM character_table WHERE gameID = '$this->ID' ";
+
+        /*$query = "DELETE * FROM character_table WHERE gameID = '$this->ID' ";
 
         $result = $this->connection->query($query);
-        if (!$result) die($this->connection->error);
+        if (!$result) die($this->connection->error);*/
     }
 
     function getID() {

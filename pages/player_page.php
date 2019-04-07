@@ -137,20 +137,24 @@ if (!$username) {
     }
 }
 
-$character = new Character(true);
-$talents = 0x0;
-$talentCount = 0;
-for ($i = 1; $i < 10; $i++) {
-    $val = mt_rand(0, 10-$i);
-    if ($val != 0) {
-        $talentCount++;
-        $talents += intval(pow(16, $val));
+if (!isset($_SESSION)) {
+    $character = new Character(true);
+    $talents = mt_rand(0, intval(pow(2, 43)));
+    $character->talents = $talents;
+    $character->name = "Sebille";
+
+    foreach ($character->abilities as $key => &$value) {
+        $value = mt_rand(0, 20);
     }
+
+    $_SESSION['character'] = serialize($character);
 }
-$character->talents = $talents;
-$_SESSION['character'] = serialize($character);
-$character->name = "Sebille";
-$tab = $_GET['tab'];
+else {
+    $character = unserialize($_SESSION['character']);
+}
+//$tab = $_GET['tab'];
+
+//foreach ($character->abilities) {}
 ?>
 
 <div class="content">
@@ -159,14 +163,18 @@ $tab = $_GET['tab'];
             <h1 class="no-margin">
                 <?php echo $username ?>
             </h1>
-            <h3 class="no-margin" style="color: #888888">
+            <h2 class="no-margin" style="color: #C0C0C0">
                 <?php echo $character->name ?>
+            </h2>
+            <h3 class="no-margin" style="color: #A0A0A0">
+                <?php echo "Level: " . $character->level ?>
             </h3>
+            <br>
         </div>
         <div class="wide-2">
             <h3>Background</h3>
             <hr>
-            <p>This is a story all about how your life got twisted upside down.</p>
+            <p><?php echo $character->background ?></p>
         </div>
         <div class="col-container">
             <div class="col w-50 wide-2">
@@ -178,12 +186,11 @@ $tab = $_GET['tab'];
                     "Defence"=>$defenceCombatAbilityNames,
                     "Skills"=>$skillCombatAbilityNames
                 );
-                foreach ($combatAbilities as $key => $value) {
+                foreach ($combatAbilities as $key => $section) {
                     echo "<h4>$key</h4>";
                     echo '<div class="section">';
-                    foreach ($value as $skill) {
-                        //  $value = $character->getAbility(strtolower($name));
-                        $value = 0;
+                    foreach ($section as $skill) {
+                        $value = $character->getAbility($skill);
                         echo '<div class="col-container">';
 
                         $desc = addslashes($abilityDescriptions[$skill]);
@@ -208,12 +215,11 @@ $tab = $_GET['tab'];
                     "Craftsmanship"=>['Loremaster', 'Telekinesis'],
                     "Nasty Deeds"=>['Sneaking', 'Thievery']
                 );
-                foreach ($civilAbilities as $key => $value) {
+                foreach ($civilAbilities as $key => $section) {
                     echo "<h4>$key</h4>";
                     echo '<div class="section">';
-                    foreach ($value as $skill) {
-                        //  $value = $character->getAbility(strtolower($name));
-                        $value = 0;
+                    foreach ($section as $skill) {
+                        $value = $character->getAbility($skill);
                         echo '<div class="col-container">';
 
                         $desc = addslashes($abilityDescriptions[$skill]);
@@ -239,8 +245,7 @@ $tab = $_GET['tab'];
                     'Constitution', 'Memory', 'Wits'
                 ];
                 foreach ($skills as $name) {
-                    //  $value = $character->getAbility(strtolower($name));
-                    $value = 0;
+                    $value = $character->getAttribute($name);
                     echo '<div class="col-container">';
 
                     $desc = addslashes($attributeDescriptions[$name]);

@@ -137,7 +137,7 @@ if (!$username) {
     }
 }
 
-if (!isset($_SESSION)) {
+if (!isset($_SESSION['character'])) {
     $character = new Character(true);
     $talents = mt_rand(0, intval(pow(2, 43)));
     $character->talents = $talents;

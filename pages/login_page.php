@@ -49,26 +49,32 @@ if (isset($_SESSION['username']) && false) {
 
             # get information from database here.
 
-            $salt1 = "dcsp15";
-            $salt2 = "51pscd";
-
-            $passCheck = $salt1.$password.$salt2;
-
-            require_once '../Database_Access/login.php';
-
-            error_reporting(E_ALL);
-            ini_set('display_errors', 1);
-
-            $connection = new mysqli($hn, $un, $pw, $db);
-            if ($connection->connect_error) die($connection->connect_error);
-
-            $query = "SELECT * FROM account_table WHERE username = '$username' AND password = '$passCheck';";
-
-            $result = $this->connection->query($query);
-            if (!$result){
-                $passError = "Incorrect Username or Password, please verify and resubmit.";
+            if(!preg_match('[a-zA-Z0-9]+', $password)){
+                $passError = "incorrect format for password, must be letters or numbers with no spaces.";
                 $showError = true;
-            };
+            }
+            else {
+                $salt1 = "dcsp15";
+                $salt2 = "51pscd";
+
+                $passCheck = $salt1 . $password . $salt2;
+
+                require_once '../Database_Access/login.php';
+
+                error_reporting(E_ALL);
+                ini_set('display_errors', 1);
+
+                $connection = new mysqli($hn, $un, $pw, $db);
+                if ($connection->connect_error) die($connection->connect_error);
+
+                $query = "SELECT * FROM account_table WHERE username = '$username' AND password = '$passCheck';";
+
+                $result = $this->connection->query($query);
+                if (!$result) {
+                    $passError = "Incorrect Username or Password, please verify and resubmit.";
+                    $showError = true;
+                };
+            }
 
             if ($username != "") {
                 $errorMsg = "";

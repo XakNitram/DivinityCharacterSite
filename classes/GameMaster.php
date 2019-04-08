@@ -6,5 +6,6 @@ class GameMaster extends Account {
             $name, 'admin',
             $isNew
         );
+
     }
 }

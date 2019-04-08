@@ -50,14 +50,16 @@ if (isset($_SESSION['username']) && false) {
             # get information from database here.
 
             if(!preg_match('[a-zA-Z0-9]+', $password)){
-                $passError = "incorrect format for password, must be letters or numbers with no spaces.";
+                $errorMsg = "incorrect format for password, must be letters or numbers with no spaces.";
                 $showError = true;
             }
+
             else {
+
                 $salt1 = "dcsp15";
                 $salt2 = "51pscd";
 
-                $passCheck = $salt1 . $password . $salt2;
+                $PassCheck = hash('ripemd128', "$salt1$password$salt2");
 
                 require_once '../Database_Access/login.php';
 
@@ -71,7 +73,7 @@ if (isset($_SESSION['username']) && false) {
 
                 $result = $this->connection->query($query);
                 if (!$result) {
-                    $passError = "Incorrect Username or Password, please verify and resubmit.";
+                    $errorMsg = "Incorrect Username or Password, please verify and resubmit.";
                     $showError = true;
                 };
             }

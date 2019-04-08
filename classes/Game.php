@@ -5,28 +5,79 @@ ini_set('display_errors', 1);
 
 require_once '../Database_Access/login.php';
 
-global $connection;
+
 $GLOBALS['connection'] = new mysqli($hn, $un, $pw, $db);
 
 
 class Game {
 
     public $ID;
-    public $admin;
+    public $GMusername;
+    public $GMpassword;
     public $players;
     public $connection;
 
     function __construct(
-        $admin, $players,
+        $GMusername, $GMpassword, $players, $gameID="DEFAULT GAME ID",
         $isNew=false
     ) {
-        $this->ID = 0;
-        $this->admin = $admin;
+        $this->GMusername = $GMusername;
+        $this->GMpassword = $GMpassword;
         $this->players = $players;
         $this->connection = $GLOBALS['connection'];
+
         if ($isNew) {
+            $this->ID = random_int(00000000, 99999999);  //should be randomized the first time
+
+            //upload game information to the database
+            if ($this->connection->connect_error) die($this->connection->connect_error);
+            $query = "INSERT INTO game_table(gameID, numPlayers)
+                      VALUES ('$this->ID', '$this->players')";
+            $result = $this->connection->query($query);
+            if (!$result) die($this->connection->error);
+
             echo "GAME CREATED";
+
+            require_once "../classes/GameMaster.php";
+            //create admin account for GM
+            $query = "INSERT INTO account_table(username, password, type, charID, gameID)
+                      VALUES ('$this->GMusername', '$this->GMpassword', 'admin', 'default', '$this->ID');";
+            $result = $this->connection->query($query);
+            if (!$result) die($this->connection->error);
+
             //must create player profiles
+
+            for($value = 0; $value <= $players - 1; $value++){
+                $distinct = false;
+                $temp = random_bytes(10);
+                $temp2 = random_bytes(10);
+                $salt1 = "dcsp15";
+                $salt2 = "51pscd";
+                $token = hash('ripemd128', "$salt1$temp2$salt2");
+
+                while($distinct == false){
+
+                    $query = "SELECT * FROM account_table WHERE username = '$temp';";
+                    $result = $this->connection->query($query);
+                    if (!$result){
+                        $distinct = true;
+                    }
+                    else{
+                        $temp = random_bytes(10);
+                    }
+                }
+
+                $query = "INSERT INTO account_table(username, password, type, charID, gameID)
+                          VALUES ('$temp', '$token', 'player', 'default', '$this->ID');";
+
+                $result = $this->connection->query($query);
+                if (!$result) die($this->connection->error);
+
+            }
+        }
+        else{
+            $this->ID = $gameID;
+
         }
     }
 

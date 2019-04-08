@@ -15,18 +15,19 @@ $query = "CREATE TABLE game_table (
 
 $result = $connection->query($query);
 if (!$result) die($connection->error);*/
+$password = 'testpassword1';
+$salt1 = "dcsp15";
+$salt2 = "51pscd";
 
-$query = "CREATE TABLE account_table (
-    username VARCHAR(50) NOT NULL, 
-    password VARCHAR(50) NOT NULL,
-    type     VARCHAR(10) NOT NULL,
-    charID   VARCHAR(50) NOT NULL,
-    gameID   VARCHAR(50) NOT NULL
-  )";
+$PassCheck = hash('ripemd128', "$salt1$password$salt2");
+
+$query = "INSERT INTO account_table( username, password, type, charID, gameID )
+          VALUES ('testuser1', '$PassCheck', 'player', 'jbp371', 'group15');
+  ";
 
 $result = $connection->query($query);
 if (!$result) die($connection->error);
-
+/*
 $query = "CREATE TABLE character_table (
     charID   VARCHAR(50) NOT NULL,
     level    INT         NOT NULL,
@@ -35,7 +36,7 @@ $query = "CREATE TABLE character_table (
   )";
 
 $result = $connection->query($query);
-if (!$result) die($connection->error);
+if (!$result) die($connection->error);*/
 
 
 /*$salt1    = "qm&h*";

@@ -37,10 +37,28 @@ class Game {
 
         if ($this->connection->connect_error) die($this->connection->connect_error);
 
+
+        $query = "SELECT charID FROM account_table WHERE gameID = '$this->ID' ";
+
+        $result = $this->connection->query($query);
+        if (!$result) die($this->connection->error);
+
+        else {
+            foreach ($result->fetch_array(MYSQLI_ASSOC) as $value) {
+
+                $query = "DELETE * FROM character_table WHERE charID = '$value';";
+
+                $result = $this->connection->query($query);
+                if (!result) die($this->connection->error);
+
+            }
+        }
+
         $query = "DELETE * FROM account_table WHERE gameID = '$this->ID' ";
 
         $result = $this->connection->query($query);
         if (!$result) die($this->connection->error);
+
         $query = "DELETE * FROM game_table WHERE gameID = '$this->ID' ";
 
         $result = $this->connection->query($query);

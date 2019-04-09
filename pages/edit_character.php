@@ -2,7 +2,7 @@
 <html lang="en-us">
 <head>
     <?php
-    $username = "";
+    $username = $_SESSION['username'];
     session_start();
     require_once "../classes/Character.php";
     if (isset($_SESSION['character'])) {
@@ -153,6 +153,28 @@ if (isset($_POST['save'])) {
     unset($name);
 
     $_SESSION['character'] = serialize($character);
+    require_once '../Database_Access/login.php';
+
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+
+    $connection = new mysqli($hn, $un, $pw, $db);
+    if ($connection->connect_error) die($connection->connect_error);
+
+    $query = "SELECT charID FROM account_table WHERE username = '$username';";
+
+    $result = $connection->query($query);
+    $row = $result->fetch_array(MYSQLI_ASSOC);
+    $charID = $row['charID'];
+    $tempchar = $_SESSION['character'];
+
+    $query = "UPDATE TABLE character_table
+              SET charClass = '$tempchar'
+              WHERE charID = '$charID';";
+
+    $result = $connection->query($query);
+
+    if(!$result) echo "could not update character info, please try again.";
 
     header("Location: ../pages/player_page.php");
     exit();
@@ -202,6 +224,7 @@ elseif (isset($_POST['cancel'])) {
                     "Defence" => $defenceCombatAbilityNames,
                     "Skills"  => $skillCombatAbilityNames
                 );
+
                 foreach ($combatAbilities as $key => $section) {
                     echo "<h4>$key</h4>";
                     echo "<div class='section'>";

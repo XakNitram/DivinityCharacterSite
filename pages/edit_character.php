@@ -212,7 +212,7 @@ elseif (isset($_POST['cancel'])) {
                         $desc = addslashes($abilityDescriptions[$skill]);
                         $div_id = $skill . "_inc";
                         $post_id = strtolower(str_replace(' ', '', $skill));
-                        echo    "<div class='col w-75' id='$div_id' onclick=\"showAbilityDescription('$div_id', '$skill', '$desc')\">";
+                        echo    "<div class='col w-75' id='$div_id' onclick=\"showAbilityDescription('$skill', '$desc')\">";
                         echo        "<p>$skill</p>";
                         echo    "</div>";
 
@@ -247,7 +247,7 @@ elseif (isset($_POST['cancel'])) {
                         $desc = addslashes($abilityDescriptions[$skill]);
                         $div_id = $skill . "_inc";
                         $post_id = strtolower(str_replace(' ', '', $skill));
-                        echo    "<div class='col w-75' id='$div_id' onclick=\"showAbilityDescription('$div_id', '$skill', '$desc')\">";
+                        echo    "<div class='col w-75' id='$div_id' onclick=\"showAbilityDescription('$skill', '$desc')\">";
                         echo        "<p>$skill</p>";
                         echo    "</div>";
 
@@ -337,7 +337,7 @@ elseif (isset($_POST['cancel'])) {
                         echo            "<h3>$name</h3>";
                         echo        "</div>";
                         echo        "<div class='col w-25'>";
-                        echo            "<input id='$button_id' value='Remove' class='inc-button' type='button' onclick=\"setTalent('$div_id', $code)\">";
+                        echo            "<input id='$button_id' value='Remove' class='inc-button' type='button' onclick=\"setTalent('$name', $code)\">";
                         echo        "</div>";
                         echo    "</div>";
                         echo    "<div class='w-100' id='$name' onclick=\"showTalentDescription('$name', '$desc')\">";
@@ -364,7 +364,7 @@ elseif (isset($_POST['cancel'])) {
                         echo            "<h3>$name</h3>";
                         echo        "</div>";
                         echo        "<div class='col w-25'>";
-                        echo            "<input id='$button_id' value='Add' class='inc-button' type='button' onclick=\"setTalent('$div_id', $code)\">";
+                        echo            "<input id='$button_id' value='Add' class='inc-button' type='button' onclick=\"setTalent('$name', $code)\">";
                         echo        "</div>";
                         echo    "</div>";
                         echo    "<div class='w-100' id='$name' onclick=\"showTalentDescription('$name', '$desc')\">";
@@ -419,6 +419,38 @@ elseif (isset($_POST['cancel'])) {
         showingTalentDesc = true;
     }
 
+    let showingAbilityDesc = false;
+    let backAbilityID;
+
+    // 9769 - Cross
+    let htmlAStart  = "<div class='wide-2 no-margin'><p>&#9769 ";
+    let htmlAMiddle = "</p><hr><div class='wide-2'><p class='no-margin'>";
+    let htmlAEnd    = "</p></div></div>";
+
+    function showAbilityDescription(id, description) {
+        // close old description
+        if (showingAbilityDesc) {
+            if (id !== backAbilityID) {
+                document.getElementById(backAbilityID + "_div").innerHTML = "<p>" + backAbilityID + "</p>";
+                // document.getElementById(backAbilityID).classList.remove("bordered");
+                showingAbilityDesc = false;
+            }
+            else {
+                document.getElementById(id + "_div").innerHTML = "<p>" + id + "</p>";
+                // document.getElementById(id).classList.remove("bordered");
+                showingAbilityDesc = false;
+                return;
+            }
+        }
+
+        //show new ability description
+        document.getElementById(id + "_div").innerHTML = htmlAStart + id + htmlAMiddle + description + htmlAEnd;
+
+        // document.getElementById(id).classList.add("bordered");
+        backAbilityID = id;
+        showingAbilityDesc = true;
+    }
+
     let id_array = [];
 
     function add(id, max) {
@@ -456,20 +488,20 @@ elseif (isset($_POST['cancel'])) {
 
     function setTalent(id, code) {
         let talents = document.getElementById('talents');
-        let item = document.getElementById(id);
+        let item = document.getElementById(id + "_div");
 
         if (item.classList.contains('talent-off')) {
             item.classList.remove('talent-off');
             item.classList.add('talent');
             console.log(talents.value);
             talents.value = parseInt(talents.value) + code;
-            document.getElementById(id + "_button").value = "Add";
+            document.getElementById(id + "_button").value = "Remove";
         }
         else if (item.classList.contains('talent')) {
             item.classList.remove('talent');
             item.classList.add('talent-off');
             talents.value = parseInt(talents.value) - code;
-            document.getElementById(id + "_button").value = "Remove"
+            document.getElementById(id + "_button").value = "Add"
         }
     }
 </script>

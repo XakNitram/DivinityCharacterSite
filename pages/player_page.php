@@ -137,25 +137,27 @@ if (!$username) {
     }
 }
 
-if (!isset($_SESSION['character'])) {
-    $character = new Character(true);
-    $talents = mt_rand(0, intval(pow(2, 43)));
-    $character->talents = $talents;
-    $character->name = "Sebille";
-
-    foreach ($character->abilities as $key => &$value) {
-        $value = mt_rand(0, 20);
-    }
-    unset($value);
-
-    $_SESSION['character'] = serialize($character);
-}
-else {
+if (isset($_SESSION['character'])) {
     $character = unserialize($_SESSION['character']);
 }
-//$tab = $_GET['tab'];
+else {
+    if (isset($_GET['new']) and $_GET['new'] == 'true') {
+        $character = new Character(true);
+        $talents = mt_rand(0, intval(pow(2, 43)));
+        $character->talents = $talents;
+        $character->name = "Sebille";
 
-//foreach ($character->abilities) {}
+        foreach ($character->abilities as $key => &$value) {
+            $value = mt_rand(0, 20);
+        }
+        unset($value);
+
+        $_SESSION['character'] = serialize($character);
+    }
+    else {
+        header("Location: ../pages/login_page.php");
+    }
+}
 ?>
 
 <div class="content">

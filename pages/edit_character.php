@@ -2,8 +2,9 @@
 <html lang="en-us">
 <head>
     <?php
-    $username = $_SESSION['username'];
+
     session_start();
+    $username = $_SESSION['username'];
     require_once "../classes/Character.php";
     if (isset($_SESSION['character'])) {
         $character = unserialize($_SESSION['character']);
@@ -85,6 +86,14 @@
             font-size: 13px;
         }
 
+        input.button {
+            width: 100%;
+            background-color: orange;
+            font-size: 13px;
+            line-height: 29px;
+            margin-bottom: 0;
+        }
+
         textarea {
             -webkit-border-radius: 4px;
             -moz-border-radius: 4px;
@@ -153,6 +162,7 @@ if (isset($_POST['save'])) {
     unset($name);
 
     $_SESSION['character'] = serialize($character);
+    $tempchar = serialize($character);
     require_once '../Database_Access/login.php';
 
     error_reporting(E_ALL);
@@ -166,9 +176,8 @@ if (isset($_POST['save'])) {
     $result = $connection->query($query);
     $row = $result->fetch_array(MYSQLI_ASSOC);
     $charID = $row['charID'];
-    $tempchar = $_SESSION['character'];
 
-    $query = "UPDATE TABLE character_table
+    $query = "UPDATE character_table
               SET charClass = '$tempchar'
               WHERE charID = '$charID';";
 
@@ -402,13 +411,14 @@ elseif (isset($_POST['cancel'])) {
                 </div>
             </div>
         </div>
+        <br>
         <div>
             <div class="col-container w-100">
                 <div class="col w-50">
-                    <input type="submit" value="Save" name="save">
+                    <input type="submit" value="Save" name="save" class="button">
                 </div>
                 <div class="col w-50">
-                    <input type="submit" name="cancel" value="Cancel">
+                    <input type="submit" name="cancel" value="Cancel" class="button">
                 </div>
             </div>
         </div>

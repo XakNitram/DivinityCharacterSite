@@ -15,7 +15,7 @@ $query = "CREATE TABLE game_table (
 
 $result = $connection->query($query);
 if (!$result) die($connection->error);*/
-$password = 'testpassword1';
+/*$password = 'testpassword1';
 $salt1 = "dcsp15";
 $salt2 = "51pscd";
 
@@ -26,7 +26,7 @@ $query = "INSERT INTO account_table( username, password, type, charID, gameID )
   ";
 
 $result = $connection->query($query);
-if (!$result) die($connection->error);
+if (!$result) die($connection->error);*/
 /*
 $query = "CREATE TABLE character_table (
     charID   VARCHAR(50) NOT NULL,
@@ -73,4 +73,9 @@ function add_user($connection, $un, $pw, $ty )
   $result = $connection->query($query);
   if (!$result) die($connection->error);
 }*/
+
+require_once "../classes/Game.php";
+
+$testgame = NEW Game("Gary123", "jim", 4, "group15", true)
+
 ?>

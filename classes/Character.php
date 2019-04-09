@@ -328,5 +328,13 @@ class Character {
         return $this->tags;
     }
 
+    function setAttribute($name, $value){
+        $this->attributes[$name] = $value;
+    }
+
+    function setAbility($name, $value){
+        $this->abilities[$name] = $value;
+    }
+
 }
 ?>

@@ -126,37 +126,57 @@ if (isset($_SESSION['type'])) {
     $type = $_SESSION['type'];
     if ($type == 'admin') {
         $username = $_GET['player'];
-    }
-}
 
-if (!$username) {
-    if (!isset($_SESSION['username'])) {
-        $username = "UNKNOWN USER";
-    } else {
-        $username = $_SESSION['username'];
-    }
-}
+        require_once '../Database_Access/login.php';
 
-if (isset($_SESSION['character'])) {
-    $character = unserialize($_SESSION['character']);
+        $connection = new mysqli($hn, $un, $pw, $db);
+        if ($connection->connect_error) die($connection->connect_error);
+
+        $query = "SELECT charID FROM account_table WHERE username = '$username';";
+        $result = $connection->query($query);
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        $charID = $row['charID'];
+        $query = "SELECT charClass FROM character_table WHERE charID = '$charID';";
+        $result = $connection->query($query);
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        $charClass = $row['charClass'];
+        $character = unserialize($charClass);
+    }
+
+    else {
+        if (!$username) {
+            if (!isset($_SESSION['username'])) {
+                $username = "UNKNOWN USER";
+            } else {
+                $username = $_SESSION['username'];
+            }
+        }
+
+        if (isset($_SESSION['character'])) {
+            $character = unserialize($_SESSION['character']);
+        }
+        else {
+            if (isset($_GET['new']) and $_GET['new'] == 'true') {
+                $character = new Character(true);
+                $talents = mt_rand(0, intval(pow(2, 43)));
+                $character->talents = $talents;
+                $character->name = "Sebille";
+
+                foreach ($character->abilities as $key => &$value) {
+                    $value = mt_rand(0, 20);
+                }
+                unset($value);
+
+                $_SESSION['character'] = serialize($character);
+            }
+            else {
+                header("Location: ../pages/login_page.php");
+            }
+        }
+    }
 }
 else {
-    if (isset($_GET['new']) and $_GET['new'] == 'true') {
-        $character = new Character(true);
-        $talents = mt_rand(0, intval(pow(2, 43)));
-        $character->talents = $talents;
-        $character->name = "Sebille";
-
-        foreach ($character->abilities as $key => &$value) {
-            $value = mt_rand(0, 20);
-        }
-        unset($value);
-
-        $_SESSION['character'] = serialize($character);
-    }
-    else {
-        header("Location: ../pages/login_page.php");
-    }
+    header("Location: ../pages/login_page.php");
 }
 ?>
 

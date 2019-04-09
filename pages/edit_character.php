@@ -138,7 +138,7 @@ if (isset($_POST['save'])) {
     $character->name = $_POST['name'];
     $character->level = intval($_POST['level']);
     $character->talents = intval($_POST['talents']);
-    //$character->background = $_POST['background'];
+    $character->background = $_POST['background'];
 
     foreach ($abilities as $name) {
         $post_id = strtolower(str_replace(' ', '', $name));

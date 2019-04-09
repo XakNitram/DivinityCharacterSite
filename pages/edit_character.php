@@ -2,8 +2,9 @@
 <html lang="en-us">
 <head>
     <?php
-    $username = $_SESSION['username'];
+
     session_start();
+    $username = $_SESSION['username'];
     require_once "../classes/Character.php";
     if (isset($_SESSION['character'])) {
         $character = unserialize($_SESSION['character']);
@@ -162,6 +163,7 @@ if (isset($_POST['save'])) {
 
     // Update Session and Database
     $_SESSION['character'] = serialize($character);
+    $tempchar = serialize($character);
     require_once '../Database_Access/login.php';
 
     error_reporting(E_ALL);
@@ -175,9 +177,8 @@ if (isset($_POST['save'])) {
     $result = $connection->query($query);
     $row = $result->fetch_array(MYSQLI_ASSOC);
     $charID = $row['charID'];
-    $tempchar = $_SESSION['character'];
 
-    $query = "UPDATE TABLE character_table
+    $query = "UPDATE character_table
               SET charClass = '$tempchar'
               WHERE charID = '$charID';";
 

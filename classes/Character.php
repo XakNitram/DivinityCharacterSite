@@ -136,6 +136,7 @@ $talentDescriptions = array(
     "Undead" => "Lets you heal from poison, but regular healing will damage you instead."
 );
 
+// Combat Abilities
 $weaponCombatAbilityNames  = array("Dual Wielding", "Ranged", "Single-Handed", "Two-Handed");
 $defenceCombatAbilityNames = array("Leadership", "Perseverance", "Retribution");
 $skillCombatAbilityNames   = array(
@@ -145,6 +146,29 @@ $skillCombatAbilityNames   = array(
     'Warfare'
 );
 
+// Combine Combat Abilities
+$combatAbilities = array_merge(
+    $weaponCombatAbilityNames,
+    $defenceCombatAbilityNames,
+    $skillCombatAbilityNames
+);
+
+// Civil Abilities
+$personalityCivilAbilities = array('Bartering', 'Lucky Charm', 'Persuasion');
+$craftingCivilAbilities = array('Loremaster', 'Telekinesis');
+$nastyCivilAbilities = array('Sneaking', 'Thievery');
+
+// Combine Civil Abilities
+$civilAbilities = array_merge(
+    $personalityCivilAbilities,
+    $craftingCivilAbilities,
+    $nastyCivilAbilities
+);
+
+// Combine All Abilities
+$abilities = array_merge($combatAbilities, $civilAbilities);
+
+// Give Descriptions of Abilities
 $abilityDescriptions = array(
     "Dual Wielding" => "Dual Wielding increases damage and Dodging when dual-wielding two one-handed weapons.",
     "Ranged"        => "Ranged increases damage and Critical Chance when using bows and crossbows.",
@@ -170,6 +194,11 @@ $abilityDescriptions = array(
     "Telekinesis"   => "Telekinesis allows you to move items telepathically regardless of weight.",
     "Sneaking"      => "Sneaking determines how well you can sneak without getting caught.",
     "Thievery"      => "Thievery improves your lockpicking and pickpocketing skills."
+);
+
+$attributes = array(
+    'Strength', 'Finesse', 'Intelligence',
+    'Constitution', 'Memory', 'Wits'
 );
 
 $attributeDescriptions = array(

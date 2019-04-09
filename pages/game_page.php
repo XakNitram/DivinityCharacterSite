@@ -10,8 +10,10 @@
 <?php
 
 
-
+//Present in a table
+// character name, description
 require_once("../classes/Character.php");
+$users = [];
 $character1 = "";
 $character2 = "";
 $character3= "";

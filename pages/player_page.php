@@ -146,6 +146,7 @@ if (!isset($_SESSION['character'])) {
     foreach ($character->abilities as $key => &$value) {
         $value = mt_rand(0, 20);
     }
+    unset($value);
 
     $_SESSION['character'] = serialize($character);
 }

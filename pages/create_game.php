@@ -4,10 +4,50 @@
     <link rel="stylesheet" type="text/css" href="../styles/general.css">
     <title>End Game</title>
     <style>
-        select, option, input {
+        select, option, input, textarea {
             color: black;
         }
+        <?php
+require_once "../classes/Game.php";
 
+
+    $gm_username = "";
+    $gm_email = "";
+    $gm_password = "";
+    $player_num = "";
+    $game_description = "";
+    $email_error = "";
+    $passError = "";
+    $showError = false;
+    $usernameError= "";
+    if (isset($_POST["submit"])) {
+        $gm_username = $_POST["gm_username"];
+        $gm_email = $_POST["gm_email"];
+        $player_num = $_POST["player_num"];
+        $gm_password = $_POST["gm_password"];
+        $game_description = "";
+
+        # get information from database here.
+        if (!preg_match('/^[a-zA-Z0-9]+@[a-zA-Z0-9.]*[a-zA-Z0-9]+.[a-z0-9A-Z]+$/', $gm_email)) {
+            $email_error = "Must be valid email";
+
+        }
+        if (!preg_match('[a-zA-Z0-9]+', $gm_password)) {
+            $passError = "incorrect format for password, must be letters or numbers with no spaces.";
+
+        }
+        if (!preg_match('[a-zA-Z0-9]+', $gm_username)) {
+            $usernameError = "incorrect format for username, must be letters or numbers with no spaces.";
+
+        }
+
+    }
+
+
+
+
+
+ ?>
 
     </style>
 </head>
@@ -20,22 +60,24 @@
 
         <div class="content">
             <h2>Create Game</h2>
-            <p>Choose the amount of Players</p>
+
 
 
 
 
                 <label class="description" for="element_1"> </label>
                 <div class=" wide-3">
-                    <select class="" id="player_num" name="player_num">
 
-                        <option value="1" selected="selected">One</option>
-                        <option value="2" >Two</option>
-                        <option value="3" >Three</option>
-                        <option value="4" >Four</option>
+                    <div class="padded">
+                        <label class="description" for="gm_username">Enter your Username </label>
 
-                    </select>
+                        <div>
+                            <input id="gm_username" name="gm_username" class="element text medium" type="text" maxlength="255" value=""/>
+                            <?php
 
+                            echo $usernameError;
+                            ?>
+                        </div>
                 <div class="padded">
                     <label class="description" for="gm_password">Enter your Desired Password </label>
                     <div>
@@ -56,8 +98,32 @@
                 ?>
             </div>
         </div>
+                    <div class="padded">
+                        <label class="description" for="game_description">Enter description of Game </label>
 
-            <div class="buttons">>
+                        <div>
+
+                            <textarea id="game_description" name="game_description" class="element text medium" type="text" maxlength="1024" >
+
+
+                            </textarea>
+                            <?php
+
+                            echo $description_error;
+                            ?>
+                        </div>
+                    </div>
+                        <p>Choose the amount of Players</p>
+                        <select class="" id="player_num" name="player_num">
+
+                            <option value="1" selected="selected">One</option>
+                            <option value="2" >Two</option>
+                            <option value="3" >Three</option>
+                            <option value="4" >Four</option>
+
+                        </select>
+
+            <div class="buttons">
 
 
                 <input  class="button" type="submit" name="submit" value="Submit Game" />
@@ -67,30 +133,8 @@
         </div>
     </form>
     <?php
-    $gm_email = "";
-    $gm_password = "";
-    $player_num = "";
-
-    $email_error = "";
-    $passError = "";
-    $showError = false;
-
-    if (isset($_POST["submit"])) {
-        $gm_email = $_POST["gm_email"];
-        $player_num = $_POST["player_num"];
-        $gm_password = $_POST["gm_password"];
 
 
-        # get information from database here.
-        if (!preg_match('/^[a-zA-Z0-9]+@[a-zA-Z0-9.]*[a-zA-Z0-9]+.[a-z0-9A-Z]+$/', $gm_email)) {
-            $email_error = "Must be valid email";
-
-        }
-        if (!preg_match('[a-zA-Z0-9]+', $gm_password)) {
-            $passError = "incorrect format for password, must be letters or numbers with no spaces.";
-            $showError = true;
-        }
-    }
     ?>
 
 </body>

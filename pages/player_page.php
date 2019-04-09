@@ -324,6 +324,15 @@ else {
                 </div>
             </div>
         </div>
+        <br>
+        <form action="../pages/edit_character.php">
+            <div class="col-container">
+                <div class="col w-50"></div>
+                <div class="col w-50">
+                    <input type="submit" value="Edit" style="color: black">
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 </body>

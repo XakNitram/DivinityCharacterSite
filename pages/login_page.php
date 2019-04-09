@@ -70,7 +70,7 @@ if (isset($_SESSION['username']) && false) {
                 $connection = new mysqli($hn, $un, $pw, $db);
                 if ($connection->connect_error) die($connection->connect_error);
 
-                $query = "SELECT * FROM account_table WHERE username = '$username' AND password = '$PassCheck' AND gameID = '$gameId';";
+                $query = "SELECT * FROM account_table WHERE username = '$username' AND password = '$password' AND gameID = '$gameId';";
 
                 $result = $connection->query($query);
 
@@ -83,6 +83,26 @@ if (isset($_SESSION['username']) && false) {
                     $rows = $result->fetch_array(MYSQLI_ASSOC);
                     $type = $rows['type'];
 
+                    $query = "SELECT charID FROM account_table WHERE username = '$username' AND password = '$password' AND gameID = '$gameId';";
+
+                    $result = $connection->query($query);
+
+                    $row = $result->fetch_array(MYSQLI_ASSOC);
+
+                    $charID = $row['charID'];
+
+                    $query = "SELECT charClass FROM character_table WHERE charID = '$charID';";
+
+                    $result = $connection->query($query);
+                    $row = $result->fetch_array(MYSQLI_ASSOC);
+
+                    $charClass = $row['charClass'];
+
+                    require_once "../classes/Character.php";
+
+
+
+                    $_SESSION['character'] = $charClass;
                     $_SESSION['username'] = $username;
                     $_SESSION['gameId'] = $gameId;
                     $_SESSION['type'] = $type;
@@ -171,7 +191,7 @@ if (isset($_SESSION['username']) && false) {
             <h5 style="margin-bottom: 0">Starting a campaign?</h5>
             <hr style="margin-bottom: 10px; margin-top: 2px;">
         </div>
-        <form action="login_page.php" method="post">
+        <form action="create_game.php" method="post">
             <input class="button" type="submit" name="create_game" value="Create game">
         </form>
     </div>

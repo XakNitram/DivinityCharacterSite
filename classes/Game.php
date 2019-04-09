@@ -16,16 +16,17 @@ class Game {
     public $GMpassword;
     public $players;
     public $gameDescription;
+    public $GMemail;
     public $connection;
 
     function __construct(
-        $GMusername, $GMpassword, $players, $gameDescription, $gameID="DEFAULT GAME ID",
-        $isNew=false
+        $GMusername, $GMpassword, $players, $gameDescription, $GMemail, $isNew=false, $gameID="DEFAULT GAME ID"
     ) {
         $this->GMusername = $GMusername;
         $this->GMpassword = $GMpassword;
         $this->players = $players;
         $this->gameDescription = $gameDescription;
+        $this->GMemail = $GMemail;
         $this->connection = $GLOBALS['connection'];
 
         if ($isNew) {
@@ -38,7 +39,7 @@ class Game {
                 $query = "SELECT gameID FROM game_table WHERE gameID = '$this->ID';";
                 $result = $this->connection->query($query);
 
-                if (sizeof($result->fetch_array(MYSQLI_ASSOC))){
+                if ($result->num_rows === 0){
                     $distinct = true;
                 }
                 else{
@@ -53,31 +54,37 @@ class Game {
             if (!$result) die($this->connection->error);
 
             echo "GAME CREATED";
-
+            $salt1 = "dcsp15";
+            $salt2 = "51pscd";
 
             //create admin account for GM
+            $this->GMpassword = hash('ripemd128', "$salt1$this->GMpassword$salt2");
+
             $query = "INSERT INTO account_table(username, password, type, charID, gameID)
                       VALUES ('$this->GMusername', '$this->GMpassword', 'admin', 'default', '$this->ID');";
             $result = $this->connection->query($query);
             if (!$result) die($this->connection->error);
 
             //must create player profiles
-
+            $playerInfoString = "";
             for($value = 0; $value <= $players - 1; $value++){
                 $distinct = false;
+
+
                 $temp = mt_rand(00000000, 99999999);
                 $temp2 = mt_rand(00000000, 99999999);
 
                 //substr(md5(microtime()), rand(0,26), 10 )
-                $salt1 = "dcsp15";
-                $salt2 = "51pscd";
-                $token = hash('ripemd128', "$salt1$temp2$salt2");
 
+                $count = $value + 1;
+                $playerInfoString = $playerInfoString."Player ".$count."\nUsername: ".$temp."\nPassword: ".$temp2."\n\n";
+                $token = hash('ripemd128', "$salt1$temp2$salt2");
+                //$temp and $temp2 must be sent to user
                 while(!$distinct){
 
                     $query = "SELECT * FROM account_table WHERE username = '$temp';";
                     $result = $this->connection->query($query);
-                    if (!$result){
+                    if ($result->num_rows === 0){
                         $distinct = true;
                     }
                     else{
@@ -85,13 +92,42 @@ class Game {
                     }
                 }
 
+                //$distinct = false;
+                $character = mt_rand(00000000, 99999999);
+
+                /*while(!$distinct){
+
+                    $query = "SELECT * FROM game_table WHERE charID = '$character';";
+                    $result = $this->connection->query($query);
+
+                    if ($result->num_rows === 0){
+                        $distinct = true;
+                    }
+                    else{
+                        $character = mt_rand(00000000, 99999999);
+                    }
+                }*/
+
+                $query = "INSERT INTO character_table(charID, level, bGround, charInfoString)
+                          VALUES ('$character', 0, 'what did you just say to me you little punk', '10,10,10,10,10,10;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;15;jesse;what did you just say to me you little punk, ill have you know i graduated at the top of my class in the navy seals, and have over 500 confirmed kills');";
+
+                $result = $this->connection->query($query);
+                if (!$result) die($this->connection->error);
+
                 $query = "INSERT INTO account_table(username, password, type, charID, gameID)
-                          VALUES ('$temp', '$token', 'player', 'default', '$this->ID');";
+                          VALUES ('$temp', '$token', 'player', '$character', '$this->ID');";
 
                 $result = $this->connection->query($query);
                 if (!$result) die($this->connection->error);
 
             }
+
+            $headers = 'From: pluto.cse.msstate.edu' . "\r\n" .
+                'Reply-To: pluto.cse.msstate.edu' . "\r\n" .
+                'X-Mailer: PHP/' . phpversion();
+            $playerInfoString = wordwrap($playerInfoString, 70);
+            mail($this->GMemail, "Your Players' Account info!", $playerInfoString."\n\nStart your adventure!", $headers);
+
         }
         else{
             $this->ID = $gameID;

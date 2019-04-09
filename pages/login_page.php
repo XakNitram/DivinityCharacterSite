@@ -45,12 +45,13 @@ if (isset($_SESSION['username']) && false) {
             $username = $_POST["username"];
             $password = $_POST["password"];
             $gameId = $_POST["gameId"];
-            $type = 'player';
+
 
             # get information from database here.
 
-            if(!preg_match('[a-zA-Z0-9]+', $password)){
-                $errorMsg = "incorrect format for password, must be letters or numbers with no spaces.";
+            if(!preg_match('/^[A-Za-z0-9]+$/', $password) OR !preg_match('/^[A-Za-z0-9]+$/', $username) OR
+                !preg_match('/^[A-Za-z0-9]+$/', $gameId)){
+                $errorMsg = "incorrect format for username ,password, or game ID, must be letters or numbers with no spaces.";
                 $showError = true;
             }
 
@@ -69,16 +70,34 @@ if (isset($_SESSION['username']) && false) {
                 $connection = new mysqli($hn, $un, $pw, $db);
                 if ($connection->connect_error) die($connection->connect_error);
 
-                $query = "SELECT * FROM account_table WHERE username = '$username' AND password = '$passCheck';";
+                $query = "SELECT * FROM account_table WHERE username = '$username' AND password = '$PassCheck' AND gameID = '$gameId';";
 
-                $result = $this->connection->query($query);
-                if (!$result) {
+                $result = $connection->query($query);
+
+                if ($result->num_rows === 0) {
                     $errorMsg = "Incorrect Username or Password, please verify and resubmit.";
                     $showError = true;
-                };
+                }
+
+                else{
+                    $rows = $result->fetch_array(MYSQLI_ASSOC);
+                    $type = $rows['type'];
+
+                    $_SESSION['username'] = $username;
+                    $_SESSION['gameId'] = $gameId;
+                    $_SESSION['type'] = $type;
+
+                    if ($type == 'admin') {
+                        header('Location: game_page.php');
+                        exit();
+                    } else {
+                        header('Location: player_page.php');
+                        exit();
+                    }
+                }
             }
 
-            if ($username != "") {
+            /*if ($username != "") {
                 $errorMsg = "";
                 $showError = false;
 
@@ -98,7 +117,7 @@ if (isset($_SESSION['username']) && false) {
             else {
                 $errorMsg = "An error occurred.";
                 $showError = true;
-            }
+            }*/
         }
         ?>
 

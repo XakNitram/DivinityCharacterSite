@@ -3,10 +3,16 @@
 <head>
     <?php
     $username = "";
-    $characterName = "";  // should be $character->name;
-    // Get user info; Create Character and Player classes here.
+    session_start();
+    require_once "../classes/Character.php";
+    if (isset($_SESSION['character'])) {
+        $character = unserialize($_SESSION['character']);
+    }
+    else {
+        header("Location: ../pages/login_page.php");
+    }
     ?>
-    <title><?php echo "$characterName ($username)"; ?></title>
+    <title><?php echo "$character->name ($username) at DivinityHub"; ?></title>
     <link rel="stylesheet" href="../styles/general.css">
     <style>
         body {
@@ -19,6 +25,32 @@
 
         .col.label {
             width: 256px;
+        }
+
+        .talent-box {
+            width: 100%;
+            height: 684.5px;
+            /*overflow-y: scroll;*/
+            overflow: auto;
+            /*border: 1px solid #333333;*/
+        }
+
+        .talent {
+            margin: 8px 8px 12px 8px;
+            padding: 8px;
+            border: 1px solid #ffa500;
+            box-shadow:  -1px 1px #ffa500,
+            -2px 2px #ffa500,
+            -3px 3px #ffa500
+        }
+
+        .talent-off {
+            margin: 8px 8px 12px 8px;
+            padding: 8px;
+            border: 1px solid #333333;
+            box-shadow:  -1px 1px #333333,
+            -2px 2px #333333,
+            -3px 3px #333333;
         }
 
         label.h2 {
@@ -91,21 +123,47 @@
             margin-top: 2px;
             width: 100%;
         }
+
+        div.section {
+            margin-bottom: 8px;
+            margin-left: 8px;
+        }
     </style>
 </head>
 <body>
 <?php
-require_once "../classes/Character.php";
-if (isset($_SESSION['character'])) {
-    $character = unserialize($_SESSION['character']);
+if (isset($_POST['save'])) {
+    // save
+    // non-looping
+    $character->name = $_POST['name'];
+    $character->level = intval($_POST['level']);
+    $character->talents = intval($_POST['talents']);
+    //$character->background = $_POST['background'];
+
+    foreach ($abilities as $name) {
+        $post_id = strtolower(str_replace(' ', '', $name));
+        $character->setAbility($name, intval($_POST[$post_id]));
+    }
+    unset($name);
+
+    foreach ($attributes as $name) {
+        $post_id = strtolower(str_replace(' ', '', $name));
+        $character->setAttribute($name, intval($_POST[$post_id]));
+    }
+    unset($name);
+
+    $_SESSION['character'] = serialize($character);
+
+    header("Location: ../pages/player_page.php");
+    exit();
 }
-else {
-    $character = new Character(true);
-    $character->name = "Sebille";
+elseif (isset($_POST['cancel'])) {
+    header("Location: ../pages/player_page.php");
+    exit();
 }
 ?>
 <div class="content">
-    <form method="post" action="edit_character.php" name="edit">
+    <form method="post" action="../pages/edit_character.php" name="edit">
     <div class="wide-4">
         <!--Names-->
         <div class="wide-2">
@@ -115,11 +173,13 @@ else {
                     class="name h2" id="name" type="text"
                     value="<?php echo $character->name?>"
                     maxlength="32"
+                    name="name"
             >
             <br>
             <input
                     class="name h3" id="level" type="number"
                     max="50" value="<?php echo $character->level ?>"
+                    name="level"
             >
         </div>
 
@@ -127,13 +187,13 @@ else {
         <div class="wide-2">
             <h3>Background</h3>
             <hr>
-            <textarea form="edit" rows="4"><?php echo $character->background ?></textarea>
+            <textarea name="background" form="edit" rows="4"><?php echo $character->background ?></textarea>
         </div>
 
         <!--Abilities, Attributes, and Talents-->
         <div class="col-container">
             <!--Abilities-->
-            <div class="col w-50">
+            <div class="col w-50 wide-2">
                 <h3>Combat Abilities</h3>
                 <hr>
                 <?php
@@ -147,15 +207,21 @@ else {
                     echo "<div class='section'>";
                     foreach ($section as $skill) {
                         $value = $character->getAbility($skill);
-                        echo "<div class='col-container'>";
+                        echo '<div class="col-container">';
 
                         $desc = addslashes($abilityDescriptions[$skill]);
-                        echo    "<div class=\"col w-75\" id=\"$skill\" onclick=\"showAbilityDescription('$skill', '$desc')\">";
+                        $div_id = $skill . "_inc";
+                        $post_id = strtolower(str_replace(' ', '', $skill));
+                        echo    "<div class='col w-75' id='$div_id' onclick=\"showAbilityDescription('$div_id', '$skill', '$desc')\">";
                         echo        "<p>$skill</p>";
                         echo    "</div>";
 
                         echo    "<div class=\"col w-25\">";
-                        echo        "<input type='text' class='number' value='$value'>";
+                        echo        "<div class='col-container'>";
+                        echo            "<input name='$post_id' id='$skill' type='text' class='col number' value='$value' readonly='true'>";
+                        echo            "<input class='col inc-button' type='button' value='+' onclick=\"add('$skill', 20)\">";
+                        echo            "<input class='col inc-button' type='button' value='-' onclick=\"minus('$skill', 0)\">";
+                        echo        "</div>";
                         echo    "</div>";
                         echo "</div>";
                     }
@@ -167,9 +233,9 @@ else {
                 <hr>
                 <?php
                 $civilAbilities = array(
-                    "Personality"=>['Bartering', 'Lucky Charm', 'Persuasion'],
-                    "Craftsmanship"=>['Loremaster', 'Telekinesis'],
-                    "Nasty Deeds"=>['Sneaking', 'Thievery']
+                    "Personality"=>$personalityCivilAbilities,
+                    "Craftsmanship"=>$craftingCivilAbilities,
+                    "Nasty Deeds"=>$nastyCivilAbilities
                 );
                 foreach ($civilAbilities as $key => $section) {
                     echo "<h4>$key</h4>";
@@ -180,15 +246,16 @@ else {
 
                         $desc = addslashes($abilityDescriptions[$skill]);
                         $div_id = $skill . "_inc";
+                        $post_id = strtolower(str_replace(' ', '', $skill));
                         echo    "<div class='col w-75' id='$div_id' onclick=\"showAbilityDescription('$div_id', '$skill', '$desc')\">";
                         echo        "<p>$skill</p>";
                         echo    "</div>";
 
                         echo    "<div class=\"col w-25\">";
                         echo        "<div class='col-container'>";
-                        echo            "<input id='$skill' type='text' class='col number' value='$value' readonly='true'>";
-                        echo            "<input class='col inc-button' type='button' value='+' onclick=\"add('$skill')\">";
-                        echo            "<input class='col inc-button' type='button' value='-' onclick=\"minus('$skill')\">";
+                        echo            "<input name='$post_id' id='$skill' type='text' class='col number' value='$value' readonly='true'>";
+                        echo            "<input class='col inc-button' type='button' value='+' onclick=\"add('$skill', 20)\">";
+                        echo            "<input class='col inc-button' type='button' value='-' onclick=\"minus('$skill', 0)\">";
                         echo        "</div>";
                         echo    "</div>";
                         echo "</div>";
@@ -199,310 +266,212 @@ else {
             </div>
 
             <!--Attributes and Talents-->
-            <div class="col w-50">
+            <div class="col w-50 wide-2">
+                <h3>Attributes</h3>
+                <hr>
+                <?php
+                foreach ($attributes as $name) {
+                    $value = $character->getAttribute($name);
+                    echo '<div class="col-container">';
 
+                    $div_id = $name . "_inc";
+                    $post_id = strtolower(str_replace(' ', '', $name));
+                    $desc = addslashes($attributeDescriptions[$name]);
+                    echo    "<div class=\"col w-75\" id=\"$div_id\" onclick=\"showAbilityDescription('$name', '$desc')\">";
+                    echo        "<p>$name</p>";
+                    echo    "</div>";
+
+                    echo    "<div class=\"col w-25\">";
+                    echo        "<div class='col-container'>";
+                    echo            "<input name='$post_id' id='$name' type='text' class='col number' value='$value' readonly='true'>";
+                    echo            "<input class='col inc-button' type='button' value='+' onclick=\"add('$name', 70)\">";
+                    echo            "<input class='col inc-button' type='button' value='-' onclick=\"minus('$name', 10)\">";
+                    echo        "</div>";
+                    echo    "</div>";
+                    echo "</div>";
+                }
+                unset($name);
+                unset($skills);
+
+                ?>
+                <br>
+                <h3>Talents</h3>
+                <hr>
+                <input name="talents" id="talents" type="text" value="<?php echo $character->talents ?>" hidden>
+                <div class="talent-box">
+                    <?php
+                    $talentHaves = array();
+                    $talentHaveNots = array();
+                    foreach ($talentCodes as $name => $code) {
+                        if ($character->hasTalent($code)) {
+                            array_push($talentHaves, $name);
+
+                        }
+                        else {
+                            array_push($talentHaveNots, $name);
+                        }
+                    }
+
+                    // unset loop variables
+                    // apparently php does not purge
+                    // variables after the loop ends.
+                    unset($name);
+                    unset($code);
+
+                    $skippedFirst = false;
+                    foreach ($talentHaves as $name) {
+                        $name = addslashes($name);
+                        if (!$skippedFirst) {
+                            $style = "style='margin-top: 0'";
+                        }
+                        else {
+                            $style = "";
+                        }
+                        $desc = addslashes($talentDescriptions[$name]);
+                        $code = $talentCodes[$name];
+                        $div_id = $name . "_div";
+                        $button_id = $name . "_button";
+                        echo "<div class='talent bordered' id='$div_id' $style>";
+                        echo    "<div class='col-container w-100'>";
+                        echo        "<div class='col w-75' onclick=\"showTalentDescription('$name', '$desc')\">";
+                        echo            "<h3>$name</h3>";
+                        echo        "</div>";
+                        echo        "<div class='col w-25'>";
+                        echo            "<input id='$button_id' value='Remove' class='inc-button' type='button' onclick=\"setTalent('$div_id', $code)\">";
+                        echo        "</div>";
+                        echo    "</div>";
+                        echo    "<div class='w-100' id='$name' onclick=\"showTalentDescription('$name', '$desc')\">";
+                        echo    "</div>";
+                        echo "</div>";
+                    }
+                    unset($name);
+
+                    foreach ($talentHaveNots as $name) {
+                        $name = addslashes($name);
+                        if (!$skippedFirst) {
+                            $style = "style='margin-top: 0'";
+                        }
+                        else {
+                            $style = "";
+                        }
+                        $desc = addslashes($talentDescriptions[$name]);
+                        $code = $talentCodes[$name];
+                        $div_id = $name . "_div";
+                        $button_id = $name . "_button";
+                        echo "<div class='talent-off bordered' id='$div_id' $style>";
+                        echo    "<div class='col-container w-100'>";
+                        echo        "<div class='col w-75' onclick=\"showTalentDescription('$name', '$desc')\">";
+                        echo            "<h3>$name</h3>";
+                        echo        "</div>";
+                        echo        "<div class='col w-25'>";
+                        echo            "<input id='$button_id' value='Add' class='inc-button' type='button' onclick=\"setTalent('$div_id', $code)\">";
+                        echo        "</div>";
+                        echo    "</div>";
+                        echo    "<div class='w-100' id='$name' onclick=\"showTalentDescription('$name', '$desc')\">";
+                        echo    "</div>";
+                        echo "</div>";
+                    }
+                    unset($name);
+                    unset($desc);
+                    unset($talentHaves);
+                    unset($talentHaveNots);
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="col-container w-100">
+                <div class="col w-50">
+                    <input type="submit" value="Save" name="save">
+                </div>
+                <div class="col w-50">
+                    <input type="submit" name="cancel" value="Cancel">
+                </div>
             </div>
         </div>
     </div>
     </form>
 </div>
 <script>
+    let showingTalentDesc = false;
+    let backTalentID;
+
+    let htmlTStart  = "<hr><p>";
+    let htmlTEnd    = "</p>";
+
+    function showTalentDescription(id, description) {
+        // close old description
+        if (showingTalentDesc) {
+            if (id !== backTalentID) {
+                document.getElementById(backTalentID).innerHTML = "";
+                showingTalentDesc = false;
+            }
+            else {
+                document.getElementById(id).innerHTML = "";
+                showingTalentDesc = false;
+                return;
+            }
+        }
+
+        // show new description
+        document.getElementById(id).innerHTML = htmlTStart + description + htmlTEnd;
+        backTalentID = id;
+        showingTalentDesc = true;
+    }
+
     let id_array = [];
 
-    function add(id) {
+    function add(id, max) {
         let value = id_array[id];
         if (value === undefined) {
-            value = 1;
+            value = document.getElementById(id).value;
+        }
+
+        if (value < max) {
+            value++;
         }
         else {
-            value++;
+            value = max;
         }
         document.getElementById(id).value = value;
         id_array[id] = value;
     }
 
-    function minus(id){
+    function minus(id, min){
         let value = id_array[id];
         if (value === undefined) {
-            value = 0;
+            value = document.getElementById(id).value;
+        }
+
+        if (value > min) {
+            value--;
         }
         else {
-            if (value > 0) {
-                value--;
-            }
-            else {
-                value = 0;
-            }
+            value = min;
         }
+
         document.getElementById(id).value = value;
         id_array[id] = value;
     }
-</script>
-<?php exit(); ?>
-<div>
-    **Attributes**
 
-    <br>
-    strength
-    <input type="button" value="+" onclick="add('str');"/>
-    <input type="button" value="-" onclick="minus('str');"/>
+    function setTalent(id, code) {
+        let talents = document.getElementById('talents');
+        let item = document.getElementById(id);
 
-    <span id="str">0</span>
-    <script>
-        reset();
-    </script>
-
-
-    <div class="col w-50 wide-2">
-        <h3>Attributes</h3>
-        <hr>
-        <?php
-        $skills = [
-            'Strength', 'Finesse', 'Intelligence',
-            'Constitution', 'Memory', 'Wits'
-        ];
-        foreach ($skills as $name) {
-            //  $value = $character->getAbility(strtolower($name));
-            $value = 0;
-            echo '<div class="">';
-            echo "<p>$name</p>";
-            echo "<span id='$name' class=''>$value</span>";
-            echo '<input type="button" value="+" onclick="add('."'$name'".');">';
-            echo '<input type="button" value="-" onclick="minus('."'$name'".');">';
-            echo '</div>';
+        if (item.classList.contains('talent-off')) {
+            item.classList.remove('talent-off');
+            item.classList.add('talent');
+            console.log(talents.value);
+            talents.value = parseInt(talents.value) + code;
+            document.getElementById(id + "_button").value = "Add";
         }
-        ?>
-    <br>
-
-<div>
-    // Skills
-    <?php
-    $combatAbilities = array(
-    "Weapons"=>[
-    'Dual Wielding', 'Ranged', 'Single-Handed',
-    'Two-Handed'
-    ],
-    "Defence"=>[
-    'Leadership', 'Perseverance', 'Retribution'
-    ],
-    "Skills"=>[
-    'Aerotheurge', 'Geomancer', 'Huntsman',
-    'Hydrosophist', 'Necromancer', 'Polymorph',
-    'Pyrokinetic', 'Scoundrel', 'Summoning',
-    'Warfare'
-    ]
-    );
-    foreach ($combatAbilities as $key => $value) {
-    echo "<h4>$key</h4>";
-    echo '<div class="section">';
-        foreach ($value as $skill) {
-        //  $value = $character->getAbility(strtolower($name));
-        $value = 0;
-        echo '<div class="">';
-            echo "<p class=''>$skill</p>";
-            echo "<div class=''>
-                    <span id='$skill' class=''>$value</span>";
-                echo '<input type="button" value="+" onclick="add('."'$skill'".');">';
-                echo '<input type="button" value="-" onclick="minus('."'$skill'".');">';
-            echo "</div>";
-            echo '</div>';
+        else if (item.classList.contains('talent')) {
+            item.classList.remove('talent');
+            item.classList.add('talent-off');
+            talents.value = parseInt(talents.value) - code;
+            document.getElementById(id + "_button").value = "Remove"
         }
-        echo '</div>';
-    }
-    ?>
-
-
-
-</div>
-
-<div>
-    <?php
-    $civilAbilities = array(
-        "Personality"=>['Bartering', 'Lucky Charm', 'Persuasion'],
-        "Craftsmanship"=>['Loremaster', 'Telekinesis'],
-        "Nasty Deeds"=>['Sneaking', 'Thievery']
-    );
-    foreach ($civilAbilities as $key => $value) {
-        echo "<h4>$key</h4>";
-        echo '<div class="">';
-        foreach ($value as $skill) {
-            //  $value = $character->getAbility(strtolower($name));
-            $value = 0;
-            echo '<div class="">';
-            echo "<p>$skill</p>";
-            echo "<div><span id='$skill'>$value</span>";
-            echo '<input type="button" value="+" onclick="add('."'$skill'".');">';
-            echo '<input type="button" value="-" onclick="minus('."'$skill'".');">';
-            echo "</div>";
-            echo '</div>';
-        }
-        echo '</div>';
-    }
-    ?>
-
-</div>
-<script>
-    // Javascript does not really support associative arrays, so maybe we should make
-    // the indices numbers?
-    let id_array = [];
-
-    function add(id) {
-        let value = id_array[id];
-        if (value === undefined) {
-            value = 1;
-        }
-        else {
-            value++;
-        }
-        document.getElementById(id).innerHTML = value;
-        id_array[id] = value;
-    }
-
-    function minus(id){
-        let value = id_array[id];
-        if (value === undefined) {
-            value = 0;
-        }
-    else {
-            if (value > 0) {
-                value--;
-            }
-            else {
-                value = 0;
-            }
-        }
-        document.getElementById(id).innerHTML = value;
-        id_array[id] = value;
-    }
-
-    function reset(id) {
-        id_array[id] = 0;
     }
 </script>
-
-
-<form>
-    <!--    <input type="button" value="Add one" onclick="add();"/>-->
-    <!--</form>-->
-    <!--<span id="field">0</span>-->
-    <!--<script>-->
-    <!--    var value = 0;-->
-    <!---->
-    <!--    function add() {-->
-    <!--        value++;-->
-    <!--        document.getElementById("field").innerHTML = value;-->
-    <!--    }-->
-    <!--</script>-->
-    <div style="width:150px;height:150px;line-height:3em;overflow:scroll;padding:5px;">
-
-        <input type="checkbox" <id="AllSkilledUP"> AllSkilledUP <br />
-        <input type="checkbox" <id="Ambidestrous"> Ambidestrouss <br />
-        <input type="checkbox" <id="ArrowRecover"> ArrowRecovery <br />
-        <input type="checkbox" <id="BiggerAndBe"> BiggerAndBetter <br />
-        <input type="checkbox" <id="ComebackKid"> ComebackKid <br />
-        <input type="checkbox" <id="CorpseEater"> CorpseEater <br />
-        <input type="checkbox" <id="Demon "> Demon <br />
-        <input type="checkbox" <id="DuckDuckGoo"> DuckDuckGoose <br />
-        <input type="checkbox" <id="DwarvenGuil"> DwarvenGuile <br />
-        <input type="checkbox" <id="ElementalAf"> ElementalAffinity <br />
-        <input type="checkbox" <id="Escapist "> Escapist <br />
-        <input type="checkbox" <id="Executioner"> Executioner <br />
-        <input type="checkbox" <id="ElementalRa"> ElementalRanger <br />
-        <input type="checkbox" <id="FarOutMan "> FarOutMan <br />
-        <input type="checkbox" <id="FiveStarDin"> FiveStarDiner <br />
-        <input type="checkbox" <id="GlassCannon"> GlassCannon <br />
-        <input type="checkbox" <id="Guerrilla "> Guerrilla <br />
-        <input type="checkbox" <id="Hothead "> Hothead <br />
-        <input type="checkbox" <id="IceKing "> IceKing <br />
-        <input type="checkbox" <id="Ingenious "> Ingenious <br />
-        <input type="checkbox" <id="Leech "> Leech <br />
-        <input type="checkbox" <id="LivingArmou"> LivingArmour <br />
-        <input type="checkbox" <id="LoneWolf "> LoneWolf <br />
-        <input type="checkbox" <id="Mnemonic "> Mnemonic <br />
-        <input type="checkbox" <id="MorningPers"> MorningPerson <br />
-        <input type="checkbox" <id="Opportunist"> Opportunist <br />
-        <input type="checkbox" <id="ParryMaster"> ParryMaster <br />
-        <input type="checkbox" <id="PetPal "> PetPal <br />
-        <input type="checkbox" <id="PictureOfHe"> PictureOfHealth <br />
-        <input type="checkbox" <id="SavageSorti"> SavageSortilege <br />
-        <input type="checkbox" <id="Slingshot "> Slingshot <br />
-        <input type="checkbox" <id="Sophisticat"> Sophisticated <br />
-        <input type="checkbox" <id="Stench "> Stench <br />
-        <input type="checkbox" <id="Sturdy "> Sturdy <br />
-        <input type="checkbox" <id="ThePawn "> ThePawn <br />
-        <input type="checkbox" <id="Torturer "> Torturer <br />
-        <input type="checkbox" <id="Undead "> Undead <br />
-        <input type="checkbox" <id="Unstable "> Unstable <br />
-        <input type="checkbox" <id="WalkItOff "> WalkItOff <br />
-        <input type="checkbox" <id="WhatARush "> WhatARush <br />
-    </div>
-
-
-
-
-    <?php
-    if (isset($_POST["submit_character"])) {
-        $strength = $_POST["str"];
-        //character.setAttribute('finesse');
-
-        $intelligence = $_POST["int"];
-//        $constitution
-//        $memory
-//        $wits
-//// weapons
-//        $Dual_Wielding
-//        $Ranged
-//        $Single_Handed
-//        $Two_Handed
-//
-//// defence
-//        $Leadership
-//        $Perseverance
-//        $Retribution
-//
-//// skills
-//        $Aerotheurge
-//        $Geomancer
-//        $Huntsman
-//        $Hydrosophist
-//        $Necromancer
-//        $Polymorph
-//        $Pyrokinetic
-//        $Scoundrel
-//        $Summoning
-//        $Warfare
-//
-//        Bartering
-//        Lucky Charm
-//        Persuasion
-//
-//// Craftsmanship
-//        Loremaster
-//        Telekinesis
-//
-//// nasty deeds
-//        Sneaking
-//        Thievery
-//
-//        $username = $_POST["username"];
-//        $password = $_POST["password"];
-//        $gameId   = $_POST["gameId"];
-//        $type     = 'player';
-
-
-    }
-    ?>
-<script>
-
-
-
-
-</script>
-
-
-    <form action="edit_character.php" method="post">
-        <input class="button" type="submit" name="submit_character" value="Submit Character">
-    </form>
-
 </body>
 </html>

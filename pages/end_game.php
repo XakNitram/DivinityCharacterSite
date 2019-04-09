@@ -4,6 +4,7 @@
     <title>End Game</title>
 </head>
 <body>
+
     <?php
     require_once "../classes/Game.php"
 
@@ -14,5 +15,6 @@
     // else send them back to their account page.
 
     ?>
+
 </body>
 </html>

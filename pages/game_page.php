@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
+    <link rel="stylesheet" type="text/css" href="../styles/general.css">
     <title>View Game</title>
 </head>
 <body>

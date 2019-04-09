@@ -85,6 +85,14 @@
             font-size: 13px;
         }
 
+        input.button {
+            width: 100%;
+            background-color: orange;
+            font-size: 13px;
+            line-height: 29px;
+            margin-bottom: 0;
+        }
+
         textarea {
             -webkit-border-radius: 4px;
             -moz-border-radius: 4px;
@@ -402,13 +410,14 @@ elseif (isset($_POST['cancel'])) {
                 </div>
             </div>
         </div>
+        <br>
         <div>
             <div class="col-container w-100">
                 <div class="col w-50">
-                    <input type="submit" value="Save" name="save">
+                    <input type="submit" value="Save" name="save" class="button">
                 </div>
                 <div class="col w-50">
-                    <input type="submit" name="cancel" value="Cancel">
+                    <input type="submit" name="cancel" value="Cancel" class="button">
                 </div>
             </div>
         </div>

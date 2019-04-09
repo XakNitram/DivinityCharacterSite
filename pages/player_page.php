@@ -111,6 +111,21 @@
             margin-bottom: 8px;
             margin-left: 8px;
         }
+
+        input.button {
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            color: #111111;
+            border: 2px solid #333333;
+            padding: 4px 8px;
+
+            width: 100%;
+            background-color: orange;
+            font-size: 13px;
+            line-height: 29px;
+            margin-bottom: 0;
+        }
     </style>
 </head>
 <body>
@@ -349,7 +364,7 @@ else {
             <div class="col-container">
                 <div class="col w-50"></div>
                 <div class="col w-50">
-                    <input type="submit" value="Edit" style="color: black">
+                    <input type="submit" value="Edit" class="button">
                 </div>
             </div>
         </form>

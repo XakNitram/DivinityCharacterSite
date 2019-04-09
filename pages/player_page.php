@@ -126,6 +126,21 @@ if (isset($_SESSION['type'])) {
     $type = $_SESSION['type'];
     if ($type == 'admin') {
         $username = $_GET['player'];
+
+        require_once '../Database_Access/login.php';
+
+        $connection = new mysqli($hn, $un, $pw, $db);
+        if ($connection->connect_error) die($connection->connect_error);
+
+        $query = "SELECT charID FROM account_table WHERE username = '$username';";
+        $result = $connection->query($query);
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        $charID = $row['charID'];
+        $query = "SELECT charClass FROM character_table WHERE charID = '$charID';";
+        $result = $connection->query($query);
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        $charClass = $row['charClass'];
+        $character = unserialize($charClass);
     }
 }
 

@@ -143,6 +143,8 @@ require_once "../classes/Game.php";
             if (!$description_error && !$passError && !$email_error && !$usernameError) {
                 require_once "../classes/Game.php";
                 $newGame = NEW Game($gm_username, $gm_password, $player_num, $game_description, $gm_email, true);
+
+                header("Location: ../pages/game_page.php");
             }
         }
 

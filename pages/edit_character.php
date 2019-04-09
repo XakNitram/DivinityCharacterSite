@@ -143,23 +143,24 @@
 if (isset($_POST['save'])) {
     // save
     // non-looping
-    $character->name = $_POST['name'];
-    $character->level = intval($_POST['level']);
-    $character->talents = intval($_POST['talents']);
-    $character->background = $_POST['background'];
+    $character->name = htmlspecialchars($_POST['name']);
+    $character->level = intval(htmlspecialchars($_POST['level']));
+    $character->talents = intval(htmlspecialchars($_POST['talents']));
+    $character->background = htmlspecialchars($_POST['background']);
 
     foreach ($abilities as $name) {
         $post_id = strtolower(str_replace(' ', '', $name));
-        $character->setAbility($name, intval($_POST[$post_id]));
+        $character->setAbility($name, intval(htmlspecialchars($_POST[$post_id])));
     }
     unset($name);
 
     foreach ($attributes as $name) {
         $post_id = strtolower(str_replace(' ', '', $name));
-        $character->setAttribute($name, intval($_POST[$post_id]));
+        $character->setAttribute($name, intval(htmlspecialchars($_POST[$post_id])));
     }
     unset($name);
 
+    // Update Session and Database
     $_SESSION['character'] = serialize($character);
     require_once '../Database_Access/login.php';
 

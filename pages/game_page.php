@@ -12,6 +12,9 @@
 
 //Present in a table
 // character name, description
+
+
+// Test commit mark
 require_once("../classes/Character.php");
 $users = [];
 $character1 = "";

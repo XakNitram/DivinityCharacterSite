@@ -33,7 +33,7 @@
 <body>
 <?php
 session_start();
-if(isset($_SESSION['game'])){
+/*if(isset($_SESSION['game'])){
     $tempGame = unserialize($_SESSION['game']);
 
     $username = $tempGame->GMusername;
@@ -70,8 +70,8 @@ if(isset($_SESSION['game'])){
 
     }
 
-}
-elseif(isset($_SESSION['username']) && isset($_SESSION['type'])){
+}*/
+if(isset($_SESSION['username']) && isset($_SESSION['type'])){
     $username = $_SESSION['username'];
 
     require_once '../Database_Access/login.php';

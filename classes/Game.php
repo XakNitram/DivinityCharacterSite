@@ -21,13 +21,13 @@ class Game {
     public $connection;
 
     function __construct(
-        $GMusername, $GMpassword, $players, $gameDescription, $GMemail, $isNew=false, $gameID="DEFAULT GAME ID"
+        $GMusername, $GMpassword, $players, $gameDescription, $isNew=false, $gameID="DEFAULT GAME ID"
     ) {
         $this->GMusername = $GMusername;
         $this->GMpassword = $GMpassword;
         $this->players = $players;
         $this->gameDescription = $gameDescription;
-        $this->GMemail = $GMemail;
+
         $this->connection = $GLOBALS['connection'];
 
         if ($isNew) {

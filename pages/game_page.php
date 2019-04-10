@@ -41,7 +41,7 @@ $username = $_SESSION['username'];
 $gameID = $_SESSION['gameId'];
 
 require_once '../Database_Access/login.php';
-
+require_once '../classes/Character.php';
 $connection = new mysqli($hn, $un, $pw, $db);
 if ($connection->connect_error) die($connection->connect_error);
 
@@ -56,10 +56,17 @@ $gameDescription = $rows['gameDescription'];
 
 $query = "SELECT username, charID FROM account_table WHERE type = 'player' AND gameID = '$gameID';"; // AND username <> '$username';";
 $result = $connection->query($query);
-$row = $result->fetch_array(MYSQLI_ASSOC);
+//$row = $result->fetch_array(MYSQLI_ASSOC);
+
+
 
 echo '<p>'.$gameDescription.'</p>';
 echo '<table>';
+echo '<tr>';
+echo '<td>Username</td>';
+echo '<td>Character Name</td>';
+echo '<td>Character Level</td>';
+echo '</tr>';
 while($row = $result->fetch_array(MYSQLI_ASSOC)) {
     $charID = $row['charID'];
     $query = "SELECT charClass FROM character_table WHERE charID = '$charID';";
@@ -70,9 +77,9 @@ while($row = $result->fetch_array(MYSQLI_ASSOC)) {
     echo '<tr>';
     $value = $row['username'];
     echo "<td>" . $value . "</td>";
-    $value = $tempClass->level;
-    echo "<td>" . $value . "</td>";
     $value = $tempClass->name;
+    echo "<td>" . $value . "</td>";
+    $value = $tempClass->level;
     echo "<td>" . $value . "</td>";
     echo '</tr>';
 

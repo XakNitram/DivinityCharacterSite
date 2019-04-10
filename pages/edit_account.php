@@ -2,6 +2,49 @@
 <html lang="en-us">
 <head>
     <?php
+    session_start();
+    $oldUsername = $_SESSION['username'];
+    require_once "../classes/Account.php";
+
+    if (isset($_POST['save'])) {
+
+        if(isset($_POST['password'])) {
+            $newPassword = $_POST['password'];
+
+            require_once '../Database_Access/login.php';
+
+            $connection = new mysqli($hn, $un, $pw, $db);
+            if ($connection->connect_error) die($connection->connect_error);
+
+            $query = "UPDATE account_table
+              SET username = '$tempchar'
+              WHERE username = '$newPassword';";
+
+            $result = $connection->query($query);
+
+        }
+        if(isset($_POST['username'])) {
+            $newUsername = $_POST['username'];
+
+            require_once '../Database_Access/login.php';
+
+            $connection = new mysqli($hn, $un, $pw, $db);
+            if ($connection->connect_error) die($connection->connect_error);
+
+            $query = "UPDATE account_table
+                      SET username = '$newUsername'
+                      WHERE username = '$oldUsername';";
+
+            $result = $connection->query($query);
+
+        }
+        header("../pages/login_page.php");
+
+
+
+
+    }
+
 
     ?>
     <title>DivinityHub</title>

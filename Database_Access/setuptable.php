@@ -76,6 +76,6 @@ function add_user($connection, $un, $pw, $ty )
 
 require_once "../classes/Game.php";
 
-$testgame = NEW Game("emailtest2", "jimbo", 1, "test description", "jessep6072@gmail.edu", true)
+$testgame = NEW Game("MichaelHawk", "jim", 3, "This is the big test, please work", true)
 
 ?>

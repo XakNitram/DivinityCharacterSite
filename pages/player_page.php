@@ -139,7 +139,8 @@ $type = "";
 session_start();
 if (isset($_SESSION['type'])) {
     $type = $_SESSION['type'];
-    if ($type == 'admin') {
+
+    if (isset($_GET['player'])) {
         $username = $_GET['player'];
 
         require_once '../Database_Access/login.php';

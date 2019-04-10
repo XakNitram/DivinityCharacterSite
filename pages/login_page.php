@@ -93,6 +93,7 @@ if (isset($_SESSION['username']) && false) {
 
                     $query = "SELECT * FROM account_table WHERE password = '$PassCheck' AND username = '$username' AND gameID = '$gameId';";
                     $result = $connection->query($query);
+                    $rows = $result->fetch_array(MYSQLI_ASSOC);
 
                     if ($result->num_rows === 0) {
                         $errorMsg = "Incorrect Username or Password, please verify and resubmit.";
@@ -100,21 +101,14 @@ if (isset($_SESSION['username']) && false) {
                     }
                     else {
                         $type = $rows['type'];
-
-                        $query = "SELECT charID FROM account_table WHERE username = '$username' AND password = '$password' AND gameID = '$gameId';";
-
-                        $result = $connection->query($query);
-
-                        $row = $result->fetch_array(MYSQLI_ASSOC);
-
-                        $charID = $row['charID'];
+                        $charID = $rows['charID'];
 
                         $query = "SELECT charClass FROM character_table WHERE charID = '$charID';";
 
                         $result = $connection->query($query);
-                        $row = $result->fetch_array(MYSQLI_ASSOC);
+                        $rows = $result->fetch_array(MYSQLI_ASSOC);
 
-                        $charClass = $row['charClass'];
+                        $charClass = $rows['charClass'];
 
                         require_once "../classes/Character.php";
 
@@ -124,13 +118,9 @@ if (isset($_SESSION['username']) && false) {
                         $_SESSION['gameId'] = $gameId;
                         $_SESSION['type'] = $type;
 
-                        if ($type == 'admin') {
-                            header('Location: game_page.php');
-                            exit();
-                        } else {
-                            header('Location: game_page.php');
-                            exit();
-                        }
+
+                        header('Location: game_page.php');
+                        exit();
                     }
                 }
             }

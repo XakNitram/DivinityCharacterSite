@@ -4,6 +4,11 @@
     <?php
 
     session_start();
+    $type = $_SESSION['type'];
+    if ($type == 'admin') {
+        header('Location: ../pages/game_page.php');
+        exit();
+    }
     $username = $_SESSION['username'];
     require_once "../classes/Character.php";
     if (isset($_SESSION['character'])) {

@@ -219,7 +219,7 @@ elseif (isset($_POST['cancel'])) {
         <div class="wide-2">
             <h3>Background</h3>
             <hr>
-            <textarea name="background" form="edit" rows="4"><?php echo $character->background ?></textarea>
+            <textarea id="background" name="background" rows="4"><?php echo $character->background ?></textarea>
         </div>
 
         <!--Abilities, Attributes, and Talents-->

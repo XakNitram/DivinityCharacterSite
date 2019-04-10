@@ -29,10 +29,6 @@
             width: 1024px;
         }
 
-        .col.label {
-            width: 256px;
-        }
-
         .talent-box {
             width: 100%;
             height: 684.5px;

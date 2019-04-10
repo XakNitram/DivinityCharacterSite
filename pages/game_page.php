@@ -4,7 +4,31 @@
 <html lang="en-us">
 <head>
     <link rel="stylesheet" type="text/css" href="../styles/general.css">
-    <title>View Game</title>
+    <style>
+        .content {
+            width: 1024px;
+        }
+
+        td {
+            padding: 1em 1em 1em 1em;
+        }
+        th, td {
+            background: black;
+        }
+        body{
+            background: black;
+        }
+        table {
+            background: white;
+            width: 100%;
+        }
+
+        th {
+
+            height: 50px;
+        }
+
+    </style>
 </head>
 <body>
 <?php
@@ -48,7 +72,6 @@ if(isset($_SESSION['game'])){
 
 }
 elseif(isset($_SESSION['username']) && isset($_SESSION['type'])){
-
     $username = $_SESSION['username'];
 
     require_once '../Database_Access/login.php';
@@ -97,6 +120,14 @@ else{
     header("../pages/login_page.php");
 }
 
+
+        ?>
+    </table>
+</div>
+</body>
+
+</html>
+    <?php
 
 
 //Present in a table

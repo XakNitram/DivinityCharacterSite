@@ -17,7 +17,7 @@ if (isset($_SESSION['username']) && false) {
         exit();
     }
     else {
-        header('Location: player_page.php');
+        header('Location: game_page.php');
         exit();
     }
 }
@@ -111,7 +111,7 @@ if (isset($_SESSION['username']) && false) {
                         header('Location: game_page.php');
                         exit();
                     } else {
-                        header('Location: player_page.php');
+                        header('Location: game_page.php');
                         exit();
                     }
                 }

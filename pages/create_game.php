@@ -142,9 +142,11 @@ require_once "../classes/Game.php";
         if(isset($_POST['submit'])) {
             if (!$description_error && !$passError && !$email_error && !$usernameError) {
                 require_once "../classes/Game.php";
-                $newGame = NEW Game($gm_username, $gm_password, $player_num, $game_description, $gm_email, true);
+                $newGame = NEW Game($gm_username, $gm_password, $player_num, $game_description, true);
                 session_start();
-                $_SESSION['game'] = serialize($newGame);
+                $_SESSION['username'] = $newGame->GMusername;
+                $_SESSION['type'] = 'admin';
+
                 header("Location: ../pages/game_page.php");
             }
         }

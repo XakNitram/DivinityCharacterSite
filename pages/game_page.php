@@ -71,23 +71,22 @@ session_start();
     }
 
 }*/
-if(isset($_SESSION['username']) && isset($_SESSION['type'])){
+if(isset($_SESSION['username']) && isset($_SESSION['type']) && isset($_SESSION['gameId'])){
     $username = $_SESSION['username'];
+    $gameID = $_SESSION['gameID'];
 
     require_once '../Database_Access/login.php';
 
     $connection = new mysqli($hn, $un, $pw, $db);
     if ($connection->connect_error) die($connection->connect_error);
 
-    $query = "SELECT gameID FROM account_table WHERE username = '$username';";
 
-    $result = $connection->query($query);
-    $rows = $result->fetch_array(MYSQLI_ASSOC);
-    $gameID = $rows['gameID'];
-    $query = "SELECT gameDescription FROM game_table WHERE gameID = '$gameID'";
+
+    $query = "SELECT gameDescription FROM game_table WHERE gameID = '$gameID';";
     $result = $connection->query($query);
     $rows = $result->fetch_array(MYSQLI_ASSOC);
     $gameDescription = $rows['gameDescription'];
+
 
     $query = "SELECT username, charID FROM account_table WHERE type = 'player' AND gameID = '$gameID' AND username <> '$username';";
     $result = $connection->query($query);
@@ -135,7 +134,7 @@ else{
 
 
 // Test commit mark
-require_once("../classes/Character.php");
+/*require_once("../classes/Character.php");
 $users = [];
 $character1 = "";
 $character2 = "";
@@ -148,7 +147,7 @@ echo $character2;
 echo $character3;
 echo $character4;
 echo $game_master;
-echo $game_id;
+echo $game_id;*/
 ?>
 </body>
 </html>

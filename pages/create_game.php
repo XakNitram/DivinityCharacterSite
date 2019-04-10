@@ -26,9 +26,26 @@
         }
 
         if (!preg_match('/^[a-zA-Z0-9]+/', $gm_username)) {
+
             $error = "Incorrect format for username. Username must be letters or numbers with no spaces.";
             $errored = true;
         }
+        require_once '../Database_Access/login.php';
+
+        error_reporting(E_ALL);
+        ini_set('display_errors', 1);
+
+        $connection = new mysqli($hn, $un, $pw, $db);
+        if ($connection->connect_error) die($connection->connect_error);
+
+        $query = "SELECT * FROM account_table WHERE username = '$gm_username';";
+        $result = $connection->query($query);
+
+        if($result->num_rows > 0){
+            $error = "Username is taken, please try another.";
+            $errored = true;
+        }
+
 
         if (!$errored) {
             require_once "../classes/Game.php";

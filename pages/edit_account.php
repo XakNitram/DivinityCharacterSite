@@ -34,15 +34,26 @@
             $connection = new mysqli($hn, $un, $pw, $db);
             if ($connection->connect_error) die($connection->connect_error);
 
-            $query = "UPDATE account_table
+            $query = "SELECT * FROM account_table WHERE username = '$newUsername';";
+            $result = $connection->query($query);
+
+            if($result->num_rows > 0){
+                $error = "Username is taken, please try another.";
+                $errored = true;
+            }
+            else {
+                $query = "UPDATE account_table
                       SET username = '$newUsername'
                       WHERE username = '$oldUsername';";
 
-            $result = $connection->query($query);
-            $_SESSION['username'] = $newUsername;
+                $result = $connection->query($query);
+                $_SESSION['username'] = $newUsername;
+            }
         }
-        header("Location: ../pages/game_page.php");
-        exit();
+        if(!$errored) {
+            header("Location: ../pages/game_page.php");
+            exit();
+        }
 
 
 
@@ -68,6 +79,11 @@
                 <input name="username" id="username"><br>
             </div>
 
+            <div class="error padded" <?php if (!$errored) {echo "style=\"display: none;\"";} ?>>
+                <div>
+                    <span> <?php echo $error ?> </span>
+                </div>
+            </div>
             <!--Password-->
             <div class="section w-100">
                 <label for="password">New Password:</label><br>

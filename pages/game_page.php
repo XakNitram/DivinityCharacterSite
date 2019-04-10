@@ -54,7 +54,7 @@ $rows = $result->fetch_array(MYSQLI_ASSOC);
 $gameDescription = $rows['gameDescription'];
 
 
-$query = "SELECT username, charID FROM account_table WHERE type = 'player' AND gameID = '$gameID';"; // AND username <> '$username';";
+$query = "SELECT username, charID, isChanged, password FROM account_table WHERE type = 'player' AND gameID = '$gameID';"; // AND username <> '$username';";
 $result = $connection->query($query);
 //$row = $result->fetch_array(MYSQLI_ASSOC);
 
@@ -66,8 +66,10 @@ echo '<tr>';
 echo '<td>Username</td>';
 echo '<td>Character Name</td>';
 echo '<td>Character Level</td>';
+echo '<td>Password</td>';
 echo '</tr>';
 while($row = $result->fetch_array(MYSQLI_ASSOC)) {
+
     $charID = $row['charID'];
     $query = "SELECT charClass FROM character_table WHERE charID = '$charID';";
     $charClassResult = $connection->query($query);
@@ -81,6 +83,9 @@ while($row = $result->fetch_array(MYSQLI_ASSOC)) {
     echo "<td>" . $value . "</td>";
     $value = $tempClass->level;
     echo "<td>" . $value . "</td>";
+    if($row['isChanged'] == 0) {
+        echo "<td>" . $row['password'] . "</td>";
+    }
     echo '</tr>';
 
 }

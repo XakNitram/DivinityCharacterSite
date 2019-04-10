@@ -55,14 +55,14 @@ class Game {
             if (!$result) die($this->connection->error);
 
             echo "GAME CREATED";
-            $salt1 = "dcsp15";
-            $salt2 = "51pscd";
+            $salt1 = "dcspg15";
+            $salt2 = "51gpscd";
 
             //create admin account for GM
             $this->GMpassword = hash('ripemd128', "$salt1$this->GMpassword$salt2");
 
             $query = "INSERT INTO account_table(username, password, type, charID, gameID, isChanged)
-                      VALUES ('$this->GMusername', '$this->GMpassword', 'admin', 'default', '$this->ID', 0);";
+                      VALUES ('$this->GMusername', '$this->GMpassword', 'admin', 'default', '$this->ID', 1);";
             $result = $this->connection->query($query);
             if (!$result) die($this->connection->error);
 

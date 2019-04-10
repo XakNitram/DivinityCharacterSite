@@ -10,15 +10,18 @@
 
         if(isset($_POST['password'])) {
             $newPassword = $_POST['password'];
+            $salt1 = 'dcspg15';
+            $salt2 = '51gpscd';
 
+            $newPassword = hash('ripemd128', "$salt1$newPassword$salt2");
             require_once '../Database_Access/login.php';
 
             $connection = new mysqli($hn, $un, $pw, $db);
             if ($connection->connect_error) die($connection->connect_error);
 
             $query = "UPDATE account_table
-              SET username = '$tempchar'
-              WHERE username = '$newPassword';";
+                      SET password = '$newPassword', isChanged = 1
+                      WHERE username = '$oldUsername';";
 
             $result = $connection->query($query);
 
@@ -36,9 +39,9 @@
                       WHERE username = '$oldUsername';";
 
             $result = $connection->query($query);
-
+            $_SESSION['username'] = $newUsername;
         }
-        header("Location: ../pages/login_page.php");
+        header("Location: ../pages/game_page.php");
         exit();
 
 

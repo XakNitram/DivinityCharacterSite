@@ -60,6 +60,41 @@
     <hr>
     <?php
     // require_once "../classes/Game.php"
+    session_start();
+
+    $gameID = $_SESSION['gameId'];
+    require_once '../Database_Access/login.php';
+
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+
+    $connection = new mysqli($hn, $un, $pw, $db);
+    if ($connection->connect_error) die($connection->connect_error);
+    $query = "SELECT charID FROM account_table WHERE gameID = '$gameID';";
+    $result = $connection->query($query);
+
+    $query = "DELETE FROM account_table WHERE gameID = '$gameID';";
+
+    $result1 = $connection->query($query);
+    if(!result){
+        echo "Could not delete account from account table, please try again.";
+    }
+    $query = "DELETE FROM game_table WHERE gameID = '$gameID';";
+
+    $result1 = $connection->query($query);
+    if(!result){
+        echo "Could not delete account from account table, please try again.";
+    }
+
+    while($rows = $result->fetch_array(MYSQLI_ASSOC)){
+        $value = $rows['charID'];
+        $query = "DELETE FROM character_table WHERE charID = '$rows[$value]';";
+        $result2 = $connection->query($query);
+    }
+    session_unset();
+    session_destroy();
+    header("Location: ../pages/login_page.php");
+    exit();
 
     // confirmation page for the "End Game" option.
 

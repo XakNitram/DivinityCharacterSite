@@ -17,6 +17,7 @@
 <?php
     session_unset();
     session_destroy();
+
 ?>
 <div class="content">
     <div class="wide-3" style="height: 500px">

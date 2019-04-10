@@ -38,8 +38,8 @@
             $result = $connection->query($query);
 
         }
-        header("../pages/login_page.php");
-
+        header("Location: ../pages/login_page.php");
+        exit();
 
 
 

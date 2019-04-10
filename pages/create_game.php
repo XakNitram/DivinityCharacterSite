@@ -36,7 +36,7 @@
             session_start();
             $_SESSION['username'] = $newGame->GMusername;
             $_SESSION['type'] = 'admin';
-
+            $_SESSION['gameId'] = $newGame->ID;
             header("Location: ../pages/game_page.php");
         }
     }

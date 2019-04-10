@@ -33,10 +33,12 @@
         if (!$errored) {
             require_once "../classes/Game.php";
             $newGame = NEW Game($gm_username, $gm_password, $player_num, $game_description, true);
+            $infoString = $newGame->playerInfoString;
             session_start();
             $_SESSION['username'] = $newGame->GMusername;
             $_SESSION['type'] = 'admin';
             $_SESSION['gameId'] = $newGame->ID;
+
             header("Location: ../pages/game_page.php");
         }
     }

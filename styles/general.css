@@ -4,12 +4,22 @@
     -moz-border-radius: 8px;
     border-radius: 8px;
 
-    margin: 0 auto;
+    margin-top: 0;
     position: relative;
     width: 400px;
 
     z-index: auto;
     background: #000000
+}
+
+.head {
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+
+    background: black;
+    width: 100%;
+    border: 1px solid #333333;
 }
 
 .wide-2 {

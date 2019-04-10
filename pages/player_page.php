@@ -179,8 +179,49 @@ else {
     header("Location: ../pages/login_page.php");
 }
 ?>
+<!--Head-->
+<!--onclick="window.location.href = '../pages/game_page.php'"-->
 
+<!--Content-->
 <div class="content">
+    <div class="head col-container">
+        <div class="col w-50">
+            <div class="col-container w-100">
+                <div class="col w-50 bordered">
+                    <div class="wide-3 center"><h1>DivinityHub</h1></div>
+                </div>
+                <div class="col w-50">
+                    <div class="col-container w-100">
+                        <div class="col w-50 bordered">
+                            <div class="wide-3 center">
+                                <h3>Game</h3>
+                            </div>
+                        </div>
+                        <div class="col w-50 bordered">
+                            <div class="wide-3 center">
+                                <h3>Character</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col w-50">
+            <div class="col-container w-100">
+                <div class="col w-50"></div>
+                <div class="col w-50">
+                    <div class="col-container w-100">
+                        <div class="col w-50 bordered">
+                            <div class="wide-3 center"><h3>Account</h3></div>
+                        </div>
+                        <div class="col w-50 bordered">
+                            <div class="wide-3 center"><h3>Log Out</h3></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="wide-4">
         <div class="wide-2">
             <h1 class="no-margin">

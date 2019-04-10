@@ -176,20 +176,7 @@ if (isset($_SESSION['type'])) {
     }
 }
 else {
-    if (isset($_GET['new']) and $_GET['new'] == 'true') {
-        $character = new Character(true);
-        $talents = mt_rand(0, intval(pow(2, 43)));
-        $character->talents = $talents;
-        $character->name = "Sebille";
-
-        foreach ($character->abilities as $key => &$value) {
-            $value = mt_rand(0, 20);
-        }
-        unset($value);
-
-        $_SESSION['character'] = serialize($character);
-    }
-//    header("Location: ../pages/login_page.php");
+    header("Location: ../pages/login_page.php");
 }
 ?>
 
@@ -358,14 +345,16 @@ else {
             </div>
         </div>
         <br>
-        <form action="../pages/edit_character.php">
-            <div class="col-container">
-                <div class="col w-50"></div>
-                <div class="col w-50">
-                    <input type="submit" value="Edit" class="button">
+        <div <?php if ($type != 'player' || $username != $_SESSION['username']) {echo 'hidden';} ?>>
+            <form action="../pages/edit_character.php">
+                <div class="col-container">
+                    <div class="col w-50"></div>
+                    <div class="col w-50">
+                        <input type="submit" value="Edit" class="button">
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 </body>

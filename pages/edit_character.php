@@ -4,6 +4,9 @@
     <?php
 
     session_start();
+    if (!isset($_SESSION['type'])) {
+        header("Location: ../pages/login_page.php");
+    }
     $type = $_SESSION['type'];
     if ($type == 'admin') {
         header('Location: ../pages/game_page.php');
@@ -11,12 +14,7 @@
     }
     $username = $_SESSION['username'];
     require_once "../classes/Character.php";
-    if (isset($_SESSION['character'])) {
-        $character = unserialize($_SESSION['character']);
-    }
-    else {
-        header("Location: ../pages/login_page.php");
-    }
+    $character = unserialize($_SESSION['character']);
     ?>
     <title><?php echo "$character->name ($username) at DivinityHub"; ?></title>
     <link rel="stylesheet" href="../styles/general.css">

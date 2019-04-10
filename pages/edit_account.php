@@ -15,20 +15,16 @@
             <!--Header-->
             <h1>Edit Account</h1>
             <hr>
-            <div class="wide-2">
-                <p>Change your username and password here.</p>
-            </div>
-            <hr>
 
             <!--Username-->
             <div class="section w-100">
-                <label for="username">Username:</label><br>
+                <label for="username">New Username:</label><br>
                 <input name="username" id="username"><br>
             </div>
 
             <!--Password-->
             <div class="section w-100">
-                <label for="password">Password:</label><br>
+                <label for="password">New Password:</label><br>
                 <input name="password" id="password"><br>
             </div>
 

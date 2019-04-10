@@ -3,43 +3,7 @@
 <head>
     <?php
 
-    require_once("../classes/Character.php");
 
-// ****** Variable Initialization ******
-$username = "";
-$type = "";
-
-session_start();
-if (isset($_SESSION['type'])) {
-    $type = $_SESSION['type'];
-    if ($type == 'admin') {
-        $username = $_GET['player'];
-    }
-}
-
-if (!$username) {
-    if (!isset($_SESSION['username'])) {
-        $username = "UNKNOWN USER";
-    } else {
-        $username = $_SESSION['username'];
-    }
-}
-
-if (!isset($_SESSION['character'])) {
-    $character = new Character(true);
-    $talents = mt_rand(0, intval(pow(2, 43)));
-    $character->talents = $talents;
-    $character->name = "Sebille";
-
-    foreach ($character->abilities as $key => &$value) {
-        $value = mt_rand(0, 20);
-    }
-
-    $_SESSION['character'] = serialize($character);
-}
-else {
-    $character = unserialize($_SESSION['character']);
-}
     ?>
     <title><?php echo $username; ?></title>
 </head>
@@ -50,7 +14,7 @@ else {
             <h2>Untitled Form</h2>
             <p>Edit Password</p>
         </div>
-        <
+
 
 
                 <label class="description" for="element_1">Username </label>

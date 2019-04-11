@@ -263,7 +263,7 @@ elseif (isset($_POST['cancel'])) {
                         echo '<div class="col-container">';
 
                         $desc = addslashes($abilityDescriptions[$skill]);
-                        $div_id = $skill . "_inc";
+                        $div_id = $skill . "_div";
                         $post_id = strtolower(str_replace(' ', '', $skill));
                         echo    "<div class='col w-75' id='$div_id' onclick=\"showAbilityDescription('$skill', '$desc')\">";
                         echo        "<p>$skill</p>";
@@ -298,7 +298,7 @@ elseif (isset($_POST['cancel'])) {
                         echo '<div class="col-container">';
 
                         $desc = addslashes($abilityDescriptions[$skill]);
-                        $div_id = $skill . "_inc";
+                        $div_id = $skill . "_div";
                         $post_id = strtolower(str_replace(' ', '', $skill));
                         echo    "<div class='col w-75' id='$div_id' onclick=\"showAbilityDescription('$skill', '$desc')\">";
                         echo        "<p>$skill</p>";
@@ -327,7 +327,7 @@ elseif (isset($_POST['cancel'])) {
                     $value = $character->getAttribute($name);
                     echo '<div class="col-container">';
 
-                    $div_id = $name . "_inc";
+                    $div_id = $name . "_div";
                     $post_id = strtolower(str_replace(' ', '', $name));
                     $desc = addslashes($attributeDescriptions[$name]);
                     echo    "<div class=\"col w-75\" id=\"$div_id\" onclick=\"showAbilityDescription('$name', '$desc')\">";

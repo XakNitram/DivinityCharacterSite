@@ -18,10 +18,18 @@ body {
 
 div.head {
     background: black;
-    width: calc(100vw - 20px);
+    width: calc(100vw - 22px);
     height: 64px;
-    margin: 0;
     border: 1px solid #333333;
+    /*margin: 0 8px 0 8px;*/
+    margin: 0;
+}
+
+[class*='wide-2'].head {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
 }
 
 nav.head {
@@ -30,7 +38,7 @@ nav.head {
 }
 
 h1.head {
-    margin-left: 32px;
+    margin-left: 16px;
     margin-right: 16px;
 }
 
@@ -46,6 +54,7 @@ a.link {
 div.head-left, div.head-right {
     align-items: center;
     display: flex;
+    width: 50%;
     height: 64px;
 }
 

@@ -181,23 +181,21 @@ else {
 }
 ?>
 <!--Head-->
-<!--onclick="window.location.href = '../pages/game_page.php'"-->
 <div class="head">
-    <div class="head-left">
-<!--        <div class="wide-2"><h1>DivinityHub</h1></div>-->
-<!--        <div class="wide-2"><a>Game</a></div>-->
-<!--        <div class="wide-2"><a>Character</a></div>-->
-        <h1 class="head">DivinityHub</h1>
-        <nav class="head">
-            <a class="link" href="game_page.php">Game</a>
-            <a class="link" href="player_page.php">Character</a>
-        </nav>
-    </div>
-    <div class="head-right">
-        <nav class="head">
-            <a class="link" href="edit_account.php">Account</a>
-            <a class="link" href="logout_page.php">Log Out</a>
-        </nav>
+    <div class="wide-2 head">
+        <div class="head-left">
+            <h1 class="head">DivinityHub</h1>
+            <nav class="head">
+                <a class="link" href="game_page.php">Game</a>
+                <?php if ($type != "admin") {echo "<a class=\"link\" href=\"player_page.php\">Character</a>";}?>
+            </nav>
+        </div>
+        <div class="head-right">
+            <nav class="head">
+                <a class="link" href="edit_account.php">Account</a>
+                <a class="link" href="logout_page.php">Log Out</a>
+            </nav>
+        </div>
     </div>
 </div>
 

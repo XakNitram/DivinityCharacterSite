@@ -31,6 +31,26 @@
     </style>
 </head>
 <body>
+<!--Head-->
+<div class="head">
+    <div class="wide-2 head">
+        <div class="head-left">
+            <h1 class="head">DivinityHub</h1>
+            <nav class="head">
+                <a class="link" href="game_page.php">Game</a>
+                <?php if ($type != "admin") {echo "<a class=\"link\" href=\"player_page.php\">Character</a>";}?>
+            </nav>
+        </div>
+        <div class="head-right">
+            <nav class="head">
+                <a class="link" href="edit_account.php">Account</a>
+                <a class="link" href="logout_page.php">Log Out</a>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!--Content-->
 <div>
 
 <?php

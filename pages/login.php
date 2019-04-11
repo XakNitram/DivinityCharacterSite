@@ -13,11 +13,11 @@ session_start();
 if (isset($_SESSION['username']) && false) {
     $type = $_SESSION['type'];
     if ($type == 'admin') {
-        header('Location: game_page.php');
+        header('Location: game.php');
         exit();
     }
     else {
-        header('Location: game_page.php');
+        header('Location: game.php');
         exit();
     }
 }
@@ -119,7 +119,7 @@ if (isset($_SESSION['username']) && false) {
                         $_SESSION['type'] = $type;
 
 
-                        header('Location: game_page.php');
+                        header('Location: game.php');
                         exit();
                     }
                 }
@@ -134,7 +134,7 @@ if (isset($_SESSION['username']) && false) {
                 $_SESSION['type']     = $type;
 
                 if ($type == 'admin') {
-                    header('Location: game_page.php');
+                    header('Location: game.php');
                     exit();
                 }
                 else {
@@ -149,12 +149,12 @@ if (isset($_SESSION['username']) && false) {
         }
         ?>
 
-        <form method="post" action="login_page.php" style="margin-bottom: 100px">
+        <form method="post" action="login.php" style="margin-bottom: 100px">
             <div class="padded">
                 <!-- Game ID Section-->
                 <div class="forgot">
                     <label for="gameId">Game ID:</label>
-                    <a href="login_page.php?f=id">Forgot ID?</a>
+                    <a href="login.php?f=id">Forgot ID?</a>
                 </div>
                 <input
                         type="text"
@@ -167,7 +167,7 @@ if (isset($_SESSION['username']) && false) {
             <div class="padded">
                 <div class="forgot">
                     <label for="username">Username:</label>
-                    <a href="login_page.php?f=pass">Forgot username?</a>
+                    <a href="login.php?f=pass">Forgot username?</a>
                 </div>
                 <input
                         type="text"
@@ -179,7 +179,7 @@ if (isset($_SESSION['username']) && false) {
             <div class="padded">
                 <div class="forgot">
                     <label for="password">Password:</label>
-                    <a href="login_page.php?f=name">Forgot password?</a>
+                    <a href="login.php?f=name">Forgot password?</a>
                 </div>
                 <input
                         type="password"
@@ -199,7 +199,7 @@ if (isset($_SESSION['username']) && false) {
             <h5 style="margin-bottom: 0">Starting a campaign?</h5>
             <hr style="margin-bottom: 10px; margin-top: 2px;">
         </div>
-        <form action="create_game.php" method="post">
+        <form action="new.php" method="post">
             <input class="button" type="submit" name="create_game" value="Create game">
         </form>
     </div>

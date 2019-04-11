@@ -56,14 +56,14 @@
             $_SESSION['type'] = 'admin';
             $_SESSION['gameId'] = $newGame->ID;
 
-            header("Location: ../pages/game_page.php");
+            header("Location: ../pages/game.php");
         }
     }
     ?>
 </head>
 <body>
 <div class="content">
-    <form method="post" action="create_game.php">
+    <form method="post" action="new.php">
         <div class="wide-3">
             <h1>Create Game</h1>
             <hr>

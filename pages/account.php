@@ -4,7 +4,7 @@
     <?php
     session_start();
     if (!isset($_SESSION['type'])) {
-        header("Location: ../pages/login_page.php");
+        header("Location: ../pages/login.php");
         exit();
     }
     $type = $_SESSION['type'];
@@ -57,12 +57,12 @@
             }
         }
         if(!$errored) {
-            header("Location: ../pages/game_page.php");
+            header("Location: ../pages/game.php");
             exit();
         }
     }
     elseif (isset($_POST['cancel'])) {
-        header("Location: ../pages/game_page.php");
+        header("Location: ../pages/game.php");
         exit();
     }
 
@@ -79,14 +79,14 @@
         <div class="head-left">
             <h1 class="head">DivinityHub</h1>
             <nav class="head">
-                <a class="link" href="game_page.php">Game</a>
+                <a class="link" href="game.php">Game</a>
                 <?php if ($type != "admin") {echo "<a class=\"link\" href=\"player_page.php\">Character</a>";}?>
             </nav>
         </div>
         <div class="head-right">
             <nav class="head">
-                <a class="link" href="edit_account.php">Account</a>
-                <a class="link" href="logout_page.php">Log Out</a>
+                <a class="link" href="account.php">Account</a>
+                <a class="link" href="logout.php">Log Out</a>
             </nav>
         </div>
     </div>
@@ -94,7 +94,7 @@
 
 <!--Content-->
 <div class="content">
-    <form method="post" action="../pages/edit_account.php">
+    <form method="post" action="account.php">
         <div class="wide-3">
             <!--Header-->
             <h1>Edit Account</h1>

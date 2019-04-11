@@ -23,7 +23,7 @@
     <div class="wide-3" style="height: 500px">
         <h3>Logout Successful.</h3>
         <hr>
-        <p class="wide-3">Return to <a href="login_page.php">login page</a></p>
+        <p class="wide-3">Return to <a href="login.php">login page</a></p>
     </div>
 </div>
 </body>

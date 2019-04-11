@@ -172,12 +172,12 @@ if (isset($_SESSION['type'])) {
             $character = unserialize($_SESSION['character']);
         }
         else {
-            header("Location: ../pages/login_page.php");
+            header("Location: ../pages/login.php");
         }
     }
 }
 else {
-    header("Location: ../pages/login_page.php");
+    header("Location: ../pages/login.php");
 }
 ?>
 <!--Head-->
@@ -186,14 +186,14 @@ else {
         <div class="head-left">
             <h1 class="head">DivinityHub</h1>
             <nav class="head">
-                <a class="link" href="game_page.php">Game</a>
+                <a class="link" href="game.php">Game</a>
                 <?php if ($type != "admin") {echo "<a class=\"link\" href=\"player_page.php\">Character</a>";}?>
             </nav>
         </div>
         <div class="head-right">
             <nav class="head">
-                <a class="link" href="edit_account.php">Account</a>
-                <a class="link" href="logout_page.php">Log Out</a>
+                <a class="link" href="account.php">Account</a>
+                <a class="link" href="logout.php">Log Out</a>
             </nav>
         </div>
     </div>
@@ -366,7 +366,7 @@ else {
         </div>
         <br>
         <div <?php if ($type != 'player' || $username != $_SESSION['username']) {echo 'hidden';} ?>>
-            <form action="../pages/edit_character.php">
+            <form action="player_edit.php">
                 <div class="col-container">
                     <div class="col w-50"></div>
                     <div class="col w-50">

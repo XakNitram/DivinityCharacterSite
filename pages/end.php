@@ -93,7 +93,7 @@
         }
         session_unset();
         session_destroy();
-        header("Location: ../pages/login_page.php");
+        header("Location: ../pages/login.php");
         exit();
     }
     // confirmation page for the "End Game" option.
@@ -103,7 +103,7 @@
     // else send them back to their account page.
 
     ?>
-    <form method="post" action="end_game.php">
+    <form method="post" action="end.php">
 
 
 

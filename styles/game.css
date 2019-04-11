@@ -1,0 +1,53 @@
+body {
+    background: #000000 url("../images/login.jpg") no-repeat fixed center center;
+    background-size: cover;
+}
+
+h1, h2, h3, h4, p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+hr {
+    margin-top: 2px;
+    width: 100%;
+}
+
+th, td {
+    background: black;
+    margin: 0;
+    padding: 4px;
+    text-align: center;
+}
+
+table {
+    background: white;
+    width: 100%;
+    table-layout: fixed;
+}
+
+div.section {
+    margin-bottom: 8px;
+    margin-left: 8px;
+}
+
+br.wide {
+    margin: 128px 0 128px 0;
+}
+
+.content {
+    width: 1024px;
+}
+
+.no-margin {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.number {
+    color: #ffa500;
+}

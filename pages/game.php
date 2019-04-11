@@ -2,41 +2,9 @@
 
 <!DOCTYPE html>
 <html lang="en-us">
-<?php
-    session_start();
-    if (!isset($_SESSION['type'])) {
-        header("Location: ../pages/login.php");
-        exit();
-    }
-    $type = $_SESSION['type'];
-?>
 <head>
     <link rel="stylesheet" type="text/css" href="../styles/general.css">
-    <style>
-        .content {
-            width: 1024px;
-        }
-
-        td {
-            padding: 1em 1em 1em 1em;
-        }
-        th, td {
-            background: black;
-        }
-        body{
-            background: black;
-        }
-        table {
-            background: white;
-            width: 100%;
-        }
-
-        th {
-
-            height: 50px;
-        }
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="../styles/game.css">
 </head>
 <body>
 <!--Head-->
@@ -61,81 +29,84 @@
 </div>
 
 <!--Content-->
-<div>
+<div class="content">
+    <div class="wide-3">
+        <h2 class="no-margin">Game ID</h2>
+        <hr>
+        <div class="wide-2">
+            <p>Your game ID is <a class="number"><?php echo $gameID?></a>. This will be used to login.</p>
+            <!--71286333-->
+        </div>
+    </div>
+    <div class="wide-3">
+        <h2>Game Description</h2>
+        <hr>
+        <div class="wide-2">
+            <?php
+                $query = "SELECT gameDescription FROM game_table WHERE gameID = '$gameID';";
+                $result = $connection->query($query);
+                $rows = $result->fetch_array(MYSQLI_ASSOC);
+                $gameDescription = $rows['gameDescription'];
+            ?>
+            <p><?php echo $gameDescription ?></p>
+        </div>
+    </div>
+    <div class="wide-3">
+        <h2>Players</h2>
+        <hr>
+        <table class="wide-2">
+            <tr>
+                <th class="w-25">Player</th>
+                <th class="w-50">Character</th>
+                <?php
+                if ($type == 'admin') {
+                    echo "<th>Password</th>";
+                }
+                ?>
+            </tr>
+            <?php
+            $query = "SELECT username, charID, isChanged, password FROM account_table WHERE type = 'player' AND gameID = '$gameID';"; // AND username <> '$username';";
+            $result = $connection->query($query);
+            while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+                $username = $row['username'];
+                $charID = $row['charID'];
 
-<?php
-session_start();
+                // fetch character
+                $character = unserialize($connection->query(
+                    "SELECT charClass FROM character_table WHERE charID = '$charID';"
+                )->fetch_array(
+                        MYSQLI_ASSOC)['charClass']
+                );
 
-//if(isset($_SESSION['username']) && isset($_SESSION['type']) && isset($_SESSION['gameId'])){
-$username = $_SESSION['username'];
-$gameID = $_SESSION['gameId'];
-echo "<p>Game ID: $gameID</p>";
-
-// 94852739
-
-// 64611818
-// 89417283
-
-require_once '../Database_Access/login.php';
-require_once '../classes/Character.php';
-$connection = new mysqli($hn, $un, $pw, $db);
-if ($connection->connect_error) die($connection->connect_error);
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-$query = "SELECT gameDescription FROM game_table WHERE gameID = '$gameID';";
-$result = $connection->query($query);
-$rows = $result->fetch_array(MYSQLI_ASSOC);
-$gameDescription = $rows['gameDescription'];
-
-
-$query = "SELECT username, charID, isChanged, password FROM account_table WHERE type = 'player' AND gameID = '$gameID';"; // AND username <> '$username';";
-$result = $connection->query($query);
-//$row = $result->fetch_array(MYSQLI_ASSOC);
-
-
-
-echo '<p>'.$gameDescription.'</p>';
-echo '<table>';
-echo '<tr>';
-echo '<td>Username</td>';
-echo '<td>Character Name</td>';
-echo '<td>Character Level</td>';
-echo '<td>Password</td>';
-echo '</tr>';
-while($row = $result->fetch_array(MYSQLI_ASSOC)) {
-
-    $charID = $row['charID'];
-    $query = "SELECT charClass FROM character_table WHERE charID = '$charID';";
-    $charClassResult = $connection->query($query);
-    $charClassResult = $charClassResult->fetch_array(MYSQLI_ASSOC);
-    $tempClass = unserialize($charClassResult['charClass']);
-    $username = $row['username'];
-    echo '<tr>';
-    $value = $row['username'];
-    echo "<td><a href=\"../pages/player_page.php?player=$username\">" . $value . "</a></td>";
-    $value = $tempClass->name;
-    echo "<td>" . $value . "</td>";
-    $value = $tempClass->level;
-    echo "<td>" . $value . "</td>";
-    if($row['isChanged'] == 0) {
-        echo "<td>" . $row['password'] . "</td>";
+                // display player information
+                echo "<tr>";
+                echo "<td><a class='number' href='player.php?player=$username'>$username</a></td>";
+                echo "<td>$character->name: Level $character->level $character->race</td>";
+                if ($type == 'admin') {
+                    if ($row['isChanged'] == 0) {
+                        $password = $row['password'];
+                        echo "<td>$password</td>";
+                    } else {
+                        echo "<td>hidden</td>";
+                    }
+                }
+                echo "</tr>";
+            }
+            ?>
+        </table>
+    </div>
+    <br class="wide">
+    <?php
+    if ($type == 'admin') {
+        echo "<div class='wide-3'>";
+        echo "<h3>Finished Playing?</h3>";
+        echo "<hr>";
+        echo "<div class=\"wide-2\">";
+        echo "<p>End the game <a class=\"number\" href=\"end.php\">here</a>.</p>";
+        echo "</div>";
+        echo "</div>";
     }
-    echo '</tr>';
-
-}
-
-
-
-//}
-//else{
-//    header("../pages/login.php");
-//}
-
-
-        ?>
-    </table>
+    ?>
 </div>
 </body>
 </html>

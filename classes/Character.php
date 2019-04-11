@@ -204,6 +204,12 @@ $attributeDescriptions = array(
     "Wits"         => "Affects your Critical Chance, Initiative, and ability to detect traps and find hidden treasures."
 );
 
+$races = array(
+    "Human", "Elf", "Dwarf", "Lizard",
+    "Undead Human", "Undead Elf",
+    "Undead Dwarf", "Undead Lizard"
+);
+
 
 class Character {
     // we don't need setters because we will only update
@@ -221,6 +227,7 @@ class Character {
     //public $tags;
     public $level;
     public $name;
+    public $race;
     public $background;
 
     public $connection;
@@ -253,6 +260,7 @@ class Character {
         $this->name = "Default Nameson";
         $this->level = 0;
         $this->background = "This is a story all about how your life got twisted upside down.";
+        $this->race = "Elf";
 
 
         //if the character being referenced is not new, get the character info string and split it up

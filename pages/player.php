@@ -210,7 +210,7 @@ else {
                 <?php echo $character->name ?>
             </h2>
             <h3 class="no-margin" style="color: #A0A0A0">
-                <?php echo "Level: " . $character->level ?>
+                <?php echo "Level " . $character->level . " " . $character->race ?>
             </h3>
             <br>
         </div>

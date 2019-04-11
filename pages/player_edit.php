@@ -64,6 +64,7 @@
 
         label.h3 {
             font-size: 1.3em;
+            padding: 4px;
         }
 
         input.h3 {
@@ -106,8 +107,24 @@
             resize: none
         }
 
-        input.name {
-            width: 256px;
+        .name {
+            width: 512px;
+        }
+
+        select {
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            color: #111111;
+            width: 100%;
+            /*width: 100%;*/
+            border: 2px solid #333333;
+            padding: 3px 8px;
+            font-size: 1.3em;
+        }
+
+        option {
+            color: #111111;
         }
 
         input.number {
@@ -148,6 +165,7 @@ if (isset($_POST['save'])) {
     $character->level = intval(htmlspecialchars($_POST['level']));
     $character->talents = intval(htmlspecialchars($_POST['talents']));
     $character->background = htmlspecialchars($_POST['background']);
+    $character->race = htmlspecialchars($_POST['race']);
 
     foreach ($abilities as $name) {
         $post_id = strtolower(str_replace(' ', '', $name));
@@ -186,11 +204,11 @@ if (isset($_POST['save'])) {
 
     if(!$result) echo "could not update character info, please try again.";
 
-    header("Location: ../pages/player_page.php");
+    header("Location: ../pages/player.php");
     exit();
 }
 elseif (isset($_POST['cancel'])) {
-    header("Location: ../pages/player_page.php");
+    header("Location: ../pages/player.php");
     exit();
 }
 ?>
@@ -228,11 +246,36 @@ elseif (isset($_POST['cancel'])) {
                     name="name"
             >
             <br>
-            <input
-                    class="name h3" id="level" type="number"
-                    max="50" value="<?php echo $character->level ?>"
-                    name="level"
-            >
+            <div class="col-container name">
+                <div class="col w-50">
+                    <div class="col-container w-100">
+                        <div class="col w-50">
+                            <label class="h3" for="level">Level:</label>
+                        </div>
+                        <div class="col w-50">
+                            <input
+                                    class="h3" id="level" type="number"
+                                    max="50" value="<?php echo $character->level ?>"
+                                    name="level"
+                            >
+                        </div>
+                    </div>
+                </div>
+                <div class="col w-50">
+                    <select class="h3 w-100" id="race" name="race">
+                        <?php
+                            foreach ($races as $race) {
+                                if ($race == $character->race) {
+                                    echo "<option selected='selected'>$race</option>";
+                                }
+                                else {
+                                    echo "<option>$race</option>";
+                                }
+                            }
+                        ?>
+                    </select>
+                </div>
+            </div>
         </div>
 
         <!--Background-->

@@ -20,7 +20,8 @@
     <link rel="stylesheet" href="../styles/general.css">
     <style>
         body {
-            background: black;
+            background: #000000 url("../images/login.jpg") no-repeat fixed center center;
+            background-size: cover;
         }
 
         .content {

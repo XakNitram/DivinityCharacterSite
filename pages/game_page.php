@@ -75,10 +75,10 @@ while($row = $result->fetch_array(MYSQLI_ASSOC)) {
     $charClassResult = $connection->query($query);
     $charClassResult = $charClassResult->fetch_array(MYSQLI_ASSOC);
     $tempClass = unserialize($charClassResult['charClass']);
-
+    $username = $row['username'];
     echo '<tr>';
     $value = $row['username'];
-    echo "<td>" . $value . "</td>";
+    echo "<td><a href=\"../pages/player_page.php?player=$username\">" . $value . "</a></td>";
     $value = $tempClass->name;
     echo "<td>" . $value . "</td>";
     $value = $tempClass->level;

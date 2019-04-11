@@ -10,7 +10,6 @@
     $type = $_SESSION['type'];
 
     $oldUsername = $_SESSION['username'];
-    require_once "../classes/Account.php";
 
     if (isset($_POST['save'])) {
         $newPassword = addslashes(htmlspecialchars($_POST['password']));

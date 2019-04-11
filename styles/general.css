@@ -16,6 +16,11 @@ body {
     background: #000000
 }
 
+html {
+    height: 100%;
+    margin-bottom: 1px;
+}
+
 div.head {
     background: black;
     width: calc(100vw - 22px);

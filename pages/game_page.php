@@ -2,6 +2,14 @@
 
 <!DOCTYPE html>
 <html lang="en-us">
+<?php
+    session_start();
+    if (!isset($_SESSION['type'])) {
+        header("Location: ../pages/login_page.php");
+        exit();
+    }
+    $type = $_SESSION['type'];
+?>
 <head>
     <link rel="stylesheet" type="text/css" href="../styles/general.css">
     <style>
@@ -59,6 +67,12 @@ session_start();
 //if(isset($_SESSION['username']) && isset($_SESSION['type']) && isset($_SESSION['gameId'])){
 $username = $_SESSION['username'];
 $gameID = $_SESSION['gameId'];
+echo "<p>Game ID: $gameID</p>";
+
+// 94852739
+
+// 64611818
+// 89417283
 
 require_once '../Database_Access/login.php';
 require_once '../classes/Character.php';

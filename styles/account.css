@@ -26,3 +26,11 @@ input.button {
     line-height: 29px;
     margin-bottom: 0;
 }
+
+input.cancel {
+    width: 100%;
+    background-color: #111111;
+    font-size: 13px;
+    line-height: 29px;
+    margin-bottom: 0;
+}

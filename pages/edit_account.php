@@ -3,6 +3,12 @@
 <head>
     <?php
     session_start();
+    if (!isset($_SESSION['type'])) {
+        header("Location: ../pages/login_page.php");
+        exit();
+    }
+    $type = $_SESSION['type'];
+
     $oldUsername = $_SESSION['username'];
     require_once "../classes/Account.php";
 
@@ -54,9 +60,10 @@
             header("Location: ../pages/game_page.php");
             exit();
         }
-
-
-
+    }
+    elseif (isset($_POST['cancel'])) {
+        header("Location: ../pages/game_page.php");
+        exit();
     }
 
 
@@ -111,7 +118,14 @@
             </div>
 
             <!--Submitting-->
-            <input class="button" type="submit" name="save" value="Save">
+            <div class="col-container w-100">
+                <div class="col w-50">
+                    <input class="button" type="submit" name="save" value="Save">
+                </div>
+                <div class="col w-50">
+                    <input class="button" type="submit" name="cancel" value="Cancel">
+                </div>
+            </div>
         </div>
     </form>
 </div>

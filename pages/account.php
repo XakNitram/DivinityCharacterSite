@@ -14,8 +14,16 @@
 
     if (isset($_POST['save'])) {
 
-        if(isset($_POST['password'])) {
-            $newPassword = $_POST['password'];
+        if (
+            !preg_match('/^[A-Za-z0-9]+$/', $password)
+            OR !preg_match('/^[A-Za-z0-9]+$/', $username)
+        ) {
+            $error = "incorrect format for username ,password, or game ID, must be letters or numbers with no spaces.";
+            $errored = true;
+        }
+
+        if(isset($_POST['password']) and !$errored) {
+            $newPassword = addslashes(htmlspecialchars($_POST['password']));
             $salt1 = 'dcspg15';
             $salt2 = '51gpscd';
 
@@ -32,8 +40,8 @@
             $result = $connection->query($query);
 
         }
-        if(isset($_POST['username'])) {
-            $newUsername = $_POST['username'];
+        if(isset($_POST['username']) and !$errored) {
+            $newUsername = addslashes(htmlspecialchars($_POST['username']));
 
             require_once '../Database_Access/login.php';
 

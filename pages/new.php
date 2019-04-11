@@ -15,10 +15,10 @@
     $gm_email = "";
     $errored = false;
     if (isset($_POST["create"])) {
-        $gm_username = htmlspecialchars($_POST['username']);
-        $gm_password = htmlspecialchars($_POST['password']);
-        $player_num = htmlspecialchars($_POST['players']);
-        $game_description = htmlspecialchars($_POST['description']);
+        $gm_username = addslashes(htmlspecialchars($_POST['username']));
+        $gm_password = addslashes(htmlspecialchars($_POST['password']));
+        $player_num = addslashes(htmlspecialchars($_POST['players']));
+        $game_description = addslashes(htmlspecialchars($_POST['description']));
 
         if (!preg_match('/^[a-zA-Z0-9]+/', $gm_password)) {
             $error = "Incorrect format for password. Password must be letters or numbers with no spaces.";

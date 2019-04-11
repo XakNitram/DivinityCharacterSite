@@ -46,7 +46,9 @@
             <h1 class="head">DivinityHub</h1>
             <nav class="head">
                 <a class="link" href="game.php">Game</a>
-                <?php if ($type != "admin") {echo ">Character</a>";}?>
+                <?php if ($type != "admin") {
+                    echo "<a class='link' href='player.php'>Character</a>";
+                }?>
             </nav>
         </div>
         <div class="head-right">

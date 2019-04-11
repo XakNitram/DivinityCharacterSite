@@ -1,3 +1,7 @@
+body {
+    margin: 0;
+}
+
 .content {
     border: 1px solid #333333;
     -webkit-border-radius: 8px;
@@ -12,14 +16,47 @@
     background: #000000
 }
 
-.head {
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-
+div.head {
     background: black;
-    width: 100%;
+    width: calc(100vw - 20px);
+    height: 64px;
+    margin: 0;
     border: 1px solid #333333;
+}
+
+nav.head {
+    display: flex;
+    vertical-align: baseline;
+}
+
+h1.head {
+    margin-left: 32px;
+    margin-right: 16px;
+}
+
+a.link {
+    margin-left: 8px;
+    margin-right: 8px;
+    align-items: center;
+    display: flex;
+    height: 100%;
+    text-decoration: none;
+}
+
+div.head-left, div.head-right {
+    align-items: center;
+    display: flex;
+    height: 64px;
+}
+
+div.head-left {
+    overflow: hidden;
+    position: relative;
+}
+
+div.head-right {
+    flex-grow: 1;
+    justify-content: flex-end;
 }
 
 .wide-2 {

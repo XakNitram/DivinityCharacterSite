@@ -181,47 +181,27 @@ else {
 ?>
 <!--Head-->
 <!--onclick="window.location.href = '../pages/game_page.php'"-->
+<div class="head">
+    <div class="head-left">
+<!--        <div class="wide-2"><h1>DivinityHub</h1></div>-->
+<!--        <div class="wide-2"><a>Game</a></div>-->
+<!--        <div class="wide-2"><a>Character</a></div>-->
+        <h1 class="head">DivinityHub</h1>
+        <nav class="head">
+            <a class="link" href="game_page.php">Game</a>
+            <a class="link" href="player_page.php">Character</a>
+        </nav>
+    </div>
+    <div class="head-right">
+        <nav class="head">
+            <a class="link" href="edit_account.php">Account</a>
+            <a class="link" href="logout_page.php">Log Out</a>
+        </nav>
+    </div>
+</div>
 
 <!--Content-->
 <div class="content">
-    <div class="head col-container">
-        <div class="col w-50">
-            <div class="col-container w-100">
-                <div class="col w-50 bordered">
-                    <div class="wide-3 center"><h1>DivinityHub</h1></div>
-                </div>
-                <div class="col w-50">
-                    <div class="col-container w-100">
-                        <div class="col w-50 bordered">
-                            <div class="wide-3 center">
-                                <h3>Game</h3>
-                            </div>
-                        </div>
-                        <div class="col w-50 bordered">
-                            <div class="wide-3 center">
-                                <h3>Character</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col w-50">
-            <div class="col-container w-100">
-                <div class="col w-50"></div>
-                <div class="col w-50">
-                    <div class="col-container w-100">
-                        <div class="col w-50 bordered">
-                            <div class="wide-3 center"><h3>Account</h3></div>
-                        </div>
-                        <div class="col w-50 bordered">
-                            <div class="wide-3 center"><h3>Log Out</h3></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="wide-4">
         <div class="wide-2">
             <h1 class="no-margin">

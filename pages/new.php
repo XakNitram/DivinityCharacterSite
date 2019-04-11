@@ -32,9 +32,6 @@
         }
         require_once '../Database_Access/login.php';
 
-        error_reporting(E_ALL);
-        ini_set('display_errors', 1);
-
         $connection = new mysqli($hn, $un, $pw, $db);
         if ($connection->connect_error) die($connection->connect_error);
 

@@ -22,9 +22,6 @@ require_once '../Database_Access/login.php';
 require_once '../classes/Character.php';
 $connection = new mysqli($hn, $un, $pw, $db);
 if ($connection->connect_error) die($connection->connect_error);
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 ?>
 <body>
 <!--Head-->

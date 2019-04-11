@@ -65,9 +65,6 @@
         $gameID = $_SESSION['gameId'];
         require_once '../Database_Access/login.php';
 
-        error_reporting(E_ALL);
-        ini_set('display_errors', 1);
-
         $connection = new mysqli($hn, $un, $pw, $db);
         if ($connection->connect_error) die($connection->connect_error);
         $query = "SELECT charID FROM account_table WHERE gameID = '$gameID';";

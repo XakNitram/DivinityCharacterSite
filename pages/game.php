@@ -3,9 +3,29 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
+    <title>DivinityHub</title>
     <link rel="stylesheet" type="text/css" href="../styles/general.css">
     <link rel="stylesheet" type="text/css" href="../styles/game.css">
 </head>
+<?php
+session_start();
+if (!isset($_SESSION['type'])) {
+    header("Location: ../pages/login.php");
+    exit();
+}
+$type = $_SESSION['type'];
+
+$username = $_SESSION['username'];
+$gameID = $_SESSION['gameId'];
+
+require_once '../Database_Access/login.php';
+require_once '../classes/Character.php';
+$connection = new mysqli($hn, $un, $pw, $db);
+if ($connection->connect_error) die($connection->connect_error);
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+?>
 <body>
 <!--Head-->
 <div class="head">

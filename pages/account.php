@@ -10,7 +10,6 @@
     $type = $_SESSION['type'];
 
     $oldUsername = $_SESSION['username'];
-    require_once "../classes/Account.php";
 
     if (isset($_POST['save'])) {
         $newPassword = addslashes(htmlspecialchars($_POST['password']));
@@ -111,13 +110,13 @@
             <!--Username-->
             <div class="section w-100">
                 <label for="username">New Username:</label><br>
-                <input name="username" id="username" value="<?php echo $newUsername ?>"><br>
+                <input type="text" name="username" id="username" value="<?php echo $newUsername ?>"><br>
             </div>
 
             <!--Password-->
             <div class="section w-100">
                 <label for="password">New Password:</label><br>
-                <input name="password" id="password" value="<?php echo $newPassword ?>"><br>
+                <input type="password" name="password" id="password" value="<?php echo $newPassword ?>"><br>
             </div>
 
             <div class="error padded" <?php if (!$errored) {echo "style=\"display: none;\"";} ?>>

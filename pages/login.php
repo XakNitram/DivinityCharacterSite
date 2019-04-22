@@ -61,9 +61,6 @@ if (isset($_SESSION['username']) && false) {
 
                 require_once '../Database_Access/login.php';
 
-                error_reporting(E_ALL);
-                ini_set('display_errors', 1);
-
                 $connection = new mysqli($hn, $un, $pw, $db);
                 if ($connection->connect_error) die($connection->connect_error);
 
@@ -124,28 +121,6 @@ if (isset($_SESSION['username']) && false) {
                     }
                 }
             }
-
-            /*if ($username != "") {
-                $errorMsg = "";
-                $showError = false;
-
-                $_SESSION['username'] = $username;
-                $_SESSION['gameId']   = $gameId;
-                $_SESSION['type']     = $type;
-
-                if ($type == 'admin') {
-                    header('Location: game.php');
-                    exit();
-                }
-                else {
-                    header('Location: player_page.php');
-                    exit();
-                }
-            }
-            else {
-                $errorMsg = "An error occurred.";
-                $showError = true;
-            }*/
         }
         ?>
 
